@@ -8,5 +8,5 @@ Bidding website project for UBMA computer science engineers in second years.
   3. ```npm install```
   4. After the modules finish downloading, run: ```npm run dev```
 
-# Pushing changes:
+# Pushing changes
 Only push changes to a feature/testing branch, **DO NOT** push directly to main.
