@@ -1,5 +1,5 @@
 # Negotix
-Bidding website project for UBMA computer science engineers in second years.
+Bidding website project for UBMA computer science engineers in second year.
 
 # How to run
 - Run the following: 
