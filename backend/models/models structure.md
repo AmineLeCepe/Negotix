@@ -14,8 +14,7 @@
 - description
 - categoryId (foreign key references category)
 - startingPrice
-- currentPrice (not required)
-- finalPrice
+- latestPrice (not required)
 - creationDate
 - endDate
 - isCompleted (bool)
