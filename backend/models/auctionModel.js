@@ -54,6 +54,6 @@ const auctionSchema = new mongoose.Schema({
 });
 
 // Check if model already exists in database, otherwise create it
-const auctionModel = mongoose.models.auction || mongoose.model("Auction", auctionSchema);
+const auctionModel = mongoose.models.Auction || mongoose.model("Auction", auctionSchema);
 
 module.exports = auctionModel;
