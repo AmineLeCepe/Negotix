@@ -7,7 +7,7 @@ Bidding website project for UBMA computer science engineers in second year.
     1. ```cd Negotix/frontend```
     2. ```npm install```
     3. After the modules finish downloading, run: ```npm run dev```
-    - For the backend:
+  - For the backend:
     1. ```cd Negotix/backend```
     2. ```npm install```
     3. After the modules finish downloading, run: ```npm run server```
