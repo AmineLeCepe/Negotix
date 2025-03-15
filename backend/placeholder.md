@@ -1,1 +1,0 @@
-# Folder to be used by the backend team
