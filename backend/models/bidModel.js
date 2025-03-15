@@ -24,6 +24,8 @@ const bidSchema= new mongoose.Schema({
     amount: {
         type: Number,
         required: true,
+        min: 0,
+        max: 2147483647, // Upper integer limit
     },
     isAnonymous:{
         type: Boolean,
