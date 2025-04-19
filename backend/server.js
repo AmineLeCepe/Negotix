@@ -22,9 +22,10 @@ app.use(express.json());
 app.use(cors());
 
 // API endpoints
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Home' });
+app.get('/listings', (req, res) => {
+    res.render('listings', { title: 'Listings' });
 })
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

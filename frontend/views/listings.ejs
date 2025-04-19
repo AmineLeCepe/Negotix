@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negotix - Listings</title>
+    <link rel="stylesheet" href="/css/listings.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-left">
+        <img src="/assets/logo 1.png" alt="Negotix Logo" class="logo">
+    </div>
+    <div class="nav-center">
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Trending</a>
+        <a href="#">Contact</a>
+        <a href="#">Search</a>
+    </div>
+    <div class="nav-right">
+        <button class="menu-btn">Menu |||</button>
+    </div>
+</nav>
+
+<main class="container">
+    <aside class="sidebar">
+        <div class="categories">
+            <h2>Categories</h2>
+            <ul>
+                <li><span>Electronics</span><span class="count">28</span></li>
+                <li class="active"><span>Sport Equipments</span><span class="count">307</span></li>
+                <li><span>Decor</span><span class="count">54</span></li>
+                <li><span>Accessories</span><span class="count">762</span></li>
+                <li><span>Mobile</span><span class="count">95</span></li>
+                <li><span>Watches</span><span class="count">28</span></li>
+                <li class="active"><span>Clothes</span><span class="count">307</span></li>
+                <li><span>Cosmetics</span><span class="count">54</span></li>
+                <li><span>Furnitures</span><span class="count">762</span></li>
+                <li><span>Office</span><span class="count">95</span></li>
+            </ul>
+        </div>
+
+        <div class="price-filter">
+            <h2>Price</h2>
+            <ul>
+                <li><span>All</span><span class="count">2074</span></li>
+                <li><span>0DA - 1000DA</span><span class="count">1403</span></li>
+                <li class="active"><span>1000 DA - 9000DA</span><span class="count">570</span></li>
+                <li><span>9000DA & Above</span><span class="count">83</span></li>
+            </ul>
+            <button class="reset-btn">Reset</button>
+        </div>
+
+        <div class="recently-added">
+            <div class="header">
+                <h2>Recently added</h2>
+                <span class="more">...</span>
+            </div>
+            <p class="subtitle">24 items has been added</p>
+            <div class="recent-items">
+                <div class="item">
+                    <img src="assets/shoes1.webp" alt="Darius The Great">
+                    <div class="item-info">
+                        <h3>Darius The Great</h3>
+                        <p>Price: 9000 DA</p>
+                        <button class="bid-btn">Bid</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="assets/shoes2.webp" alt="Nike Airmax">
+                    <div class="item-info">
+                        <h3>Nike Airmax</h3>
+                        <p>Price: 8000 DA</p>
+                        <button class="bid-btn">Bid</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <section class="main-content">
+        <div class="content-header">
+            <div class="sort-dropdown">
+                <select>
+                    <option>Sort: Newest</option>
+                    <option>Sort: Oldest</option>
+                    <option>Sort: Price High to Low</option>
+                    <option>Sort: Price Low to High</option>
+                </select>
+            </div>
+            <span class="item-count">28 Items</span>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be dynamically inserted here via JavaScript -->
+        </div>
+
+        <div class="pagination">
+            <button class="active">1</button>
+            <button>2</button>
+            <button class="next">Next ></button>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-main">
+        <div class="footer-logo">
+            <img src="assets/Logo.png" alt="Negotix Logo">
+        </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <a href="#" class="footer-link">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">FAQ</a>
+                    <a href="#" class="footer-link">Shipping & Returns</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">Track Order</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Social</h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <img src="assets/Instagram.png" alt="Instagram" class="social-icon">
+                        Instagram
+                    </a>
+                    <a href="#" class="footer-link">
+                        <img src="assets/Facebook.png" alt="Facebook" class="social-icon">
+                        Facebook
+                    </a>
+                    <a href="#" class="footer-link">
+                        <img src="assets/X.png" alt="X" class="social-icon">
+                        X
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section subscribe">
+                <h3>Subscribe</h3>
+                <p class="subscribe-text">Subscribe to receive information on exclusive offers, new product launch, and exciting events.</p>
+                <div class="subscribe-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Your email" class="subscribe-input">
+                        <button class="subscribe-button">Submit</button>
+                    </div>
+                    <div class="privacy-notice">
+                        <span>By joining, you agree on the terms in our</span>
+                        <a href="#" class="privacy-link">privacy policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-links">
+            <a href="#" class="footer-link">Terms & Conditions</a>
+            <span class="separator">•</span>
+            <a href="#" class="footer-link">Privacy Policy</a>
+        </div>
+        <div class="copyright">
+            ©️ 2025 Negotix. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+<script src="/js/listings.js"></script>
+</body>
+</html>
