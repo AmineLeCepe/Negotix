@@ -84,10 +84,10 @@
 // }
 
 // Function to render products
-function renderProducts(productsToRender = products) {
-    const productsGrid = document.getElementById('productsGrid');
-    productsGrid.innerHTML = productsToRender.map(product => createProductCard(product)).join('');
-}
+// function renderProducts(productsToRender = products) {
+//     const productsGrid = document.getElementById('productsGrid');
+//     productsGrid.innerHTML = productsToRender.map(product => createProductCard(product)).join('');
+// }
 
 // Function to handle sorting
 function handleSort(event) {
