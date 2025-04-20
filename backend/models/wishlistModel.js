@@ -19,4 +19,4 @@ const wishlistSchema = new mongoose.Schema({
 // Check if model already exists in database, otherwise create it
 const wishlistModel = mongoose.models.Wishlist || mongoose.model("Wishlist", wishlistSchema);
 
-module.exports = userModel;
+module.exports = wishlistModel ;
