@@ -27,65 +27,65 @@ app.get('/listings', (req, res) => {
     const items = [
         {
             id: 1,
-            name: "XXXXXXXX",
+            name: "Test",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "4m 5s"
         },
         {
             id: 2,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "21m 7s"
         },
         {
             id: 3,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "30m 10s"
         },
         {
             id: 4,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "41m 1s"
         },
         {
             id: 5,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "20m 3s"
         },
         {
             id: 6,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "11m 8s"
         },
         {
             id: 7,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "15m 5s"
         },
         {
             id: 8,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "30m 8s"
         },
         {
             id: 9,
             name: "XXXXXXXX",
             price: "2400 DA",
-            image: "assets/shirt.webp",
+            image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363499695988539504/shirt.webp?ex=6806418c&is=6804f00c&hm=4d6d2ddc3aa9f984e5efaf87c558bfd4c6f29afea7b8b565fa4593275ecc7dfd&",
             timeLeft: "30m 8s"
         }
     ];
