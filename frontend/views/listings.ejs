@@ -94,7 +94,20 @@
         </div>
 
         <div class="products-grid" id="productsGrid">
-            <!-- Products will be dynamically inserted here via JavaScript -->
+            <% items.forEach(product =>  { %>
+                <div class="product-card">
+                    <img src="<%= product.image %>" alt="<%= product.name %>">
+                    <div class="product-info">
+                        <h3><%= product.name %></h3>
+                        <div class="price">
+                            <img src="assets/wish_list.webp" alt="Wishlist" style="width: 20px; height: 20px;">
+                            <span><%= product.price %></span>
+                        </div>
+                        <div class="timer"><%= product.timeLeft %></div>
+                        <button class="place-bid">Place Bid</button>
+                    </div>
+                </div>
+            <% }); %>
         </div>
 
         <div class="pagination">
