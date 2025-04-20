@@ -224,6 +224,14 @@ counter.get('/counts', async (req, res) => {
 });
 
 module.exports = counter;
+/*
+async function getAllAuctions() {
+    const auctions = await Auction.find();
+    return auctions;
+}
+
+getAllAuctions().then(auctions => console.log(auctions));
+*/
 
 //latest 2 added items
 
