@@ -1,87 +1,87 @@
 // Sample product data
-const products = [
-    {
-        id: 1,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "4m 5s"
-    },
-    {
-        id: 2,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "21m 7s"
-    },
-    {
-        id: 3,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "30m 10s"
-    },
-    {
-        id: 4,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "41m 1s"
-    },
-    {
-        id: 5,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "20m 3s"
-    },
-    {
-        id: 6,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "11m 8s"
-    },
-    {
-        id: 7,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "15m 5s"
-    },
-    {
-        id: 8,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "30m 8s"
-    },
-    {
-        id: 9,
-        name: "XXXXXXXX",
-        price: "2400 DA",
-        image: "assets/shirt.webp",
-        timeLeft: "30m 8s"
-    }
-];
+// const products = [
+//     {
+//         id: 1,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "4m 5s"
+//     },
+//     {
+//         id: 2,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "21m 7s"
+//     },
+//     {
+//         id: 3,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "30m 10s"
+//     },
+//     {
+//         id: 4,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "41m 1s"
+//     },
+//     {
+//         id: 5,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "20m 3s"
+//     },
+//     {
+//         id: 6,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "11m 8s"
+//     },
+//     {
+//         id: 7,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "15m 5s"
+//     },
+//     {
+//         id: 8,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "30m 8s"
+//     },
+//     {
+//         id: 9,
+//         name: "XXXXXXXX",
+//         price: "2400 DA",
+//         image: "assets/shirt.webp",
+//         timeLeft: "30m 8s"
+//     }
+// ];
 
 // Function to create a product card
-function createProductCard(product) {
-    return `
-        <div class="product-card">
-            <img src="${product.image}" alt="${product.name}">
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                <div class="price">
-                    <img src="assets/wish_list.webp" alt="Wishlist" style="width: 20px; height: 20px;">
-                    <span>${product.price}</span>
-                </div>
-                <div class="timer">${product.timeLeft}</div>
-                <button class="place-bid">Place Bid</button>
-            </div>
-        </div>
-    `;
-}
+// function createProductCard(product) {
+//     return `
+//         <div class="product-card">
+//             <img src="${product.image}" alt="${product.name}">
+//             <div class="product-info">
+//                 <h3>${product.name}</h3>
+//                 <div class="price">
+//                     <img src="assets/wish_list.webp" alt="Wishlist" style="width: 20px; height: 20px;">
+//                     <span>${product.price}</span>
+//                 </div>
+//                 <div class="timer">${product.timeLeft}</div>
+//                 <button class="place-bid">Place Bid</button>
+//             </div>
+//         </div>
+//     `;
+// }
 
 // Function to render products
 function renderProducts(productsToRender = products) {
