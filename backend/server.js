@@ -185,3 +185,69 @@ const Category = require('./models/categoryModel');
 // }
 //
 // insertCategory();
+
+// routes/productRoutes.js or similar
+
+const counter = express.Router();
+
+// Get counts
+counter.get('/counts', async (req, res) => {
+    try {
+        const totalCount = await Auction.countDocuments();
+
+        const categoryCounts = await Auction.aggregate([
+            {
+                $group: {
+                    _id: '$Category',
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        // format it to an object, extra
+        const formattedCounts = {};
+        categoryCounts.forEach(item => {
+            formattedCounts[item._id] = item.count;
+        });
+
+        //connect to the frontend
+        res.json({
+            total: totalCount,
+            categories: formattedCounts
+        });
+
+        //catch errors
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to fetch counts' });
+    }
+});
+
+module.exports = counter;
+
+//latest 2 added items
+
+counter.get('/latest', async (req, res) => {
+    try {
+        const latestItems = await Auction.find() //fetch the items
+            .sort({ creationDate: -1 }) // sort by newest
+            .limit(2);
+
+        res.status(200).json(latestItems);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error });
+    }
+});
+
+//get all prodcuts
+
+counter.get('/all', async (req, res) => {
+    try {
+        const allItems = await Auction.find(); //get everything
+        res.status(200).json(allItems);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error });
+    }
+});
+
+
