@@ -170,23 +170,41 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Function to update timers
+function formatTimer(milliseconds) {
+    const seconds = Math.floor((milliseconds / 1000) % 60);
+    const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+    const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
+
+    return `${days}D ${hours}H ${minutes}M ${seconds}S`;
+}
+
 function updateTimers() {
     const timerElements = document.querySelectorAll('.timer');
-    timerElements.forEach(timer => {
-        let [minutes, seconds] = timer.textContent.split('m ');
-        seconds = parseInt(seconds);
-        minutes = parseInt(minutes);
 
-        if (seconds > 0) {
-            seconds--;
-        } else if (minutes > 0) {
-            minutes--;
-            seconds = 59;
+    timerElements.forEach(timer => {
+        // Get the milliseconds from data attribute, or from content if not yet set
+        let milliseconds = timer.dataset.milliseconds
+            ? parseInt(timer.dataset.milliseconds)
+            : parseInt(timer.textContent);
+
+        if (milliseconds <= 0) {
+            timer.textContent = '0D 0H 0M 0S';
+            return;
         }
 
-        timer.textContent = `${minutes}m ${seconds}s`;
+        // Store the updated milliseconds in a data attribute
+        milliseconds -= 1000;
+        timer.dataset.milliseconds = milliseconds;
+
+        // Display the formatted time
+        timer.textContent = formatTimer(milliseconds);
     });
 }
 
-// Update timers every second
+// Start the timer update interval
 setInterval(updateTimers, 1000);
+
+// Initial call to format timers immediately
+updateTimers();
+
