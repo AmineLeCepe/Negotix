@@ -21,6 +21,10 @@ const auctionSchema = new mongoose.Schema({
         type: String,
         maxlength: 3000,
     },
+    image: {
+      type: String,
+      required: true,
+    },
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
