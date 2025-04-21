@@ -1,43 +1,126 @@
-<%- include('./partials/header') %>
-
-<!-- Main Content -->
-<main class="main-content">
-    <h1>Contact Us</h1>
-    
-    <div class="contact-info">
-        <div class="contact-method whatsapp">
-            <img src="/assets/whatsapp-icon.png" alt="WhatsApp">
-            <div class="contact-details">
-                <h3>WhatsApp</h3>
-                <p>+6285677770129</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Negotix</title>
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-bar">
+        <a href="/" class="logo">
+            <img src="/assets/logo.png" alt="Negotix Logo">
+        </a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/trending">Trending</a>
+            <a href="/contact">Contact</a>
+            <a href="/search">Search</a>
+        </div>
+        <div class="menu">
+            <span>Menu</span>
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-        <div class="contact-method email">
-            <img src="/assets/email-icon.png" alt="Email">
-            <div class="contact-details">
-                <h3>Email</h3>
-                <p>xxxx@negotix.com</p>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Contact Us</h1>
+        
+        <div class="contact-info">
+            <div class="contact-method whatsapp">
+                <img src="/assets/whatsapp-icon.png" alt="WhatsApp">
+                <div class="contact-details">
+                    <h3>WhatsApp</h3>
+                    <p>+6285677770129</p>
+                </div>
+            </div>
+            <div class="contact-method email">
+                <img src="/assets/email-icon.png" alt="Email">
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p>xxxx@negotix.com</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <form class="contact-form">
-        <input type="text" placeholder="Full Name" required>
-        <input type="email" placeholder="Email" required>
-        <div class="form-row">
-            <select name="support-type" required>
-                <option value="" disabled selected>Support Type</option>
-                <option value="general">General Inquiry</option>
-                <option value="technical">Technical Support</option>
-                <option value="billing">Billing Support</option>
-            </select>
-            <input type="text" placeholder="Order Number (Optional)">
+        <form class="contact-form">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <div class="form-row">
+                <select name="support-type" required>
+                    <option value="" disabled selected>Support Type</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="technical">Technical Support</option>
+                    <option value="billing">Billing Support</option>
+                </select>
+                <input type="text" placeholder="Order Number (Optional)">
+            </div>
+            <textarea placeholder="Leave your message here..." required></textarea>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="/assets/logo.png" alt="Negotix Logo">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <a href="/about">About Us</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <a href="/faq">FAQ</a>
+                    <a href="/return-policy">Return & Exchange</a>
+                    <a href="/shipping">Shipping</a>
+                    <a href="/contact">Contact Us</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Social</h3>
+                    <a href="#" class="social-link">
+                        <span class="social-icon instagram"></span>
+                        Instagram
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="social-icon facebook"></span>
+                        Facebook
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="social-icon x"></span>
+                        X
+                    </a>
+                </div>
+                <div class="footer-column">
+                    <h3>Subscribe</h3>
+                    <p>Subscribe to receive information on exclusive offers, new product launch, and exciting events.</p>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Submit</button>
+                    </form>
+                    <p class="privacy-notice">By joining, you agree to the terms in our <a href="/privacy-policy">privacy policy</a></p>
+                </div>
+            </div>
         </div>
-        <textarea placeholder="Leave your message here..." required></textarea>
-        <button type="submit" class="submit-btn">Send Message</button>
-    </form>
-</main>
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="/terms">Terms of Service</a>
+                <span>•</span>
+                <a href="/privacy-policy">Privacy Policy</a>
+            </div>
+            <div class="copyright">©️ 2025 Negotix. All Rights Reserved.</div>
+        </div>
+    </footer>
 
-<%- include('./partials/footer') %>
-
-<script src="/js/contact.js"></script> 
+    <script src="/js/contact.js"></script>
+</body>
+</html> 

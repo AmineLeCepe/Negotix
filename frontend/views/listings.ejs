@@ -8,7 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<%- include('./partials/header') %>
+<nav class="navbar">
+    <div class="nav-left">
+        <img src="/assets/logo 1.png" alt="Negotix Logo" class="logo">
+    </div>
+    <div class="nav-center">
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Trending</a>
+        <a href="#">Contact</a>
+        <a href="#">Search</a>
+    </div>
+    <div class="nav-right">
+        <button class="menu-btn">Menu |||</button>
+    </div>
+</nav>
 
 <main class="container">
     <aside class="sidebar">
@@ -82,12 +96,12 @@
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
                 <div class="product-card">
-                    <img src="<%= product.image %>" alt="<%= product.name %>">
+                    <img src="<%= product.image %>" alt="<%= product.title %>">
                     <div class="product-info">
-                        <h3><%= product.name %></h3>
+                        <h3><%= product.title %></h3>
                         <div class="price">
                             <img src="assets/wish_list.webp" alt="Wishlist" style="width: 20px; height: 20px;">
-                            <span><%= product.price %></span>
+                            <span><%= product.latestPrice %></span>
                         </div>
                         <div class="timer"><%= product.timeLeft %></div>
                         <button class="place-bid">Place Bid</button>
@@ -104,7 +118,69 @@
     </section>
 </main>
 
-<%- include('./partials/footer') %>
+<footer class="footer">
+    <div class="footer-main">
+        <div class="footer-logo">
+            <img src="assets/Logo.png" alt="Negotix Logo">
+        </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <a href="/about" class="footer-link">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <div class="footer-links">
+                    <a href="/faq" class="footer-link">FAQ</a>
+                    <a href="/return-policy" class="footer-link">Shipping & Returns</a>
+                    <a href="/contact" class="footer-link">Contact</a>
+                    <a href="/track" class="footer-link">Track Order</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Social</h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <img src="assets/Instagram.png" alt="Instagram" class="social-icon">
+                        Instagram
+                    </a>
+                    <a href="#" class="footer-link">
+                        <img src="assets/Facebook.png" alt="Facebook" class="social-icon">
+                        Facebook
+                    </a>
+                    <a href="#" class="footer-link">
+                        <img src="assets/X.png" alt="X" class="social-icon">
+                        X
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section subscribe">
+                <h3>Subscribe</h3>
+                <p class="subscribe-text">Subscribe to receive information on exclusive offers, new product launch, and exciting events.</p>
+                <div class="subscribe-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Your email" class="subscribe-input">
+                        <button class="subscribe-button">Submit</button>
+                    </div>
+                    <div class="privacy-notice">
+                        <span>By joining, you agree on the terms in our</span>
+                        <a href="/privacy-policy" class="privacy-link">privacy policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-links">
+            <a href="/terms" class="footer-link">Terms & Conditions</a>
+            <span class="separator">•</span>
+            <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
+        </div>
+        <div class="copyright">
+            ©️ 2025 Negotix. All Rights Reserved.
+        </div>
+    </div>
+</footer>
 
 <script src="/js/listings.js"></script>
 </body>
