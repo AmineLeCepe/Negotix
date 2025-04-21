@@ -1,8 +1,12 @@
+// Dependencies
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/mongodb');
 const path = require('path');
+
+// Queries imports
+const { getAllAuctions, getRecentAuctions } = require('./queries/selection');
 
 
 // App config
@@ -22,10 +26,42 @@ app.use(express.json());
 app.use(cors());
 
 // API endpoints
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Home' });
-})
+app.get('/listings', async (req, res) => {
+    // This is sample data - you would typically fetch this from your database
+    try {
+        const items = await getAllAuctions();
+        // Render the EJS template and pass the item array
+        res.render('listings', {items: items, title: 'Listings'});
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('error', {
+            message: 'Error loading listings',
+            error: error
+        });
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })
+
+// Run queries manually
+const mongoose = require("mongoose");
+
+const User = require('./models/userModel');
+const Auction = require('./models/auctionModel');
+const Bid = require('./models/bidModel');
+const Chat = require('./models/chatModel');
+const Message = require('./models/messageModel');
+const Wishlist = require('./models/wishlistModel');
+const Review = require('./models/reviewModel');
+const Category = require('./models/categoryModel');
+const {get} = require("mongoose");
+
+
+/* DEBUG ZONE, IGNORE */
+// getAllAuctions().then(auctions => console.log(auctions));
+//
+// getRecentAuctions().then(auctions => console.log(auctions));
+
+

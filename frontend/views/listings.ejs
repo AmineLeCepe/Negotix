@@ -96,12 +96,12 @@
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
                 <div class="product-card">
-                    <img src="<%= product.image %>" alt="<%= product.name %>">
+                    <img src="<%= product.image %>" alt="<%= product.title %>">
                     <div class="product-info">
-                        <h3><%= product.name %></h3>
+                        <h3><%= product.title %></h3>
                         <div class="price">
                             <img src="assets/wish_list.webp" alt="Wishlist" style="width: 20px; height: 20px;">
-                            <span><%= product.price %></span>
+                            <span><%= product.latestPrice %></span>
                         </div>
                         <div class="timer"><%= product.timeLeft %></div>
                         <button class="place-bid">Place Bid</button>
