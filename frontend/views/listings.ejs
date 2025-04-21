@@ -88,7 +88,7 @@
 
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
-                <div class="product-card">
+                <div class="product-card <%= product.category.replaceAll(/\s/g,'') %>">
                     <img src="<%= product.image %>" alt="<%= product.title %>">
                     <div class="product-info">
                         <h3><%= product.title %></h3>
