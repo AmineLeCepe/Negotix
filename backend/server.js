@@ -45,6 +45,39 @@ app.get('/contact', (req, res) => {
     res.render('contact', {title: 'Contact'});
 })
 
+app.get('/FAQ', (req, res) => {
+  res.render('faq', {title: 'FAQ'});
+})
+
+app.get('/return-policy', (req, res) => {
+  res.render('return-policy', {title: 'Return Policy'});
+})
+
+app.get('/bidding', (req, res) => {
+  res.render('bidding', {title: 'Bidding'});
+})
+
+app.get('/privacy-policy', (req, res) => {
+  res.render('privacy-policy', {title: 'Privacy Policy'});
+})
+
+app.get('/track', (req, res) => {
+  res.render('track', {title: 'Track'});
+})
+
+app.get('/about', (req, res) => {
+  res.render('about', {title: 'About Us'});
+})
+
+app.get('/shipping', (req, res) => {
+  res.render('shipping', {title: 'Shipping'});
+})
+
+app.get('/terms', (req, res) => {
+  res.render('terms', {title: 'Terms and Conditions'});
+})
+
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })
@@ -66,6 +99,30 @@ const {get} = require("mongoose");
 /* DEBUG ZONE, IGNORE */
 // getAllAuctions().then(auctions => console.log(auctions));
 //
-// getRecentAuctions().then(auctions => console.log(auctions));
+// insertAuction();
+//
+// async function insertCategory() {
+//     try {
+//         Category.insertMany([
+//             { name: 'Electronics' },
+//             { name: 'Sport Equipments' },
+//             { name: 'Decor' },
+//             { name: 'Accessories' },
+//             { name: 'Mobile' },
+//             { name: 'Watches' },
+//             { name: 'Clothes' },
+//             { name: 'Furnitures' },
+//             { name: 'Office' },
+//             { name: 'Cosmetics' },
+//         ])
+//     } catch (e) {
+//         console.error(e);
+//     }
+// }
+//
+// insertCategory();
+
+// routes/productRoutes.js or similar
 
 
+ 
