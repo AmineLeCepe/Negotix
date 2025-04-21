@@ -109,153 +109,34 @@ const Message = require('./models/messageModel');
 const Wishlist = require('./models/wishlistModel');
 const Review = require('./models/reviewModel');
 const Category = require('./models/categoryModel');
+const {get} = require("mongoose");
 
-// async function insertAuction() {
-//     try {
-//         Auction.insertMany([
-//             {
-//                 sellerId: new mongoose.Types.ObjectId('68050461ac9df5ecce3c9efe'),
-//                 title: 'Test',
-//                 description: 'Placeholder description',
-//                 categoryId: new mongoose.Types.ObjectId('68050799f736f109eaf6a2a0'),
-//                 creationDate: new Date(),
-//                 startingPrice: 1000,
-//                 latestPrice: 1000,
-//                 endDate: new Date('2025-05-20'),
-//                 isCompleted: false,
-//             },
-//             {
-//                 sellerId: new mongoose.Types.ObjectId('68050461ac9df5ecce3c9efe'),
-//                 title: 'Test',
-//                 description: 'Placeholder description',
-//                 categoryId: new mongoose.Types.ObjectId('68050799f736f109eaf6a2a0'),
-//                 creationDate: new Date(),
-//                 startingPrice: 1000,
-//                 latestPrice: 1000,
-//                 endDate: new Date('2025-05-20'),
-//                 isCompleted: false,
-//             },
-//             {
-//                 sellerId: new mongoose.Types.ObjectId('68050461ac9df5ecce3c9efe'),
-//                 title: 'Test',
-//                 description: 'Placeholder description',
-//                 categoryId: new mongoose.Types.ObjectId('68050799f736f109eaf6a2a0'),
-//                 creationDate: new Date(),
-//                 startingPrice: 1000,
-//                 latestPrice: 1000,
-//                 endDate: new Date('2025-05-20'),
-//                 isCompleted: false,
-//             },
-//             {
-//                 sellerId: new mongoose.Types.ObjectId('68050461ac9df5ecce3c9efe'),
-//                 title: 'Test',
-//                 description: 'Placeholder description',
-//                 categoryId: new mongoose.Types.ObjectId('68050799f736f109eaf6a2a0'),
-//                 creationDate: new Date(),
-//                 startingPrice: 1000,
-//                 latestPrice: 1000,
-//                 endDate: new Date('2025-05-20'),
-//                 isCompleted: false,
-//             }
-//         ])
-//     } catch (e) {
-//         console.error(e);
-//     }
-// }
-//
-// insertAuction();
-//
-// async function insertCategory() {
-//     try {
-//         Category.insertMany([
-//             { name: 'Electronics' },
-//             { name: 'Sport Equipments' },
-//             { name: 'Decor' },
-//             { name: 'Accessories' },
-//             { name: 'Mobile' },
-//             { name: 'Watches' },
-//             { name: 'Clothes' },
-//             { name: 'Furnitures' },
-//             { name: 'Office' },
-//             { name: 'Cosmetics' },
-//         ])
-//     } catch (e) {
-//         console.error(e);
-//     }
-// }
-//
-// insertCategory();
 
-// routes/productRoutes.js or similar
-
-const counter = express.Router();
-
-// Get counts
-counter.get('/counts', async (req, res) => {
-    try {
-        const totalCount = await Auction.countDocuments();
-
-        const categoryCounts = await Auction.aggregate([
-            {
-                $group: {
-                    _id: '$Category',
-                    count: { $sum: 1 }
-                }
-            }
-        ]);
-
-        // format it to an object, extra
-        const formattedCounts = {};
-        categoryCounts.forEach(item => {
-            formattedCounts[item._id] = item.count;
-        });
-
-        //connect to the frontend
-        res.json({
-            total: totalCount,
-            categories: formattedCounts
-        });
-
-        //catch errors
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Failed to fetch counts' });
-    }
-});
-
-module.exports = counter;
-/*
+// Queries
+// Gets all auctions from the database
 async function getAllAuctions() {
-    const auctions = await Auction.find();
-    return auctions;
-}
-
-getAllAuctions().then(auctions => console.log(auctions));
-*/
-
-//latest 2 added items
-
-counter.get('/latest', async (req, res) => {
     try {
-        const latestItems = await Auction.find() //fetch the items
+        return await Auction.find();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+// Debug
+getAllAuctions().then(auctions => console.log(auctions));
+
+
+// Gets the most recent auctions from the database
+async function getRecentAuctions() {
+    try {
+        return await Auction.find() //fetch the items
             .sort({ creationDate: -1 }) // sort by newest
             .limit(2);
-
-        res.status(200).json(latestItems);
-    } catch (error) {
-        res.status(500).json({ message: 'Server Error', error });
+    } catch (e) {
+        console.error(e);
+        return [];
     }
-});
+}
 
-//get all prodcuts
-
-counter.get('/all', async (req, res) => {
-    try {
-        const allItems = await Auction.find(); //get everything
-        res.status(200).json(allItems);
-    } catch (error) {
-        res.status(500).json({ message: 'Server Error', error });
-    }
-});
-
-
+// Debug
+getRecentAuctions().then(auctions => console.log(auctions));
