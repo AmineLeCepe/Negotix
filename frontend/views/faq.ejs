@@ -7,27 +7,7 @@
     <link rel="stylesheet" href="/css/faq.css">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <nav class="top-bar">
-        <div class="logo">
-            <img src="/assets/logo.png" alt="Negotix Logo">
-        </div>
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/trending">Trending</a>
-            <a href="/auth">Sign Up/Sign in</a>
-            <a href="/search">Search</a>
-        </div>
-        <div class="menu">
-            <span>Menu</span>
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <%- include('./partials/header') %>
 
     <!-- FAQ Header -->
     <header class="faq-header">
@@ -107,55 +87,7 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="/assets/logo.png" alt="Negotix Logo">
-            </div>
-            
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <a href="/about">About</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <a href="/faq">FAQ</a>
-                    <a href="/shipping">Shipping Information</a>
-                    <a href="/returns">Returns</a>
-                    <a href="/contact">Contact Us</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Social</h3>
-                    <a href="#" class="social-link"><i class="social-icon instagram"></i>Instagram</a>
-                    <a href="#" class="social-link"><i class="social-icon facebook"></i>Facebook</a>
-                    <a href="#" class="social-link"><i class="social-icon twitter"></i>X</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Subscribe</h3>
-                    <p>Subscribe to receive information on exclusive offers, new product launch, and exciting events.</p>
-                    <div class="subscribe-form">
-                        <input type="email" placeholder="Enter your email">
-                        <button type="submit">Submit</button>
-                    </div>
-                    <p class="privacy-notice">By joining, you agree on the terms in our <a href="/privacy">privacy policy</a></p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div class="footer-bottom-links">
-                <a href="/terms">Terms & Conditions</a>
-                <span>•</span>
-                <a href="/privacy">Privacy Policy</a>
-            </div>
-            <p class="copyright">©️ 2025 Negotix. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <%- include('./partials/footer') %>
 
     <script src="/js/faq.js"></script>
 </body>

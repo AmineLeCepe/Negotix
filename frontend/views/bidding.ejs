@@ -7,30 +7,9 @@
     <link rel="stylesheet" href="/css/bidding.css">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <nav class="top-bar">
-        <a href="/" class="logo">
-            <img src="/assets/logo.png" alt="Negotix Logo">
-        </a>
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/trending">Trending</a>
-            <a href="/contact">Contact</a>
-            <a href="/search">Search</a>
-        </div>
-        <div class="menu">
-            <span>Menu</span>
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <%- include('./partials/header') %>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <div class="main-content">
         <h1>Bidding</h1>
         
         <section class="bidding-overview">
@@ -54,61 +33,9 @@
             <h2>Restrictions</h2>
             <p>To maintain the integrity of our bidding system, certain restrictions apply. Please review these carefully to ensure compliance with our policies.</p>
         </section>
-    </main>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="/assets/logo.png" alt="Negotix Logo">
-            </div>
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <a href="/about">About Us</a>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <a href="/faq">FAQ</a>
-                    <a href="/return-policy">Return & Exchange</a>
-                    <a href="/shipping">Shipping</a>
-                    <a href="/contact">Contact Us</a>
-                </div>
-                <div class="footer-column">
-                    <h3>Social</h3>
-                    <a href="#" class="social-link">
-                        <span class="social-icon instagram"></span>
-                        Instagram
-                    </a>
-                    <a href="#" class="social-link">
-                        <span class="social-icon facebook"></span>
-                        Facebook
-                    </a>
-                    <a href="#" class="social-link">
-                        <span class="social-icon x"></span>
-                        X
-                    </a>
-                </div>
-                <div class="footer-column">
-                    <h3>Subscribe</h3>
-                    <p>Subscribe to receive information on exclusive offers, new product launch, and exciting events.</p>
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Enter your email">
-                        <button type="submit">Submit</button>
-                    </form>
-                    <p class="privacy-notice">By joining, you agree to the terms in our <a href="/privacy">privacy policy</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-bottom-links">
-                <a href="/terms">Terms of Service</a>
-                <span>•</span>
-                <a href="/privacy">Privacy Policy</a>
-            </div>
-            <div class="copyright">©️ 2025 Negotix. All Rights Reserved.</div>
-        </div>
-    </footer>
+    <%- include('./partials/footer') %>
 
     <script src="/js/bidding.js"></script>
 </body>
