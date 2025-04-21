@@ -8,7 +8,6 @@ const path = require('path');
 // Queries imports
 const { getAllAuctions, getRecentAuctions } = require('./queries/selection');
 
-
 // App config
 const app = express();
 const port = process.env.PORT || 3000;
@@ -30,8 +29,13 @@ app.get('/listings', async (req, res) => {
     // This is sample data - you would typically fetch this from your database
     try {
         const items = await getAllAuctions();
+        const recentItems = await getRecentAuctions();
         // Render the EJS template and pass the item array
-        res.render('listings', {items: items, title: 'Listings'});
+        res.render('listings', {
+            items: items,
+            recentItems: recentItems,
+            title: 'Listings'
+        });
     } catch (error) {
         console.error(error);
         res.status(500).render('error', {
@@ -97,6 +101,8 @@ const {get} = require("mongoose");
 
 
 /* DEBUG ZONE, IGNORE */
+// const { insertAuction } = require('./queries/insertion');
+// insertAuction().then(auction => console.log(auction));
 // getAllAuctions().then(auctions => console.log(auctions));
 //
 // insertAuction();
