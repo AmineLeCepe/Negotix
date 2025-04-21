@@ -1,8 +1,13 @@
+// Dependencies
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/mongodb');
 const path = require('path');
+const mongoose = require('mongoose');
+
+// Queries imports
+const { getAllAuctions, getRecentAuctions } = require('./queries/queries');
 
 
 // App config
@@ -112,31 +117,9 @@ const Category = require('./models/categoryModel');
 const {get} = require("mongoose");
 
 
-// Queries
-// Gets all auctions from the database
-async function getAllAuctions() {
-    try {
-        return await Auction.find();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
+
 // Debug
 getAllAuctions().then(auctions => console.log(auctions));
-
-
-// Gets the most recent auctions from the database
-async function getRecentAuctions() {
-    try {
-        return await Auction.find() //fetch the items
-            .sort({ creationDate: -1 }) // sort by newest
-            .limit(2);
-    } catch (e) {
-        console.error(e);
-        return [];
-    }
-}
 
 // Debug
 getRecentAuctions().then(auctions => console.log(auctions));
