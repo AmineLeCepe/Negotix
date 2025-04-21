@@ -82,6 +82,15 @@ app.get('/terms', (req, res) => {
 })
 
 
+// 404 route
+app.use((req, res) => {
+    res.status(404).render('404', {
+        title: '404 - Page Not Found',
+        message: 'The page you are looking for does not exist.'
+    });
+});
+
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })
