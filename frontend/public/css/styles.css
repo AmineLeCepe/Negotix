@@ -1,59 +1,63 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    min-height: 100vh;
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #2b1f47 0%, #1a1033 100%);
-    color: white;
-    overflow: hidden;
+    min-height: 100vh;
+    width: 100%;
+    padding: 20px;
 }
 
-.container {
+.success-component {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 150px;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 400px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: white;
 }
 
-.success-girl {
-    position: absolute;
-    top: 100px;
-    right: 0;
-    width: 300px;
-    height: auto;
-    transform: translateX(25%) translateY(-25%);
-    z-index: 1;
-    animation: float 6s ease-in-out infinite;
+.success-component {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 400px;
+    padding: 40px;
 }
 
 .success-guy {
     position: absolute;
-    bottom: 0;
-    left: -100px;
-    width: 300px;
+    left: 150px;
+    bottom: -200px;
+    width: 280px;
     height: auto;
-    transform: translateX(-25%) translateY(25%);
+    z-index: 1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.success-girl {
+    position: absolute;
+    right: 200px;
+    top: 0;
+    width: 280px;
+    height: auto;
     z-index: 1;
     animation: float 6s ease-in-out infinite reverse;
 }
 
 .success-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
     border-radius: 40px;
-    padding: 80px;
+    padding: 30px;
     text-align: center;
-    max-width: 1000px;
+    max-width: 600px;
     width: 95%;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
 .success-icon {
@@ -69,14 +73,14 @@ body {
 }
 
 .success-icon svg {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     fill: white;
 }
 
 h1 {
     color: #22c55e;
-    font-size: 42px;
+    font-size: 36px;
     margin-bottom: 16px;
     animation: fadeIn 0.5s ease-out 0.3s both;
 }
@@ -92,7 +96,7 @@ p {
     background: #7c3aed;
     color: white;
     border: none;
-    padding: 16px 48px;
+    padding: 12px 32px;
     border-radius: 12px;
     font-size: 24px;
     cursor: pointer;
@@ -136,5 +140,82 @@ p {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .success-card {
+        max-width: 90%;
+        padding: 24px;
+    }
+
+    .success-girl,
+    .success-guy {
+        width: 220px;
+    }
+
+    .success-girl {
+        right: 100px;
+    }
+
+    .success-guy {
+        left: 100px;
+        bottom: -150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .success-girl,
+    .success-guy {
+        width: 160px;
+    }
+
+    .success-girl {
+        right: 10px;
+        top: 30px;
+    }
+
+    .success-guy {
+        left: 20px;
+        bottom: -60px;
+    }
+
+    .success-card {
+        padding: 20px;
+    }
+
+    .success-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .explore-btn {
+        padding: 10px 24px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .success-girl,
+    .success-guy {
+        width: 120px;
+    }
+
+    .success-girl {
+        right: 40px;
+        top: -10px;
+    }
+
+    .success-guy {
+        left: 40px;
+        bottom: -40px;
     }
 }
