@@ -4,143 +4,25 @@
   	<meta charset="utf-8">
   	<meta name="viewport" content="initial-scale=1, width=device-width">
   	
-  	<link rel="stylesheet"  href="/css/404.css"/>
+  	<link rel="stylesheet"  href="index.css" />
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
 </head>
 <body>
   	<div class="div">
-    		<div class="top-bar">
-      			<a href="/contact" class="logo-link">
-        			<img class="logo-1-icon" alt="Negotix" src="/assets/logo.png">
-      			</a>
-      			<div class="browsing">
-        				<div class="home">
-          					<a href="/" class="sing-upsing-in">Home</a>
-        				</div>
-        				<div class="about">
-          					<a href="/about" class="sing-upsing-in">About</a>
-        				</div>
-        				<div class="trending">
-          					<a href="/trending" class="sing-upsing-in">Trending</a>
-        				</div>
-        				<div class="contact">
-          					<a href="/contact" class="sing-upsing-in">Contact</a>
-        				</div>
-        				<div class="trending search-nav" style="position: relative;">
-          					<div class="sing-upsing-in search-btn">Search</div>
-          					<div class="search-box" style="display:none; position: absolute; left: 0; top: 100%; z-index: 1000; min-width: 260px;">
-            						<div class="search-input-wrapper">
-              							<span class="search-icon">🔍</span>
-              							<input type="text" class="search-input" placeholder="Type to search...">
-              							<button class="search-submit">Go</button>
-            						</div>
-          					</div>
-        				</div>
-      			</div>
-      			<div class="menu" style="position: relative;">
-        				<div class="menu1">Menu</div>
-        				<div class="hamburger">
-          					<div class="hamburger-line"></div>
-          					<div class="hamburger-line"></div>
-          					<div class="hamburger-line"></div>
-        				</div>
-        				<div class="menu-modal" style="display:none; position: absolute; right: 0; top: 100%; z-index: 1000; min-width: 150px;">
-          					<div class="menu-modal-content">
-            						<a href="/register" class="menu-link">Sign Up</a>
-            						<a href="/login" class="menu-link">Sign In</a>
-          					</div>
-        				</div>
-      			</div>
-    		</div>
+    		   <!-- Header Partial -->
+               <%- include('partials/header') %>
     		
     		<div class="txt">
-      			<img class="page-icon" alt="" src="/assets/oops.png">
+      			<img class="page-icon" alt="" src="assets/oops.png">
       			<div class="oops">Oops!</div>
-      			<div class="we-couldt-find">We couldn't find the page you are looking for</div>
+      			<div class="we-couldt-find">we couldnt find the page you are looking for</div>
       			<div class="go-back">Go Back</div>
     		</div>
 
-    		<div class="footer">
-      			<div class="container">
-        				<div class="footer-logo">
-          					<a href="/" class="logo-link">
-            						<img class="logo-icon" alt="Negotix" src="/assets/logo.png">
-          					</a>
-        				</div>
-        				<div class="container1">
-          					<div class="subcontainer1">
-            						<div class="company">Company</div>
-            						<div class="footer-link">
-              							<a href="/about" class="text">About Us</a>
-            						</div>
-          					</div>
-          					<div class="container2">
-            						<div class="subcontainer2">
-										<div class="company">Support</div>
-              							<div class="text-links">
-                								<div class="footer-link">
-                  									<a href="/faq" class="text">FAQs</a>
-                								</div>
-                								<div class="footer-link">
-                  									<a href="/return-policy" class="text">Return & Exchange</a>
-                								</div>
-                								<div class="footer-link">
-                  									<a href="/bidding" class="text">Bidding</a>
-                								</div>
-                								<div class="footer-link">
-                  									<a href="/bidding" class="text">Contact Us</a>
-                								</div>
-              							</div>
-            						</div>
-          					</div>
-          					<div class="container3">
-            						<div class="company">Social</div>
-            						<div class="text-links">
-              							<div class="footer-link">
-                								<a href="https://instagram.com" target="_blank" class="text">Instagram</a>
-              							</div>
-              							<div class="footer-link">
-                								<a href="https://facebook.com" target="_blank" class="text">Facebook</a>
-              							</div>
-              							<div class="footer-link">
-                								<a href="https://x.com" target="_blank" class="text">X</a>
-              							</div>
-            						</div>
-          					</div>
-          					<div class="container4">
-            						<div class="subcontainer3">
-										<div class="subscribe">Subscribe</div>
-              							<div class="subscribetxt">Subscribe to receive information on exclusive offers, new product launch, and exciting events. </div>
-              							<div class="subcontainer4">
-                								<div class="input">
-                  									<input type="email" class="input-field" placeholder="Email Address">
-                  									<button class="button">Submit</button>
-                								</div>
-                								<div class="subcontainer5">
-                  									<div class="jointxt">By joining, you agree on the terms in our</div>
-                  									<div class="info-link">
-                    										<a href="/privacy-policy" class="privacytxt">privacy policy</a>
-                  									</div>
-                								</div>
-              							</div>
-            						</div>
-          					</div>
-        				</div>
-      			</div>
-      			<div class="container10">
-        				<div class="text-links2">
-          					<div class="footer-link1">
-            						<a href="/terms" class="text">Terms of Service</a>
-          					</div>
-          					<div class="text">•</div>
-          					<div class="footer-link1">
-            						<a href="/privacy-policy" class="text">Privacy Policy</a>
-          					</div>
-        				</div>
-        				<div class="text"> 2025 Negotix. All Rights Reserved.</div>
-      			</div>
-    		</div>
+    	
   	</div>
-    <script src="/js/404.js"></script>
+    <script src="script.js"></script>
+	<!-- Footer Partial -->
+    <%- include('partials/footer') %>
 </body>
 </html>
