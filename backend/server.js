@@ -81,6 +81,11 @@ app.get('/terms', (req, res) => {
   res.render('terms', {title: 'Terms and Conditions'});
 })
 
+app.get('/auth', (req, res) => {
+    // Implement login logic soon
+    res.render('auth', {title: 'Sign up | Sign in'});
+})
+
 
 // 404 route
 app.use((req, res) => {
