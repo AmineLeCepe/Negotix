@@ -10,7 +10,9 @@
 }
 
 .footer-logo {
-    margin-bottom: 3rem;
+    margin-bottom: 6rem;
+    transform: scale(2);
+    transform-origin: left top;
 }
 
 .footer-logo img {
