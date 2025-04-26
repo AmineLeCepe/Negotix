@@ -157,21 +157,22 @@ app.get('/test', (req, res) => {
 /// POST requests
 app.post('/auth', async (req, res, next) => {
     try {
-        const { formType } = req.body;
+        const {formType} = req.body;
 
-        switch(formType) {
+        switch (formType) {
             case 'login':
                 passport.authenticate('local', (err, user, info) => {
                     if (err) {
                         console.error('Authentication error:', err);
-                        return res.status(500).json({ error: 'Authentication error occurred' });
+                        return res.status(500).json({error: 'Authentication error occurred'});
                     }
 
                     if (!user) {
                         // Authentication failed
                         req.flash('error', info.message);
                         return res.status(401).json({
-                            error: info.message || 'Invalid username or password'
+                            success: false,
+                            message: info.message || 'Invalid username or password'
                         });
                     }
 
@@ -179,37 +180,52 @@ app.post('/auth', async (req, res, next) => {
                     req.logIn(user, (err) => {
                         if (err) {
                             console.error('Login error:', err);
-                            return res.status(500).json({ error: 'Error during login' });
+                            return res.status(500).json({
+                                success: false,
+                                message: 'Error during login'
+                            });
                         }
 
-                        // Send success response
+                        // Return success JSON response
                         return res.status(200).json({
                             success: true,
                             message: 'Login successful',
-                            redirectUrl: '/'
+                            redirectUrl: '/listings',
+                            user: {
+                                username: user.username,
+                                email: user.email
+                            }
                         });
                     });
                 })(req, res, next);
                 break;
 
             case 'register': {
-                const { username, email, password } = req.body;
+                const {username, email, password} = req.body;
 
                 // Input validation
                 if (!validator.isEmail(email)) {
-                    return res.redirect('/auth');
+                    return res.status(400).json({
+                        success: false,
+                        message: 'Invalid email address'
+                    });
                 }
 
                 if (!password || password.length < 8) {
-                    return res.redirect('/auth');
+                    return res.status(400).json({
+                        success: false,
+                        message: 'Password must be at least 8 characters long'
+                    });
                 }
 
                 try {
                     // Check for existing user
-                    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+                    const existingUser = await User.findOne({$or: [{username}, {email}]});
                     if (existingUser) {
-                        req.flash('error', 'Username or email already exists');
-                        return res.redirect('/auth');
+                        return res.status(400).json({
+                            success: false,
+                            message: 'Username or email already exists'
+                        });
                     }
 
                     // Create new user
@@ -223,23 +239,37 @@ app.post('/auth', async (req, res, next) => {
                     // Log in using Passport
                     req.login(newUser, (err) => {
                         if (err) {
-                            return next(err);
+                            return res.status(500).json({
+                                success: false,
+                                message: 'Error during registration login'
+                            });
                         }
-                        return res.redirect('/listings');
+                        return res.status(200).json({
+                            success: true,
+                            message: 'Registration successful',
+                            redirectUrl: '/listings',
+                            user: {
+                                username: newUser.username,
+                                email: newUser.email
+                            }
+                        });
                     });
                 } catch (error) {
-                    req.flash('error', 'Registration failed');
-                    return res.redirect('/auth');
+                    return res.status(500).json({
+                        success: false,
+                        message: 'Registration failed',
+                        error: error.message
+                    });
                 }
                 break;
             }
 
             default:
-                return res.status(400).json({ error: 'Invalid form type' });
+                return res.status(400).json({error: 'Invalid form type'});
         }
     } catch (error) {
         console.error('Auth error:', error);
-        return res.status(500).json({ error: 'An error occurred during authentication' });
+        return res.status(500).json({error: 'An error occurred during authentication'});
     }
 });
 app.post('/logout', (req, res) => {

@@ -1,3 +1,43 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle both login and registration forms
+    const forms = document.querySelectorAll('form');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/auth', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Redirect to the listings page on success
+                    window.location.href = result.redirectUrl;
+                } else {
+                    // Handle error (you might want to show an error message)
+                    console.error('Authentication failed:', result.message);
+                    // You can add error message display logic here
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message';
+                    errorDiv.textContent = result.message;
+                    form.insertBefore(errorDiv, form.firstChild);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+});
 // Remove form submission handling
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
