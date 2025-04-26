@@ -8,12 +8,15 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session')
+const validator = require('validator');
 
 const initializePassport = require('./config/passport-config');
 
-initializePassport(passport, async username => {
-    return await User.findOne({ username: username }).exec();
-});
+initializePassport(
+    passport,
+    async username => await User.findOne({ username: username }).exec(),
+    async id => await User.findOne({ _id: id }).exec()
+);
 
 // Database imports
 const mongoose = require("mongoose");
@@ -44,9 +47,44 @@ app.set('views', path.join(__dirname, '../frontend/views'));
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 // Middlewares
+const checkAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/auth');
+}
+
+// Middleware to check if user is not authenticated
+const checkNotAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+    next();
+}
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('error', {
+        title: 'Error',
+        message: 'Something went wrong!',
+        error: process.env.NODE_ENV === 'development' ? err : {}
+    });
+});
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(flash());
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // API endpoints
 /// GET requests
@@ -96,74 +134,115 @@ app.get('/shipping', (req, res) => {
 app.get('/terms', (req, res) => {
   res.render('terms', {title: 'Terms and Conditions'});
 })
-app.get('/auth', (req, res) => {
-    res.render('auth', {title: 'Authenticate'});
-})
+app.get('/auth', checkNotAuthenticated, (req, res) => {
+    res.render('auth', { title: 'Authenticate' });
+});
+app.get('/profile', checkAuthenticated, (req, res) => {
+    res.render('profile', { title: 'Profile', user: req.user });
+}); // TODO
+app.get('/my-bids', checkAuthenticated, (req, res) => {
+    res.render('my-bids', { title: 'My Bids', user: req.user });
+}); // TODO
 app.get('/test', (req, res) => {
     res.render('test', {title: 'Test'});
 })
 
 /// POST requests
-app.post('/auth', async (req, res) => {
-    const { formType } = req.body;
+app.post('/auth', async (req, res, next) => {
+    try {
+        const { formType } = req.body;
 
-    if (formType === 'login') {
-        console.log(req.body); /* Debug line */
-        const { username, password } = req.body;
-        try {
-            const user = await User.findOne({
-                username: username
-            }).exec()
+        switch(formType) {
+            case 'login':
+                passport.authenticate('local', (err, user, info) => {
+                    if (err) {
+                        console.error('Authentication error:', err);
+                        return res.status(500).json({ error: 'Authentication error occurred' });
+                    }
 
-            const isPasswordValid = user ? await bcrypt.compare(password, user.passwordHash): false;
+                    if (!user) {
+                        // Authentication failed
+                        req.flash('error', info.message);
+                        return res.status(401).json({
+                            error: info.message || 'Invalid username or password'
+                        });
+                    }
 
+                    // Manual login using req.logIn
+                    req.logIn(user, (err) => {
+                        if (err) {
+                            console.error('Login error:', err);
+                            return res.status(500).json({ error: 'Error during login' });
+                        }
 
-            if (isPasswordValid) {
-                console.log('Login successful');
-            } else {
-                console.log('Login failed');
-            }
-        } catch (e) {
-            console.error(e);
-        }
-    }
+                        // Send success response
+                        return res.status(200).json({
+                            success: true,
+                            message: 'Login successful',
+                            redirectUrl: '/'
+                        });
+                    });
+                })(req, res, next);
+                break;
 
-    if (formType === 'register') {
-        console.log(req.body); /* Debug line */
-        const { username, email, password } = req.body;
-        try {
-            const user = await User.findOne({
-                username: username,
-                email: email
-            }).exec()
+            case 'register': {
+                const { username, email, password } = req.body;
 
-            if (!user) {
-                const hashedPassword = await bcrypt.hash(password, 10);
-                try {
-                    await User.create({
-                        username: username,
-                        email: email,
-                        passwordHash: hashedPassword,
-                    }).then(user => console.log('User created successfully'));
-                } catch (e) {
-                    console.error(e);
+                // Input validation
+                if (!validator.isEmail(email)) {
+                    return res.redirect('/auth');
                 }
-            } else {
-                console.log('User already exists');
+
+                if (!password || password.length < 8) {
+                    return res.redirect('/auth');
+                }
+
+                try {
+                    // Check for existing user
+                    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+                    if (existingUser) {
+                        req.flash('error', 'Username or email already exists');
+                        return res.redirect('/auth');
+                    }
+
+                    // Create new user
+                    const hashedPassword = await bcrypt.hash(password, 10);
+                    const newUser = await User.create({
+                        username,
+                        email,
+                        passwordHash: hashedPassword
+                    });
+
+                    // Log in using Passport
+                    req.login(newUser, (err) => {
+                        if (err) {
+                            return next(err);
+                        }
+                        return res.redirect('/listings');
+                    });
+                } catch (error) {
+                    req.flash('error', 'Registration failed');
+                    return res.redirect('/auth');
+                }
+                break;
             }
-        } catch (e) {
-            console.error(e);
+
+            default:
+                return res.status(400).json({ error: 'Invalid form type' });
         }
+    } catch (error) {
+        console.error('Auth error:', error);
+        return res.status(500).json({ error: 'An error occurred during authentication' });
     }
-
-    if (formType === 'forgotPassword') {
-        const { email } = req.body;
-        return res.send(`Sending password reset link to ${email}`);
-    }
-    res.status(400).send('Unknown form submission');
 });
-
-// Route to use when frontend team adds new pages
+app.post('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error during logout' });
+        }
+        res.redirect('/auth');
+    });
+});
 
 
 // 404 route
@@ -208,6 +287,3 @@ app.listen(port, () => {
 // insertCategory();
 
 // routes/productRoutes.js or similar
-
-
- 
