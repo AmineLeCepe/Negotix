@@ -209,3 +209,19 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
+
+// Handle logout
+// Add this to your header.js file
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutLink = document.querySelector('a[href="/logout"]');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/logout';
+            document.body.appendChild(form);
+            form.submit();
+        });
+    }
+});

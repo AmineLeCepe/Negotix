@@ -85,6 +85,13 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+    // Make auth status and user info available to all views
+    res.locals.isAuthenticated = req.isAuthenticated();
+    res.locals.user = req.user;
+    next();
+});
+
 
 // API endpoints
 /// GET requests

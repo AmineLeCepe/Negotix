@@ -98,8 +98,12 @@
                             </svg>
                             Profile
                         </a>
-                        <a href="/auth" class="menu-link">Authenticate</a>
-<!--                        <a href="/logout" class="menu-link">Log out</a>-->
+                        <% if (locals.isAuthenticated) { %>
+                            <a href="/logout" class="menu-link">Log out</a>
+                        <% } else { %>
+                            <a href="/auth" class="menu-link">Authenticate</a>
+                        <% } %>
+                        <!--                        <a href="/logout" class="menu-link">Log out</a>-->
                         <a href="/contact" class="menu-link">Contact us</a>
                         <div class="menu-divider"></div>
                         <div class="menu-footer">
