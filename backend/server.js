@@ -22,9 +22,11 @@ app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 // Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // API endpoints
+/// GET requests
 app.get('/listings', async (req, res) => {
     // This is sample data - you would typically fetch this from your database
     try {
@@ -44,47 +46,68 @@ app.get('/listings', async (req, res) => {
         });
     }
 });
-
 app.get('/contact', (req, res) => {
     res.render('contact', {title: 'Contact'});
 })
-
 app.get('/FAQ', (req, res) => {
   res.render('faq', {title: 'FAQ'});
 })
-
 app.get('/return-policy', (req, res) => {
   res.render('return-policy', {title: 'Return Policy'});
 })
-
 app.get('/bidding', (req, res) => {
   res.render('bidding', {title: 'Bidding'});
 })
-
 app.get('/privacy-policy', (req, res) => {
   res.render('privacy-policy', {title: 'Privacy Policy'});
 })
-
 app.get('/track', (req, res) => {
   res.render('track', {title: 'Track'});
 })
-
 app.get('/about', (req, res) => {
   res.render('about', {title: 'About Us'});
 })
-
 app.get('/shipping', (req, res) => {
   res.render('shipping', {title: 'Shipping'});
 })
-
 app.get('/terms', (req, res) => {
   res.render('terms', {title: 'Terms and Conditions'});
 })
-
 app.get('/auth', (req, res) => {
-    // Implement login logic soon
-    res.render('auth', {title: 'Sign up | Sign in'});
+    res.render('auth', {title: 'Authenticate'});
 })
+app.get('/test', (req, res) => {
+    res.render('test', {title: 'Test'});
+})
+
+/// POST requests
+app.post('/auth', (req, res) => {
+    const { formType } = req.body;
+
+    if (formType === 'login') {
+        const { username, password } = req.body;
+        // …handle login…
+        console.log(req.body);
+    }
+
+    if (formType === 'register') {
+        const { username, email, password, confirmPassword } = req.body;
+        console.log(req.body);
+        if (password !== confirmPassword) {
+            return res.status(400).send("Passwords don't match");
+        }
+        // …handle registration…
+        return res.send(`Registering ${username}`);
+    }
+
+    if (formType === 'forgotPassword') {
+        const { email } = req.body;
+        return res.send(`Sending password reset link to ${email}`);
+    }
+    res.status(400).send('Unknown form submission');
+});
+
+// Route to use when frontend team adds new pages
 
 
 // 404 route
