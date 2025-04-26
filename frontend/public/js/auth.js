@@ -61,44 +61,36 @@ document.getElementById('sign-in-form').addEventListener('submit', function (e) 
     errorMessageText = 'Please fill in all fields.';
   } else if (username.length < 5) {
     errorMessageText = 'Username must be at least 5 characters long.';
-  } else if (username !== 'user' || password !== 'password') {
-    errorMessageText = 'Username or Password is wrong, Please try again';
+  } else if (password.length < 8) {
+    errorMessageText = 'Password must be at least 8 characters long.';
   }
 
   const isValid = !errorMessageText;
 
-  if (isValid) {
-    // Redirect to the main page if valid
-    window.location.href = 'mainpage.ejs';
+  if (!isValid) {
+    // Your existing error handling code
   } else {
-    // Shake the form
-    const form = document.getElementById('sign-in-form');
-    form.classList.add('shake');
+    // If validation passes, submit the form data
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('formType', 'login');  // Add this to match your server's expectations
 
-    // Remove the shake animation after it completes
-    setTimeout(() => {
-      form.classList.remove('shake');
-    }, 500);
-
-    // Check if the error message already exists
-    let errorMessage = document.querySelector('#sign-in-form .error-message');
-
-    if (!errorMessage) {
-      // Create and display the error message if it doesn't exist
-      errorMessage = document.createElement('p');
-      errorMessage.textContent = errorMessageText;
-      errorMessage.style.color = 'red';
-      errorMessage.style.textAlign = 'center';
-      errorMessage.style.marginTop = '10px';
-      errorMessage.classList.add('error-message');
-
-      // Insert the error message after the sign-in title
-      const title = document.querySelector('#sign-in-form .title');
-      title.insertAdjacentElement('afterend', errorMessage);
-    } else {
-      // Update the existing error message
-      errorMessage.textContent = errorMessageText;
-    }
+    fetch('/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(Object.fromEntries(formData))
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response from the server
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   }
 });
 
@@ -122,10 +114,7 @@ document.getElementById('sign-up-form').addEventListener('submit', function (e) 
 
   const isValid = !errorMessageText;
 
-  if (isValid) {
-    // Redirect to the main page if valid
-    window.location.href = 'mainpage.ejs';
-  } else {
+  if (!isValid) {
     // Shake the form
     const form = document.getElementById('sign-up-form');
     form.classList.add('shake');
@@ -154,5 +143,28 @@ document.getElementById('sign-up-form').addEventListener('submit', function (e) 
       // Update the existing error message
       errorMessage.textContent = errorMessageText;
     }
+  }
+  // In the sign-up form handler, add this in the else block when isValid is true
+  else {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('formType', 'register');
+
+    fetch('/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(Object.fromEntries(formData))
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   }
 });
