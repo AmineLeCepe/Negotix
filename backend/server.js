@@ -4,9 +4,23 @@ const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/mongodb');
 const path = require('path');
+const bcrypt = require('bcrypt');
+
+// Database imports
+const mongoose = require("mongoose");
+
+const User = require('./models/userModel');
+const Auction = require('./models/auctionModel');
+const Bid = require('./models/bidModel');
+const Chat = require('./models/chatModel');
+const Message = require('./models/messageModel');
+const Wishlist = require('./models/wishlistModel');
+const Review = require('./models/reviewModel');
+const Category = require('./models/categoryModel');
 
 // Queries imports
 const { getAllAuctions, getRecentAuctions } = require('./queries/selection');
+
 
 // App config
 const app = express();
@@ -81,23 +95,56 @@ app.get('/test', (req, res) => {
 })
 
 /// POST requests
-app.post('/auth', (req, res) => {
+app.post('/auth', async (req, res) => {
     const { formType } = req.body;
 
     if (formType === 'login') {
+        console.log(req.body); /* Debug line */
         const { username, password } = req.body;
-        // …handle login…
-        console.log(req.body);
+        try {
+            const user = await User.findOne({
+                username: username
+            }).exec()
+
+            const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+
+
+            if (isPasswordValid) {
+                console.log('Login successful');
+            } else {
+                console.log('Login failed');
+            }
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     if (formType === 'register') {
-        const { username, email, password, confirmPassword } = req.body;
-        console.log(req.body);
-        if (password !== confirmPassword) {
-            return res.status(400).send("Passwords don't match");
+        console.log(req.body); /* Debug line */
+        const { username, email, password } = req.body;
+        try {
+            const user = await User.findOne({
+                username: username,
+                email: email
+            }).exec()
+
+            if (!user) {
+                const hashedPassword = await bcrypt.hash(password, 10);
+                try {
+                    await User.create({
+                        username: username,
+                        email: email,
+                        passwordHash: hashedPassword,
+                    }).then(user => console.log('User created successfully'));
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                console.log('User already exists');
+            }
+        } catch (e) {
+            console.error(e);
         }
-        // …handle registration…
-        return res.send(`Registering ${username}`);
     }
 
     if (formType === 'forgotPassword') {
@@ -122,20 +169,6 @@ app.use((req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })
-
-// Run queries manually
-const mongoose = require("mongoose");
-
-const User = require('./models/userModel');
-const Auction = require('./models/auctionModel');
-const Bid = require('./models/bidModel');
-const Chat = require('./models/chatModel');
-const Message = require('./models/messageModel');
-const Wishlist = require('./models/wishlistModel');
-const Review = require('./models/reviewModel');
-const Category = require('./models/categoryModel');
-const {get} = require("mongoose");
-
 
 /* DEBUG ZONE, IGNORE */
 // const { insertAuction } = require('./queries/insertion');
