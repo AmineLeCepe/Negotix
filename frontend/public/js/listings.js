@@ -90,6 +90,8 @@
 // }
 
 // Function to handle sorting
+
+
 function handleSort(event) {
     const sortValue = event.target.value;
     let sortedProducts = [...products];
