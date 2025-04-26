@@ -106,7 +106,7 @@ app.post('/auth', async (req, res) => {
                 username: username
             }).exec()
 
-            const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+            const isPasswordValid = user ? await bcrypt.compare(password, user.passwordHash): false;
 
 
             if (isPasswordValid) {
