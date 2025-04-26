@@ -5,6 +5,15 @@ require('dotenv').config();
 const connectDB = require('./config/mongodb');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const flash = require('express-flash');
+const session = require('express-session')
+
+const initializePassport = require('./config/passport-config');
+
+initializePassport(passport, async username => {
+    return await User.findOne({ username: username }).exec();
+});
 
 // Database imports
 const mongoose = require("mongoose");
