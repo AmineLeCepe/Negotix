@@ -38,7 +38,10 @@ const bidSchema= new mongoose.Schema({
         default: () => Date.now(),
         immutable: true,
     },
-
+    updateDate:{
+        type: Date,
+        default: () => Date.now(),
+    }
 })
 
 // Check if model already exists in database, otherwise create it
