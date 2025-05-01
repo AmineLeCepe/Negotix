@@ -68,12 +68,12 @@
                     <option>Sort: Price Low to High</option>
                 </select>
             </div>
-            <span class="item-count">X Items</span>
+            <span class="item-count"><span class="item-count-number">X</span> Items</span>
         </div>
 
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
-                <div class="product-card">
+                <div class="product-card" data-category="<%= product.category %>">
                     <img src="<%= product.image %>" alt="<%= product.title %>">
                     <div class="product-info">
                         <h3><%= product.title %></h3>

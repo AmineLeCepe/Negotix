@@ -1,97 +1,3 @@
-// Sample product data
-// const products = [
-//     {
-//         id: 1,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "4m 5s"
-//     },
-//     {
-//         id: 2,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "21m 7s"
-//     },
-//     {
-//         id: 3,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "30m 10s"
-//     },
-//     {
-//         id: 4,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "41m 1s"
-//     },
-//     {
-//         id: 5,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "20m 3s"
-//     },
-//     {
-//         id: 6,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "11m 8s"
-//     },
-//     {
-//         id: 7,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "15m 5s"
-//     },
-//     {
-//         id: 8,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "30m 8s"
-//     },
-//     {
-//         id: 9,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "30m 8s"
-//     }
-// ];
-
-// Function to create a product card
-// function createProductCard(product) {
-//     return `
-//         <div class="product-card">
-//             <img src="${product.image}" alt="${product.name}">
-//             <div class="product-info">
-//                 <h3>${product.name}</h3>
-//                 <div class="price">
-//                     <img src="assets/wish_list.webp" alt="Wishlist" style="width: 20px; height: 20px;">
-//                     <span>${product.price}</span>
-//                 </div>
-//                 <div class="timer">${product.timeLeft}</div>
-//                 <button class="place-bid">Place Bid</button>
-//             </div>
-//         </div>
-//     `;
-// }
-
-// Function to render products
-// function renderProducts(productsToRender = products) {
-//     const productsGrid = document.getElementById('productsGrid');
-//     productsGrid.innerHTML = productsToRender.map(product => createProductCard(product)).join('');
-// }
-
-// Function to handle sorting
-
-
 function handleSort(event) {
     const sortValue = event.target.value;
     let sortedProducts = [...products];
@@ -143,8 +49,103 @@ function handlePagination(event) {
     }
 }
 
-// Initialize the page
+// Function to count and update product cards
+function updateProductCount() {
+    const productCards = document.querySelectorAll('.product-card');
+    const countElement = document.querySelector('.item-count-number');
+    if (countElement) {
+        countElement.textContent = productCards.length;
+    }
+}
+
+// Function to update category counts
+function updateCategoryCounts() {
+    // Get all product cards
+    const productCards = document.querySelectorAll('.product-card');
+    
+    // Get all category items in the sidebar
+    const categoryItems = document.querySelectorAll('.categories li');
+    
+    // Create a counter object for categories
+    const categoryCounts = {};
+    
+    // Count products in each category
+    productCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        if (category) {
+            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+        }
+    });
+    
+    // Update the count for each category in the sidebar
+    categoryItems.forEach(item => {
+        const categoryName = item.querySelector('span:first-child').textContent;
+        const countSpan = item.querySelector('.count');
+        if (countSpan) {
+            countSpan.textContent = categoryCounts[categoryName] || 0;
+        }
+    });
+}
+
+// Function to update price range counts
+function updatePriceRangeCounts() {
+    const productCards = document.querySelectorAll('.product-card');
+    const priceFilterItems = document.querySelectorAll('.price-filter li');
+    
+    // Initialize counters for each price range
+    const priceRangeCounts = {
+        'All': productCards.length,
+        '0-1000': 0,
+        '1000-9000': 0,
+        '9000+': 0
+    };
+    
+    // Count products in each price range
+    productCards.forEach(card => {
+        const priceElement = card.querySelector('.price span');
+        if (priceElement) {
+            // Extract numeric price value (remove 'DA' and parse)
+            const price = parseInt(priceElement.textContent.replace('DA', '').trim());
+            
+            if (price <= 1000) {
+                priceRangeCounts['0-1000']++;
+            } else if (price <= 9000) {
+                priceRangeCounts['1000-9000']++;
+            } else {
+                priceRangeCounts['9000+']++;
+            }
+        }
+    });
+    
+    // Update the count display for each price range
+    priceFilterItems.forEach(item => {
+        const rangeText = item.querySelector('span:first-child').textContent;
+        const countSpan = item.querySelector('.count');
+        
+        if (countSpan) {
+            if (rangeText === 'All') {
+                countSpan.textContent = priceRangeCounts['All'];
+            } else if (rangeText === '0DA - 1000DA') {
+                countSpan.textContent = priceRangeCounts['0-1000'];
+            } else if (rangeText === '1000 DA - 9000DA') {
+                countSpan.textContent = priceRangeCounts['1000-9000'];
+            } else if (rangeText === '9000DA & Above') {
+                countSpan.textContent = priceRangeCounts['9000+'];
+            }
+        }
+    });
+}
+
+// Update the DOMContentLoaded event listener to include all count updates
 document.addEventListener('DOMContentLoaded', () => {
+    // Update all counts
+    updateProductCount();
+    updateCategoryCounts();
+    updatePriceRangeCounts();
+    
+    // Call the function to update the count when page loads
+    
+    
     // Render initial products
     renderProducts();
 
@@ -209,4 +210,3 @@ setInterval(updateTimers, 1000);
 
 // Initial call to format timers immediately
 updateTimers();
-
