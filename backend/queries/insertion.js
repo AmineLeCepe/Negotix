@@ -35,8 +35,6 @@ async function insertAuction() {
     }
 }
 
-insertAuction();
-
 async function insertCategory() {
     try {
         Category.insertMany([
@@ -55,7 +53,5 @@ async function insertCategory() {
         console.error(e);
     }
 }
-
-insertCategory();
 
 module.exports = { insertAuction, insertCategory };
