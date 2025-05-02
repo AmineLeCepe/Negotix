@@ -15,7 +15,6 @@
             <h2>Categories</h2>
             <ul>
                 <% if (locals.categories && Array.isArray(locals.categories)) { %>
-                <% console.log(categories) %>
                   <% locals.categories.forEach((category, index) => { %>
                     <li>
                       <span><%= category.category %></span>
@@ -46,7 +45,7 @@
             </div>
             <div class="recent-items">
                 <% recentItems.forEach(item => { %>
-                    <div class="item">
+                    <div class="item <%= item.categoryId?.name?.toLowerCase().replace(/[^a-z0-9-]/g, '-') || 'uncategorized' %>">
                         <img src="<%= item.image %>" alt="<%= item.title %>">
                         <div class="item-info">
                             <h3><%= item.title %></h3>

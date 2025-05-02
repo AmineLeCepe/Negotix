@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
 // Gets all auctions from the database
 async function getAllAuctions() {
     try {
-        return await Auction.find();
+        return await Auction.find()
+            .populate({
+                path: 'categoryId',
+                select: 'name'
+            });
     } catch (error) {
         console.error(error);
         return [];
@@ -15,14 +19,19 @@ async function getAllAuctions() {
 // Gets the most recent auctions from the database
 async function getRecentAuctions() {
     try {
-        return await Auction.find() //fetch the items
-            .sort({ creationDate: -1 }) // sort by newest
+        return await Auction.find()
+            .populate({
+                path: 'categoryId',
+                select: 'name'
+            })
+            .sort({ creationDate: -1 })
             .limit(2);
     } catch (e) {
         console.error(e);
         return [];
     }
 }
+
 
 async function getAuctionsCategoryCount() {
     try {
