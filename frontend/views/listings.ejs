@@ -14,15 +14,19 @@
         <div class="categories">
             <h2>Categories</h2>
             <ul>
+                <li class="active">
+                    <span>All</span>
+                    <span class="count"><%= locals.categories?.reduce((sum, cat) => sum + cat.numberOfAuctions, 0) || 0 %></span>
+                </li>
                 <% if (locals.categories && Array.isArray(locals.categories)) { %>
-                  <% locals.categories.forEach((category, index) => { %>
-                    <li>
-                      <span><%= category.category %></span>
-                      <span class="count"><%= category.numberOfAuctions %></span>
-                    </li>
-                  <% }); %>
+                    <% locals.categories.forEach((category, index) => { %>
+                        <li>
+                            <span><%= category.category %></span>
+                            <span class="count"><%= category.numberOfAuctions %></span>
+                        </li>
+                    <% }); %>
                 <% } else { %>
-                  <li>No categories available</li>
+                    <li>No categories available</li>
                 <% } %>
             </ul>
         </div>
