@@ -58,34 +58,6 @@ function updateProductCount() {
     }
 }
 
-// Function to update category counts
-function updateCategoryCounts() {
-    // Get all product cards
-    const productCards = document.querySelectorAll('.product-card');
-    
-    // Get all category items in the sidebar
-    const categoryItems = document.querySelectorAll('.categories li');
-    
-    // Create a counter object for categories
-    const categoryCounts = {};
-    
-    // Count products in each category
-    productCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (category) {
-            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
-        }
-    });
-    
-    // Update the count for each category in the sidebar
-    categoryItems.forEach(item => {
-        const categoryName = item.querySelector('span:first-child').textContent;
-        const countSpan = item.querySelector('.count');
-        if (countSpan) {
-            countSpan.textContent = categoryCounts[categoryName] || 0;
-        }
-    });
-}
 
 // Function to update price range counts
 function updatePriceRangeCounts() {
@@ -140,14 +112,7 @@ function updatePriceRangeCounts() {
 document.addEventListener('DOMContentLoaded', () => {
     // Update all counts
     updateProductCount();
-    updateCategoryCounts();
     updatePriceRangeCounts();
-    
-    // Call the function to update the count when page loads
-    
-    
-    // Render initial products
-    renderProducts();
 
     // Add event listeners
     document.querySelector('.sort-dropdown select').addEventListener('change', handleSort);

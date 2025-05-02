@@ -31,7 +31,7 @@ const Review = require('./models/reviewModel');
 const Category = require('./models/categoryModel');
 
 // Queries imports
-const { getAllAuctions, getRecentAuctions } = require('./queries/selection');
+const { getAllAuctions, getRecentAuctions, getAuctionsCategoryCount } = require('./queries/selection');
 
 
 // App config
@@ -100,11 +100,13 @@ app.get('/listings', async (req, res) => {
     try {
         const items = await getAllAuctions();
         const recentItems = await getRecentAuctions();
+        const auctionsCategoryCount = await getAuctionsCategoryCount();
         // Render the EJS template and pass the item array
         res.render('listings', {
             items: items,
             recentItems: recentItems,
-            title: 'Listings'
+            title: 'Listings',
+            categories: auctionsCategoryCount,
         });
     } catch (error) {
         console.error(error);
@@ -325,3 +327,4 @@ app.listen(port, () => {
 
 // routes/productRoutes.js or similar
 
+getAuctionsCategoryCount().then(count => console.log(count));

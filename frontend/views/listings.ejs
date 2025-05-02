@@ -14,16 +14,17 @@
         <div class="categories">
             <h2>Categories</h2>
             <ul>
-                <li><span>Electronics</span><span class="count">X</span></li>
-                <li class="active"><span>Sport Equipments</span><span class="count">X</span></li>
-                <li><span>Decor</span><span class="count">X</span></li>
-                <li><span>Accessories</span><span class="count">X</span></li>
-                <li><span>Mobile</span><span class="count">X</span></li>
-                <li><span>Watches</span><span class="count">X</span></li>
-                <li class="active"><span>Clothes</span><span class="count">X</span></li>
-                <li><span>Cosmetics</span><span class="count">X</span></li>
-                <li><span>Furnitures</span><span class="count">X</span></li>
-                <li><span>Office</span><span class="count">X</span></li>
+                <% if (locals.categories && Array.isArray(locals.categories)) { %>
+                <% console.log(categories) %>
+                  <% locals.categories.forEach((category, index) => { %>
+                    <li>
+                      <span><%= category.category %></span>
+                      <span class="count"><%= category.numberOfAuctions %></span>
+                    </li>
+                  <% }); %>
+                <% } else { %>
+                  <li>No categories available</li>
+                <% } %>
             </ul>
         </div>
 

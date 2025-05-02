@@ -1,4 +1,5 @@
 const Auction = require('../models/auctionModel');
+const Category = require('../models/categoryModel');
 const mongoose = require('mongoose');
 
 // Gets all auctions from the database
@@ -25,18 +26,46 @@ async function getRecentAuctions() {
 
 async function getAuctionsCategoryCount() {
     try {
-        return await Auction.aggregate([{
-            $group: {
-                _id: '$Category',
-                count: { $sum: 1 }
+        const currentDate = new Date();
+        const result = await Category.aggregate([
+            {
+                $lookup: {
+                    from: "auctions",
+                    localField: "_id",
+                    foreignField: "categoryId",
+                    pipeline: [
+                        {
+                            $match: {
+                                $and: [
+                                    { isCompleted: false },
+                                    { endDate: { $gt: currentDate } }
+                                ]
+                            }
+                        }
+                    ],
+                    as: "auctions"
+                }
+            },
+            {
+                $project: {
+                    category: "$name",
+                    numberOfAuctions: { $size: "$auctions" }
+                }
             }
-        }
-        ]);;
+        ]);
+
+        // Debug log
+        // console.log('Current date:', currentDate);
+        // console.log('Query result:', JSON.stringify(result, null, 2));
+
+        return result;
+
     } catch (error) {
-        console.error(error);
+        console.error('Error in getAuctionsCategoryCount:', error);
         return [];
     }
 }
+
 
 module.exports = {
     getAllAuctions,
