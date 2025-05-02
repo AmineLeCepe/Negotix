@@ -325,17 +325,3 @@ app.listen(port, () => {
 
 // routes/productRoutes.js or similar
 
-async function getAuctionsCategoryCount() {
-    try {
-        return await Auction.aggregate([{
-            $group: {
-              _id: '$Category',
-              count: { $sum: 1 }
-            }
-          }
-        ]);;
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
