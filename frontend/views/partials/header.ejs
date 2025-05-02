@@ -7,9 +7,9 @@
     <title>Header Component</title>
 </head>
 <body>
-    <div class="top-bar">
+    <div class="top-bar <%= locals.isListingsPage ? 'listings-header' : '' %>">
         <div class="logo-container">
-            <img class="logo-1-icon" alt="Negotix" src="assets/logo.png">
+            <img class="logo-1-icon" alt="Negotix" src="<%= locals.isListingsPage ? 'assets/logo-white.png' : 'assets/logo.png' %>">
             <div class="order-dropdown">
                 <div class="order-items">
                     <div class="menu-link order-item" data-product="moctezuma-hoodie">
