@@ -2,6 +2,7 @@
 Bidding website project for UBMA computer science engineers in second year.
 
 # How to run
+Prerequisites: [Node.js](https://nodejs.org/en)
 - After cloning the repository, run the following:
     1. ```cd Negotix/backend```
     2. ```npm install```
