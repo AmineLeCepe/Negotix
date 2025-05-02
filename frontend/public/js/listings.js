@@ -20,22 +20,99 @@ function handleSort(event) {
     renderProducts(sortedProducts);
 }
 
-// Function to handle category selection
+// Enhanced click handlers with better event delegation
 function handleCategorySelect(event) {
-    if (event.target.tagName === 'LI') {
-        const categories = document.querySelectorAll('.categories li');
-        categories.forEach(category => category.classList.remove('active'));
-        event.target.classList.add('active');
-    }
+    const li = event.target.closest('li');
+    if (!li) return;
+
+    console.log('Category clicked');
+    
+    // Remove active class from all categories
+    const categories = document.querySelectorAll('.categories li');
+    categories.forEach(category => category.classList.remove('active'));
+    
+    // Add active class to clicked category
+    li.classList.add('active');
+    
+    console.log('Selected category:', li.querySelector('span')?.textContent);
+    
+    filterProducts();
 }
 
-// Function to handle price filter selection
 function handlePriceSelect(event) {
-    if (event.target.tagName === 'LI') {
-        const prices = document.querySelectorAll('.price-filter li');
-        prices.forEach(price => price.classList.remove('active'));
-        event.target.classList.add('active');
+    const li = event.target.closest('li');
+    if (!li) return;
+
+    console.log('Price range clicked');
+    
+    // Remove active class from all price ranges
+    const prices = document.querySelectorAll('.price-filter li');
+    prices.forEach(price => price.classList.remove('active'));
+    
+    // Add active class to clicked price range
+    li.classList.add('active');
+    
+    console.log('Selected price range:', li.querySelector('span:first-child')?.textContent);
+    
+    filterProducts();
+}
+
+function filterProducts() {
+    console.log('Filter Products Called');
+    const productCards = document.querySelectorAll('.product-card');
+    const selectedCategoryEl = document.querySelector('.categories li.active span');
+    const selectedPriceEl = document.querySelector('.price-filter li.active span:first-child');
+    
+    console.log('Number of product cards found:', productCards.length);
+    console.log('Selected category element:', selectedCategoryEl);
+    console.log('Selected price element:', selectedPriceEl);
+
+    if (!selectedCategoryEl || !selectedPriceEl) {
+        console.warn('Missing category or price elements');
+        return;
     }
+
+    const selectedCategory = selectedCategoryEl.textContent.toLowerCase();
+    const selectedPriceRange = selectedPriceEl.textContent;
+
+    console.log('Selected category:', selectedCategory);
+    console.log('Selected price range:', selectedPriceRange);
+
+    productCards.forEach(card => {
+        // Get category from data attribute instead of class
+        const cardCategory = card.getAttribute('data-category')?.toLowerCase() || '';
+        const priceElement = card.querySelector('.price span');
+        const price = priceElement ? parseInt(priceElement.textContent.replace('DA', '').trim()) : 0;
+        
+        console.log('Card category:', cardCategory);
+        console.log('Card price:', price);
+
+        let matchesCategory = selectedCategory === 'all' || cardCategory === selectedCategory;
+        let matchesPrice = true;
+
+        if (selectedPriceRange !== 'All') {
+            if (selectedPriceRange === '0DA - 1000DA') {
+                matchesPrice = price <= 1000;
+            } else if (selectedPriceRange === '1000 DA - 9000DA') {
+                matchesPrice = price > 1000 && price <= 9000;
+            } else if (selectedPriceRange === '9000DA & Above') {
+                matchesPrice = price > 9000;
+            }
+        }
+
+        console.log('Matches category:', matchesCategory);
+        console.log('Matches price:', matchesPrice);
+
+        // Set display style
+        if (matchesCategory && matchesPrice) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    updateProductCount();
+    updatePriceRangeCounts();
 }
 
 // Function to handle pagination
@@ -49,52 +126,45 @@ function handlePagination(event) {
     }
 }
 
-// Function to count and update product cards
+// Update product count
 function updateProductCount() {
-    const productCards = document.querySelectorAll('.product-card');
+    const visibleProducts = document.querySelectorAll('.product-card:not([style*="display: none"])');
     const countElement = document.querySelector('.item-count-number');
     if (countElement) {
-        countElement.textContent = productCards.length;
+        countElement.textContent = visibleProducts.length;
     }
 }
 
-
-// Function to update price range counts
+// Update updatePriceRangeCounts to work with visible products only
 function updatePriceRangeCounts() {
-    const productCards = document.querySelectorAll('.product-card');
+    const visibleProducts = document.querySelectorAll('.product-card:not([style*="display: none"])');
     const priceFilterItems = document.querySelectorAll('.price-filter li');
     
-    // Initialize counters for each price range
     const priceRangeCounts = {
-        'All': productCards.length,
+        'All': visibleProducts.length,
         '0-1000': 0,
         '1000-9000': 0,
         '9000+': 0
     };
     
-    // Count products in each price range
-    productCards.forEach(card => {
+    visibleProducts.forEach(card => {
         const priceElement = card.querySelector('.price span');
-        if (priceElement) {
-            // Extract numeric price value (remove 'DA' and parse)
-            const price = parseInt(priceElement.textContent.replace('DA', '').trim());
-            
-            if (price <= 1000) {
-                priceRangeCounts['0-1000']++;
-            } else if (price <= 9000) {
-                priceRangeCounts['1000-9000']++;
-            } else {
-                priceRangeCounts['9000+']++;
-            }
+        const price = priceElement ? parseInt(priceElement.textContent.replace('DA', '').trim()) : 0;
+        
+        if (price <= 1000) {
+            priceRangeCounts['0-1000']++;
+        } else if (price <= 9000) {
+            priceRangeCounts['1000-9000']++;
+        } else {
+            priceRangeCounts['9000+']++;
         }
     });
     
-    // Update the count display for each price range
     priceFilterItems.forEach(item => {
-        const rangeText = item.querySelector('span:first-child').textContent;
+        const rangeText = item.querySelector('span:first-child')?.textContent;
         const countSpan = item.querySelector('.count');
         
-        if (countSpan) {
+        if (countSpan && rangeText) {
             if (rangeText === 'All') {
                 countSpan.textContent = priceRangeCounts['All'];
             } else if (rangeText === '0DA - 1000DA') {
@@ -108,33 +178,38 @@ function updatePriceRangeCounts() {
     });
 }
 
-// Update the DOMContentLoaded event listener to include all count updates
+// Update handlers to ensure proper initialization
 document.addEventListener('DOMContentLoaded', () => {
-    // Update all counts
-    updateProductCount();
-    updatePriceRangeCounts();
+    console.log('DOM Content Loaded');
+    
+    // Set initial active states
+    const firstCategory = document.querySelector('.categories li');
+    const firstPrice = document.querySelector('.price-filter li');
+    
+    if (firstCategory) {
+        firstCategory.classList.add('active');
+        console.log('Set initial category:', firstCategory.querySelector('span')?.textContent);
+    }
+    
+    if (firstPrice) {
+        firstPrice.classList.add('active');
+        console.log('Set initial price range:', firstPrice.querySelector('span:first-child')?.textContent);
+    }
 
     // Add event listeners
-    document.querySelector('.sort-dropdown select').addEventListener('change', handleSort);
-    document.querySelector('.categories').addEventListener('click', handleCategorySelect);
-    document.querySelector('.price-filter').addEventListener('click', handlePriceSelect);
-    document.querySelector('.pagination').addEventListener('click', handlePagination);
+    const categoriesContainer = document.querySelector('.categories');
+    const priceFilterContainer = document.querySelector('.price-filter');
 
-    // Add click event listeners to all bid buttons
-    document.querySelectorAll('.place-bid').forEach(button => {
-        button.addEventListener('click', () => {
-            // Add your bid logic here
-            alert('Bid placed successfully!');
-        });
-    });
+    if (categoriesContainer) {
+        categoriesContainer.addEventListener('click', handleCategorySelect);
+    }
 
-    // Add click event listeners to recently added bid buttons
-    document.querySelectorAll('.bid-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            // Add your bid logic here
-            alert('Bid placed successfully!');
-        });
-    });
+    if (priceFilterContainer) {
+        priceFilterContainer.addEventListener('click', handlePriceSelect);
+    }
+
+    // Initial filter
+    filterProducts();
 });
 
 // Function to update timers

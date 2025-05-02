@@ -73,7 +73,7 @@
 
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
-                <div class="product-card" data-category="<%= product.category %>">
+                <div class="product-card" data-category="<%- (product.categoryId?.name ?? '').toLowerCase() %>">
                     <img src="<%= product.image %>" alt="<%= product.title %>">
                     <div class="product-info">
                         <h3><%= product.title %></h3>
