@@ -327,4 +327,4 @@ app.listen(port, () => {
 
 // routes/productRoutes.js or similar
 
-getAuctionsCategoryCount().then(count => console.log(count));
+// getAuctionsCategoryCount().then(count => console.log(count));
