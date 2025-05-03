@@ -3,32 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Negotix - Your Negotiation Platform</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Header Component</title>
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-container">
-            <div class="logo">
-                <a href="/">
-                    <img src="/assets/logo.svg" alt="Negotix Logo">
-                </a>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/listings">Listings</a></li>
-                    <li><a href="/bidding">Bidding</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="user-actions">
-                <a href="/login" class="btn btn-login">Login</a>
-                <a href="/register" class="btn btn-register">Register</a>
+    <div class="top-bar <%= locals.isListingsPage ? 'listings-header' : '' %>">
+        <div class="logo-container">
+            <img class="logo-1-icon" alt="Negotix" src="<%= locals.isListingsPage ? 'assets/logo-white.png' : 'assets/logo.png' %>">
+            <div class="order-dropdown">
+                <div class="order-items">
+                    <div class="menu-link order-item" data-product="moctezuma-hoodie">
+                        <img src="assets/moctezuma-hoodie.jpg" alt="" class="order-img">
+                        <div class="order-info">
+                            <div class="order-title">Moctezuma's hoodie</div>
+                            <div class="order-details">
+                                <span>XXXX DA</span> · <span>Delivery: XXXX</span>
+                            </div>
+                        </div>
+                        <button class="delete-btn" aria-label="Delete item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="menu-link order-item" data-product="air-jordan">
+                        <img src="assets/air-jordan.jpg" alt="" class="order-img">
+                        <div class="order-info">
+                            <div class="order-title">Air Jordan 1 Esports</div>
+                            <div class="order-details">
+                                <span>XXXX DA</span> · <span>Delivery: XXXX</span>
+                            </div>
+                        </div>
+                        <button class="delete-btn" aria-label="Delete item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="menu-link order-item" data-product="tshirt-esports">
+                        <img src="assets/tshirt-esports.jpg" alt="" class="order-img">
+                        <div class="order-info">
+                            <div class="order-title">T-shirt Esports</div>
+                            <div class="order-details">
+                                <span>XXXX DA</span> · <span>Delivery: XXXX</span>
+                            </div>
+                        </div>
+                        <button class="delete-btn" aria-label="Delete item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="menu-divider"></div>
+                    <a href="/confirm-order" class="menu-link check-more">
+                        <span>Check More</span>
+                    </a>
+                </div>
             </div>
         </div>
-    </header>
+        <div class="browsing">
+              <div class="home">
+                    <a href="/" class="sing-upsing-in">Home</a>
+              </div>
+              <div class="about">
+                    <a href="/about" class="sing-upsing-in">About</a>
+              </div>
+              <div class="trending">
+                    <a href="/trending" class="sing-upsing-in">Trending</a>
+              </div>
+              <div class="contact">
+                    <a href="/contact" class="sing-upsing-in">Contact</a>
+              </div>
+              <div class="trending search-nav">
+                    <div class="search-container">
+                        <div class="sing-upsing-in search-btn">Search</div>
+                        <div class="search-box" style="display:none;">
+                            <input type="text" class="search-input" placeholder="Type to search...">
+                            <button class="search-submit">Go</button>
+                        </div>
+                    </div>
+              </div>
+        </div>
+        <div class="menu" style="position: relative;">
+              <div class="hamburger">
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+              </div>
+              <div class="menu-modal" style="display:none; position: absolute; right: 0; top: 100%; z-index: 1000;">
+                    <div class="menu-modal-content">
+                        <a href="/profile" class="menu-link">
+                            <svg class="menu-icon" viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                            </svg>
+                            Profile
+                        </a>
+                        <% if (locals.isAuthenticated) { %>
+                            <a href="/logout" class="menu-link">Log out</a>
+                        <% } else { %>
+                            <a href="/auth" class="menu-link">Authenticate</a>
+                        <% } %>
+                        <!--                        <a href="/logout" class="menu-link">Log out</a>-->
+                        <a href="/contact" class="menu-link">Contact us</a>
+                        <div class="menu-divider"></div>
+                        <div class="menu-footer">
+                            <div class="menu-footer-links">
+                                <a href="/privacy-policy">Privacy Policy</a>
+                                <span class="dot">•</span>
+                                <a href="/term">Terms of Service</a>
+                            </div>
+                            <div class="copyright">Negotix © 2025</div>
+                        </div>
+                    </div>
+              </div>
+        </div>
+  </div>
+    <script src="js/header.js"></script>
 </body>
-</html> 
+</html>

@@ -1,95 +1,3 @@
-// Sample product data
-// const products = [
-//     {
-//         id: 1,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "4m 5s"
-//     },
-//     {
-//         id: 2,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "21m 7s"
-//     },
-//     {
-//         id: 3,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "30m 10s"
-//     },
-//     {
-//         id: 4,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "41m 1s"
-//     },
-//     {
-//         id: 5,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "20m 3s"
-//     },
-//     {
-//         id: 6,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "11m 8s"
-//     },
-//     {
-//         id: 7,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "15m 5s"
-//     },
-//     {
-//         id: 8,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "30m 8s"
-//     },
-//     {
-//         id: 9,
-//         name: "XXXXXXXX",
-//         price: "2400 DA",
-//         image: "assets/shirt.webp",
-//         timeLeft: "30m 8s"
-//     }
-// ];
-
-// Function to create a product card
-// function createProductCard(product) {
-//     return `
-//         <div class="product-card">
-//             <img src="${product.image}" alt="${product.name}">
-//             <div class="product-info">
-//                 <h3>${product.name}</h3>
-//                 <div class="price">
-//                     <img src="assets/wish_list.webp" alt="Wishlist" style="width: 20px; height: 20px;">
-//                     <span>${product.price}</span>
-//                 </div>
-//                 <div class="timer">${product.timeLeft}</div>
-//                 <button class="place-bid">Place Bid</button>
-//             </div>
-//         </div>
-//     `;
-// }
-
-// Function to render products
-// function renderProducts(productsToRender = products) {
-//     const productsGrid = document.getElementById('productsGrid');
-//     productsGrid.innerHTML = productsToRender.map(product => createProductCard(product)).join('');
-// }
-
-// Function to handle sorting
 function handleSort(event) {
     const sortValue = event.target.value;
     let sortedProducts = [...products];
@@ -112,22 +20,99 @@ function handleSort(event) {
     renderProducts(sortedProducts);
 }
 
-// Function to handle category selection
+// Enhanced click handlers with better event delegation
 function handleCategorySelect(event) {
-    if (event.target.tagName === 'LI') {
-        const categories = document.querySelectorAll('.categories li');
-        categories.forEach(category => category.classList.remove('active'));
-        event.target.classList.add('active');
-    }
+    const li = event.target.closest('li');
+    if (!li) return;
+
+    console.log('Category clicked');
+    
+    // Remove active class from all categories
+    const categories = document.querySelectorAll('.categories li');
+    categories.forEach(category => category.classList.remove('active'));
+    
+    // Add active class to clicked category
+    li.classList.add('active');
+    
+    console.log('Selected category:', li.querySelector('span')?.textContent);
+    
+    filterProducts();
 }
 
-// Function to handle price filter selection
 function handlePriceSelect(event) {
-    if (event.target.tagName === 'LI') {
-        const prices = document.querySelectorAll('.price-filter li');
-        prices.forEach(price => price.classList.remove('active'));
-        event.target.classList.add('active');
+    const li = event.target.closest('li');
+    if (!li) return;
+
+    console.log('Price range clicked');
+    
+    // Remove active class from all price ranges
+    const prices = document.querySelectorAll('.price-filter li');
+    prices.forEach(price => price.classList.remove('active'));
+    
+    // Add active class to clicked price range
+    li.classList.add('active');
+    
+    console.log('Selected price range:', li.querySelector('span:first-child')?.textContent);
+    
+    filterProducts();
+}
+
+function filterProducts() {
+    console.log('Filter Products Called');
+    const productCards = document.querySelectorAll('.product-card');
+    const selectedCategoryEl = document.querySelector('.categories li.active span');
+    const selectedPriceEl = document.querySelector('.price-filter li.active span:first-child');
+    
+    console.log('Number of product cards found:', productCards.length);
+    console.log('Selected category element:', selectedCategoryEl);
+    console.log('Selected price element:', selectedPriceEl);
+
+    if (!selectedCategoryEl || !selectedPriceEl) {
+        console.warn('Missing category or price elements');
+        return;
     }
+
+    const selectedCategory = selectedCategoryEl.textContent.toLowerCase();
+    const selectedPriceRange = selectedPriceEl.textContent;
+
+    console.log('Selected category:', selectedCategory);
+    console.log('Selected price range:', selectedPriceRange);
+
+    productCards.forEach(card => {
+        // Get category from data attribute instead of class
+        const cardCategory = card.getAttribute('data-category')?.toLowerCase() || '';
+        const priceElement = card.querySelector('.price span');
+        const price = priceElement ? parseInt(priceElement.textContent.replace('DA', '').trim()) : 0;
+        
+        console.log('Card category:', cardCategory);
+        console.log('Card price:', price);
+
+        let matchesCategory = selectedCategory === 'all' || cardCategory === selectedCategory;
+        let matchesPrice = true;
+
+        if (selectedPriceRange !== 'All') {
+            if (selectedPriceRange === '0DA - 1000DA') {
+                matchesPrice = price <= 1000;
+            } else if (selectedPriceRange === '1000 DA - 9000DA') {
+                matchesPrice = price > 1000 && price <= 9000;
+            } else if (selectedPriceRange === '9000DA & Above') {
+                matchesPrice = price > 9000;
+            }
+        }
+
+        console.log('Matches category:', matchesCategory);
+        console.log('Matches price:', matchesPrice);
+
+        // Set display style
+        if (matchesCategory && matchesPrice) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    updateProductCount();
+    updatePriceRangeCounts();
 }
 
 // Function to handle pagination
@@ -141,52 +126,127 @@ function handlePagination(event) {
     }
 }
 
-// Initialize the page
-document.addEventListener('DOMContentLoaded', () => {
-    // Render initial products
-    renderProducts();
+// Update product count
+function updateProductCount() {
+    const visibleProducts = document.querySelectorAll('.product-card:not([style*="display: none"])');
+    const countElement = document.querySelector('.item-count-number');
+    if (countElement) {
+        countElement.textContent = visibleProducts.length;
+    }
+}
 
-    // Add event listeners
-    document.querySelector('.sort-dropdown select').addEventListener('change', handleSort);
-    document.querySelector('.categories').addEventListener('click', handleCategorySelect);
-    document.querySelector('.price-filter').addEventListener('click', handlePriceSelect);
-    document.querySelector('.pagination').addEventListener('click', handlePagination);
-
-    // Add click event listeners to all bid buttons
-    document.querySelectorAll('.place-bid').forEach(button => {
-        button.addEventListener('click', () => {
-            // Add your bid logic here
-            alert('Bid placed successfully!');
-        });
-    });
-
-    // Add click event listeners to recently added bid buttons
-    document.querySelectorAll('.bid-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            // Add your bid logic here
-            alert('Bid placed successfully!');
-        });
-    });
-});
-
-// Function to update timers
-function updateTimers() {
-    const timerElements = document.querySelectorAll('.timer');
-    timerElements.forEach(timer => {
-        let [minutes, seconds] = timer.textContent.split('m ');
-        seconds = parseInt(seconds);
-        minutes = parseInt(minutes);
-
-        if (seconds > 0) {
-            seconds--;
-        } else if (minutes > 0) {
-            minutes--;
-            seconds = 59;
+// Update updatePriceRangeCounts to work with visible products only
+function updatePriceRangeCounts() {
+    const visibleProducts = document.querySelectorAll('.product-card:not([style*="display: none"])');
+    const priceFilterItems = document.querySelectorAll('.price-filter li');
+    
+    const priceRangeCounts = {
+        'All': visibleProducts.length,
+        '0-1000': 0,
+        '1000-9000': 0,
+        '9000+': 0
+    };
+    
+    visibleProducts.forEach(card => {
+        const priceElement = card.querySelector('.price span');
+        const price = priceElement ? parseInt(priceElement.textContent.replace('DA', '').trim()) : 0;
+        
+        if (price <= 1000) {
+            priceRangeCounts['0-1000']++;
+        } else if (price <= 9000) {
+            priceRangeCounts['1000-9000']++;
+        } else {
+            priceRangeCounts['9000+']++;
         }
-
-        timer.textContent = `${minutes}m ${seconds}s`;
+    });
+    
+    priceFilterItems.forEach(item => {
+        const rangeText = item.querySelector('span:first-child')?.textContent;
+        const countSpan = item.querySelector('.count');
+        
+        if (countSpan && rangeText) {
+            if (rangeText === 'All') {
+                countSpan.textContent = priceRangeCounts['All'];
+            } else if (rangeText === '0DA - 1000DA') {
+                countSpan.textContent = priceRangeCounts['0-1000'];
+            } else if (rangeText === '1000 DA - 9000DA') {
+                countSpan.textContent = priceRangeCounts['1000-9000'];
+            } else if (rangeText === '9000DA & Above') {
+                countSpan.textContent = priceRangeCounts['9000+'];
+            }
+        }
     });
 }
 
-// Update timers every second
+// Update handlers to ensure proper initialization
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded');
+    
+    // Set initial active states
+    const firstCategory = document.querySelector('.categories li');
+    const firstPrice = document.querySelector('.price-filter li');
+    
+    if (firstCategory) {
+        firstCategory.classList.add('active');
+        console.log('Set initial category:', firstCategory.querySelector('span')?.textContent);
+    }
+    
+    if (firstPrice) {
+        firstPrice.classList.add('active');
+        console.log('Set initial price range:', firstPrice.querySelector('span:first-child')?.textContent);
+    }
+
+    // Add event listeners
+    const categoriesContainer = document.querySelector('.categories');
+    const priceFilterContainer = document.querySelector('.price-filter');
+
+    if (categoriesContainer) {
+        categoriesContainer.addEventListener('click', handleCategorySelect);
+    }
+
+    if (priceFilterContainer) {
+        priceFilterContainer.addEventListener('click', handlePriceSelect);
+    }
+
+    // Initial filter
+    filterProducts();
+});
+
+// Function to update timers
+function formatTimer(milliseconds) {
+    const seconds = Math.floor((milliseconds / 1000) % 60);
+    const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+    const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
+
+    return `${days}D ${hours}H ${minutes}M ${seconds}S`;
+}
+
+function updateTimers() {
+    const timerElements = document.querySelectorAll('.timer');
+
+    timerElements.forEach(timer => {
+        // Get the milliseconds from data attribute, or from content if not yet set
+        let milliseconds = timer.dataset.milliseconds
+            ? parseInt(timer.dataset.milliseconds)
+            : parseInt(timer.textContent);
+
+        if (milliseconds <= 0) {
+            timer.textContent = '0D 0H 0M 0S';
+            return;
+        }
+
+        // Store the updated milliseconds in a data attribute
+        milliseconds -= 1000;
+        timer.dataset.milliseconds = milliseconds;
+
+        // Display the formatted time
+        timer.textContent = formatTimer(milliseconds);
+    });
+}
+
+// Start the timer update interval
 setInterval(updateTimers, 1000);
+
+// Initial call to format timers immediately
+updateTimers();

@@ -1,0 +1,220 @@
+body, html {
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+}
+body {
+  background: #f7f7fa;
+}
+.checkout-container {
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+  padding: 32px 24px 0 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+.checkout-main {
+  width: 100%;
+}
+.checkout-title {
+  color: #280137;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.checkout-steps {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 32px;
+  color: #b3b3c6;
+  font-size: 1.1rem;
+}
+.checkout-steps .active {
+  color: #280137;
+  font-weight: 700;
+}
+.checkout-content {
+  display: flex;
+  gap: 40px;
+}
+.order-list {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #6c63ff #e5e7eb;
+}
+.order-list::-webkit-scrollbar {
+  width: 8px;
+}
+.order-list::-webkit-scrollbar-thumb {
+  background: #6c63ff;
+  border-radius: 8px;
+}
+.order-list::-webkit-scrollbar-track {
+  background: #e5e7eb;
+  border-radius: 8px;
+}
+.order-card {
+  display: flex;
+  align-items: center;
+  background: #280137;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px 32px;
+  position: relative;
+  gap: 24px;
+  color: #fff;
+}
+.order-card.green { border-left: 10px solid #a3e635; }
+.order-card.blue { border-left: 10px solid #60a5fa; }
+.order-card.red { border-left: 10px solid #f87171; }
+.order-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.order-details {
+  flex: 1;
+}
+.order-details h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #fff !important;
+}
+.order-details ul {
+  margin: 0 0 2px 0;
+  padding: 0 0 0 18px;
+  font-size: 0.98rem;
+  color: #fff !important;
+}
+.order-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff !important;
+  margin-left: 18px;
+}
+.order-delete {
+  background: #ede9fe;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 18px;
+  transition: background 0.2s;
+}
+.order-delete:hover {
+  background: #c7d2fe;
+}
+.order-delete img {
+  width: 18px;
+  height: 18px;
+}
+.back-to-store {
+  display: inline-block;
+  margin-top: 12px;
+  color: #280137;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+.checkout-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.shipping-address, .summary-box {
+  background: #f3f3f7;
+  border-radius: 14px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.shipping-address h4, .summary-box h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #280137;
+}
+.shipping-address label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #444;
+}
+.add-address,
+.pay-btn,
+.confirm-btn {
+  background: #280137 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 0;
+  font-size: 1.18rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  letter-spacing: 0.5px;
+}
+.add-address:hover,
+.pay-btn:hover,
+.confirm-btn:hover {
+  background: #3a0254 !important;
+  color: #fff !important;
+}
+.summary-box {
+  margin-top: 12px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.summary-row.total {
+  font-weight: 700;
+  color: #280137;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+.terms {
+  font-size: 0.92rem;
+  color: #888;
+  margin: 10px 0 16px 0;
+}
+@media (max-width: 900px) {
+  .checkout-content {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .checkout-side {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .checkout-container {
+    padding: 8px 2px 0 2px;
+  }
+  .order-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px 10px;
+  }
+  .checkout-side {
+    flex-direction: column;
+    gap: 12px;
+  }
+} 

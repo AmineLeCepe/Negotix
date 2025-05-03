@@ -489,3 +489,12 @@ body {
         justify-content: center;
     }
 }
+
+.listings-header .browsing a,
+.listings-header .browsing .sing-upsing-in {
+    color: white;
+}
+.listings-header .hamburger .hamburger-line {
+    background-color: white;
+}
+

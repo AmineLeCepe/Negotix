@@ -28,7 +28,6 @@ body {
     padding: 0.5rem 2rem;
     background-color: var(--white);
     height: 60px;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .logo img {
