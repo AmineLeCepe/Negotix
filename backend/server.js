@@ -70,11 +70,6 @@ app.use((err, req, res, next) => {
         error: process.env.NODE_ENV === 'development' ? err : {}
     });
 });
-// Remove or move this middleware:
-// app.use((req, res, next) => {
-//     res.locals.user = req.user;
-//     next();
-// });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -84,24 +79,15 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
-// Then, after session, passport.initialize, and passport.session:
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-    // Make auth status and full user info available to all views.
     res.locals.isAuthenticated = req.isAuthenticated();
     res.locals.user = req.user;
     next();
 });
-
-// Console log logged in user on every request
-// app.use((req, res, next) => {
-//     if (req.isAuthenticated()) {
-//         console.log("User from session:", req.user);
-//     }
-//     next();
-// });
 
 // API endpoints
 /// GET requests
@@ -342,3 +328,11 @@ app.listen(port, () => {
 // routes/productRoutes.js or similar
 
 // getAllAuctions().then(auctions => console.log(auctions));
+
+// Console log logged in user on every request
+// app.use((req, res, next) => {
+//     if (req.isAuthenticated()) {
+//         console.log("User from session:", req.user);
+//     }
+//     next();
+// });
