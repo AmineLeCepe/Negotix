@@ -152,6 +152,16 @@ app.get('/test', (req, res) => {
     res.render('test', {title: 'Test'});
 })
 
+// GET requests (admin section)
+app.get('/admin', checkAuthenticated, (req, res) => {
+    if (req.user && req.user.isAdmin) {
+        res.render('admin', { title: 'Admin' });
+    } else {
+        res.redirect('/');
+    }
+});
+
+
 /// POST requests
 app.post('/auth', async (req, res, next) => {
     try {

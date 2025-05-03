@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="/css/header.css">
     <title>Header Component</title>
 </head>
 <body>
     <div class="top-bar <%= locals.isListingsPage ? 'listings-header' : '' %>">
         <div class="logo-container">
-            <img class="logo-1-icon" alt="Negotix" src="<%= locals.isListingsPage ? 'assets/logo-white.png' : 'assets/logo.png' %>">
+            <img class="logo-1-icon" alt="Negotix" src="<%= locals.isListingsPage ? '/assets/logo-white.png' : '/assets/logo.png' %>">
             <div class="order-dropdown">
                 <div class="order-items">
                     <div class="menu-link order-item" data-product="moctezuma-hoodie">
-                        <img src="assets/moctezuma-hoodie.jpg" alt="" class="order-img">
+                        <img src="/assets/moctezuma-hoodie.jpg" alt="" class="order-img">
                         <div class="order-info">
                             <div class="order-title">Moctezuma's hoodie</div>
                             <div class="order-details">
