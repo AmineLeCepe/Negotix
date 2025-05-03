@@ -70,10 +70,11 @@ app.use((err, req, res, next) => {
         error: process.env.NODE_ENV === 'development' ? err : {}
     });
 });
-app.use((req, res, next) => {
-    res.locals.user = req.user;
-    next();
-});
+// Remove or move this middleware:
+// app.use((req, res, next) => {
+//     res.locals.user = req.user;
+//     next();
+// });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -83,15 +84,24 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
+// Then, after session, passport.initialize, and passport.session:
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use((req, res, next) => {
-    // Make auth status and user info available to all views
+    // Make auth status and full user info available to all views.
     res.locals.isAuthenticated = req.isAuthenticated();
     res.locals.user = req.user;
     next();
 });
 
+// Console log logged in user on every request
+// app.use((req, res, next) => {
+//     if (req.isAuthenticated()) {
+//         console.log("User from session:", req.user);
+//     }
+//     next();
+// });
 
 // API endpoints
 /// GET requests
@@ -178,7 +188,7 @@ app.post('/auth', async (req, res, next) => {
                         });
                     }
 
-                    // Manual login using req.logIn
+                    // Inside the passport.authenticate callback in the '/auth' POST route
                     req.logIn(user, (err) => {
                         if (err) {
                             console.error('Login error:', err);
@@ -188,14 +198,16 @@ app.post('/auth', async (req, res, next) => {
                             });
                         }
 
-                        // Return success JSON response
+                        // Return success JSON response with isAdmin included
                         return res.status(200).json({
                             success: true,
                             message: 'Login successful',
                             redirectUrl: '/listings',
                             user: {
+                                id: user._id,
                                 username: user.username,
-                                email: user.email
+                                email: user.email,
+                                isAdmin: user.isAdmin
                             }
                         });
                     });
@@ -251,8 +263,10 @@ app.post('/auth', async (req, res, next) => {
                             message: 'Registration successful',
                             redirectUrl: '/listings',
                             user: {
+                                id: newUser._id,
                                 username: newUser.username,
-                                email: newUser.email
+                                email: newUser.email,
+                                isAdmin: newUser.isAdmin  // make sure to pass this field
                             }
                         });
                     });
@@ -327,4 +341,4 @@ app.listen(port, () => {
 
 // routes/productRoutes.js or similar
 
-getAllAuctions().then(auctions => console.log(auctions));
+// getAllAuctions().then(auctions => console.log(auctions));
