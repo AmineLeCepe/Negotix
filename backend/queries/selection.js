@@ -1,6 +1,7 @@
 const Auction = require('../models/auctionModel');
 const Category = require('../models/categoryModel');
 const mongoose = require('mongoose');
+const Bid = require('../models/bidModel');
 
 // Gets all auctions from the database
 async function getAllAuctions() {
@@ -75,9 +76,54 @@ async function getAuctionsCategoryCount() {
     }
 }
 
+async function newBid(price, userId, auctionId) {
+    try {
+        const existingBid = await Bid.findOne({ userId, auctionId });
+
+        const auction = await Auction.findById(auctionId);
+        if (!auction) {
+            console.log("Auction not found.");
+            return null;
+        }
+
+        const startingPrice = auction.startingPrice;
+
+
+        if (!existingBid) {
+            if(price >= startingPrice){
+                const newBid = await Bid.create({userId, auctionId, amount : price})
+                console.log("You have never set a bid for this auction, a new one has been created.");
+                return newBid;
+            }
+          else {
+            console.log("Initial bid must be higher than the starting price.");
+            return null;
+        }
+        }
+
+        const newPrice = existingBid.amount;
+
+        if (price - newPrice >= 500) {
+            existingBid.amount = price;
+            await existingBid.save();
+            console.log("Bid updated successfully.");
+            return existingBid;
+        } else {
+            console.log("New price should be at least 500 DA higher than the previous bid.");
+            return null;
+        }
+
+    } catch (error) {
+        console.error("Error updating bid:", error);
+        return null;
+    }
+}
+
+
 
 module.exports = {
     getAllAuctions,
     getRecentAuctions,
     getAuctionsCategoryCount,
+    newBid,
 };

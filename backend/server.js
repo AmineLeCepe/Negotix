@@ -31,7 +31,7 @@ const Review = require('./models/reviewModel');
 const Category = require('./models/categoryModel');
 
 // Queries imports
-const { getAllAuctions, getRecentAuctions, getAuctionsCategoryCount } = require('./queries/selection');
+const { getAllAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid } = require('./queries/selection');
 
 
 // App config
@@ -293,7 +293,25 @@ app.post('/logout', (req, res) => {
     });
 });
 
+app.get('/', (req, res) => {
+    res.render('listings')}); 
+  ;
 
+app.post('/place-bid', async (req, res, next) => {
+    {console.log(req.body)};
+    const { price, userId, auctionId } = req.body;
+    try {
+        const bidResult = await newBid(price, userId, auctionId);
+        if(bidResult)
+            {res.send('Bid submitted successfully.');
+        } else {
+            res.status(400).send('Bid not accepted. Must be at least 500 DA higher than your previous bid or starting price.');};
+        
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error processing bid.');
+      }
+    });
 // 404 route
 app.use((req, res) => {
     res.status(404).render('404', {

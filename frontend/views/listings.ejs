@@ -77,7 +77,7 @@
 
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
-                <div class="product-card" data-category="<%- (product.categoryId?.name ?? '').toLowerCase() %>">
+                <div class="product-card" data-category="<%- (product.categoryId?.name ?? '').toLowerCase() %>" data-bid-id="<%= product._id %>">
                     <img src="<%= product.image %>" alt="<%= product.title %>">
                     <div class="product-info">
                         <h3><%= product.title %></h3>
@@ -87,6 +87,7 @@
                         </div>
                         <div class="timer"><%= product.endDate - product.creationDate %></div>
                         <button class="place-bid">Place Bid</button>
+  
                     </div>
                 </div>
             <% }); %>

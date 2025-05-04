@@ -135,3 +135,26 @@ function initializeChat() {
     // Add initial support message
     addMessage('Welcome to our live chat support! How can we help you today?', 'support');
 } 
+/*const axios = require('axios');
+
+async function callChatGPT(userMessage) {
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-3.5-turbo', // or 'gpt-4' if you have access
+        messages: [
+          { role: 'system', content: 'You are a helpful assistant for a restaurant website.' },
+          { role: 'user', content: userMessage }
+        ]
+      },
+      {
+        headers: {
+          'Authorization': `Bearer YOUR_API_KEY_HERE`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+  
+    return response.data.choices[0].message.content;
+  }
+  
