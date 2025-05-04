@@ -148,6 +148,9 @@ app.get('/profile', checkAuthenticated, (req, res) => {
 app.get('/my-bids', checkAuthenticated, (req, res) => {
     res.render('my-bids', { title: 'My Bids', user: req.user });
 }); // TODO
+app.get('/checkout', checkAuthenticated, (req, res) => {
+    res.render('checkout', { title: 'Checkout', user: req.user });
+});
 app.get('/test', (req, res) => {
     res.render('test', {title: 'Test'});
 })
@@ -294,8 +297,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('listings')}); 
-  ;
+    res.redirect('/listings')});
 
 app.post('/place-bid', async (req, res, next) => {
     {console.log(req.body)};
