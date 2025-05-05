@@ -78,16 +78,21 @@ async function getAuctionsCategoryCount() {
 
 async function newBid(price, userId, auctionId) {
     try {
-        const existingBid = await Bid.findOne({ userId, auctionId });
 
+        if (!userId || !auctionId) {
+            console.log("Missing user or auction information.");
+            return null;
+        }        
         const auction = await Auction.findById(auctionId);
-        if (!auction) {
-            console.log("Auction not found.");
+        if(!auction){
+            console.log("Auction cannot be found.");
             return null;
         }
+        const existingBid = await Bid.findOne({ userId, auctionId });
 
         const startingPrice = auction.startingPrice;
 
+        
 
         if (!existingBid) {
             if(price >= startingPrice){

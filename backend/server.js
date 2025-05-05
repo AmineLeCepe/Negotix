@@ -78,6 +78,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {maxAge: 1000*60*60*24*7}
 }));
 
 app.use(passport.initialize());
@@ -154,6 +155,10 @@ app.get('/checkout', checkAuthenticated, (req, res) => {
 app.get('/test', (req, res) => {
     res.render('test', {title: 'Test'});
 })
+
+app.get('/listings', (req, res) => {
+    res.render('listings', { user: req.user });
+});
 
 // GET requests (admin section)
 app.get('/admin', checkAuthenticated, (req, res) => {
@@ -300,16 +305,18 @@ app.get('/', (req, res) => {
     res.redirect('/listings')});
 
 app.post('/place-bid', async (req, res, next) => {
+    
     {console.log(req.body)};
-    const { price, userId, auctionId } = req.body;
+    const { price, auctionId } = req.body;
+    const userId = req.user?._id;
+
     try {
         const bidResult = await newBid(price, userId, auctionId);
-        if(bidResult)
-            {res.send('Bid submitted successfully.');
+        if(bidResult){
+            return res.send(`Bid placed successfully`);
         } else {
-            res.status(400).send('Bid not accepted. Must be at least 500 DA higher than your previous bid or starting price.');};
-        
-      } catch (err) {
+            return res.send(`Bid not accepted. Must be at least 500 DA higher than your previous bid or starting price.`);
+      }} catch (err) {
         console.error(err);
         res.status(500).send('Error processing bid.');
       }

@@ -292,7 +292,36 @@ body {
         display: none;
     }
 }
+p.login-warning {
+    color: red;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    text-align: center;
+}
+.priceAmount {
+    margin-left: 5%;
+    color: rgb(252, 252, 252);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: hsl(271, 55%, 24%);
+    width: 210px;
+    border-radius: 11px;
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
 
+.priceAmount::-webkit-outer-spin-button, .priceAmount::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input::placeholder{
+    color: #6655CD;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: italic;
+}
 /* Footer Styles */
 .footer {
     background-color: white;
