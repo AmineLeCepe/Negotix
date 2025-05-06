@@ -111,6 +111,7 @@ async function newBid(price, userId, auctionId) {
         if (price - newPrice >= 500) {
             existingBid.amount = price;
             await existingBid.save();
+            await Auction.findByIdAndUpdate(auctionId , {latestPrice: price});
             console.log("Bid updated successfully.");
             return existingBid;
         } else {
