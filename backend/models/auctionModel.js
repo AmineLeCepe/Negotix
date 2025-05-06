@@ -54,6 +54,11 @@ const auctionSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true,
+    },
+    isPaidFor: {
+        type: Boolean,
+        default: false,
+        required: true,
     }
 });
 
