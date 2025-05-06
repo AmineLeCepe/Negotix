@@ -91,6 +91,9 @@ app.use((req, res, next) => {
 
 // API endpoints
 /// GET requests
+app.get('/', (req, res) => {
+    res.render('index')
+})
 app.get('/listings', async (req, res) => {
     // This is sample data - you would typically fetch this from your database
     try {
@@ -296,8 +299,6 @@ app.post('/logout', (req, res) => {
     });
 });
 
-app.get('/', (req, res) => {
-    res.redirect('/listings')});
 
 app.post('/place-bid', async (req, res, next) => {
     {console.log(req.body)};

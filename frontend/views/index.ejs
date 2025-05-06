@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Negotix - Thrilling Auctions & Unbeatable Deals</title>
+  <link rel="stylesheet" href="/css/index.css" />
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <section class="hero">
+    <div class="container hero__container">
+      <div class="hero__text">
+        <h1>Welcome to Negotix<br><span>Your go-to destination for thrilling auction and unbeatable deals!</span></h1>
+        <a href="#recent" class="btn btn--primary">Start Bidding</a>
+      </div>
+      <div class="hero__images">
+        <img src="/assets/people-about.png" alt="People About" class="hero__img-main" />
+        <img src="/assets/card2.png" alt="Card" class="hero__img-card" />
+      </div>
+    </div>
+  </section>
+
+  <section class="search-section">
+    <div class="container">
+      <form class="search-form">
+        <input type="text" placeholder="Search auctions, items, or users..." class="search-input" />
+        <select class="search-filter">
+          <option value="">Category</option>
+          <option>Electronics</option>
+          <option>Fashion</option>
+          <option>Collectibles</option>
+          <option>Home</option>
+        </select>
+        <select class="search-filter">
+          <option value="">Sort by</option>
+          <option value="date">Date</option>
+          <option value="price">Price</option>
+          <option value="popularity">Popularity</option>
+        </select>
+        <button type="submit" class="btn btn--primary">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="auctions-section" id="recent">
+    <div class="container">
+      <h2>Recent Auctions</h2>
+      <div class="auctions-list">
+        <% const recentAuctions = [
+          {img: '/assets/card2.png', title: 'Vintage Card', price: 120, deadline: Date.now() + 3600000},
+          {img: '/assets/msg-guy.png', title: 'Message Guy', price: 80, deadline: Date.now() + 5400000},
+          {img: '/assets/girl-shop.png', title: 'Shopping Girl', price: 45, deadline: Date.now() + 900000}
+        ]; %>
+        <% recentAuctions.forEach(function(auction, idx) { %>
+          <div class="auction-card">
+            <img src="<%= auction.img %>" alt="<%= auction.title %>" class="auction-card__img" />
+            <div class="auction-card__body">
+              <h3 class="auction-card__title"><%= auction.title %></h3>
+              <p class="auction-card__price">$<%= auction.price %></p>
+              <div class="auction-card__timer" data-deadline="<%= auction.deadline %>" id="recent-timer-<%= idx %>">Loading...</div>
+              <a href="#" class="btn btn--view">View</a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="auctions-section" id="most-viewed">
+    <div class="container">
+      <h2>Most Viewed Auctions</h2>
+      <div class="auctions-list">
+        <% const viewedAuctions = [
+          {img: '/assets/delivery-guy.png', title: 'Delivery Guy', price: 200, deadline: Date.now() + 7200000},
+          {img: '/assets/contact-guy.png', title: 'Contact Guy', price: 150, deadline: Date.now() + 1800000},
+        ]; %>
+        <% viewedAuctions.forEach(function(auction, idx) { %>
+          <div class="auction-card">
+            <img src="<%= auction.img %>" alt="<%= auction.title %>" class="auction-card__img" />
+            <div class="auction-card__body">
+              <h3 class="auction-card__title"><%= auction.title %></h3>
+              <p class="auction-card__price">$<%= auction.price %></p>
+              <div class="auction-card__timer" data-deadline="<%= auction.deadline %>" id="viewed-timer-<%= idx %>">Loading...</div>
+              <a href="#" class="btn btn--view">View</a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/footer') %>
+  <script src="js/index.js"></script>
+</body>
+</html>
