@@ -3,7 +3,7 @@ const Category = require('../models/categoryModel');
 const Wishlist = require('../models/wishlistModel');
 const mongoose = require('mongoose');
 
-async function insertAuction() {
+async function insertAuctionTemplate1() {
     try {
         Auction.insertMany([
             {
@@ -31,6 +31,29 @@ async function insertAuction() {
                 image: "https://cdn.discordapp.com/attachments/1355619011202777240/1363932868534866030/shoes2_1.webp?ex=6807d4f8&is=68068378&hm=f726353c659370744fd8479876bbda7740a48f876dfb8d5ff3eb6deb2187b38b&"
             },
         ])
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function insertAuctionTemplate2() {
+    try {
+        Auction.insertMany([
+            {
+                sellerId: new mongoose.Types.ObjectId('68050461ac9df5ecce3c9efe'),
+                title: 'Watches',
+                description: '3 apple watches',
+                categoryId: new mongoose.Types.ObjectId('68050799f736f109eaf6a29f'),
+                creationDate: new Date(2024-5-12),
+                startingPrice: 9000,
+                latestPrice: 9000,
+                endDate: new Date('2024-05-15'),
+                isPaidFor: false,
+                isCompleted: true,
+                highestBidId: new mongoose.Types.ObjectId('680d006c4de40da91edf83a4'),
+                image: "https://cdn.discordapp.com/attachments/1355619011202777240/1357784514960687285/watches.png?ex=681afe1e&is=6819ac9e&hm=8dafafb1091491bc0e0e3bbebf7358b1fa06d366005e13068699fb4168e92c1d&"
+            }
+        ]);
     } catch (e) {
         console.error(e);
     }
@@ -87,4 +110,4 @@ async function addToWishlist(userId, auctionId) {
     }
 }
 
-module.exports = { insertAuction, insertCategory, addToWishlist };
+module.exports = { insertAuctionTemplate1, insertCategory, addToWishlist, insertAuctionTemplate2 };

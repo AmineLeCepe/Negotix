@@ -31,8 +31,8 @@ const Review = require('./models/reviewModel');
 const Category = require('./models/categoryModel');
 
 // Queries imports
-const { getAllAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid } = require('./queries/selection');
-
+const { getAllAuctions, getActiveAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid } = require('./queries/selection');
+const { insertAuctionTemplate2 } = require('./queries/insertion');
 
 // App config
 const app = express();
@@ -98,7 +98,7 @@ app.get('/', (req, res) => {
 app.get('/listings', async (req, res) => {
     // This is sample data - you would typically fetch this from your database
     try {
-        const items = await getAllAuctions();
+        const items = await getActiveAuctions();
         const recentItems = await getRecentAuctions();
         const auctionsCategoryCount = await getAuctionsCategoryCount();
         // Render the EJS template and pass the item array

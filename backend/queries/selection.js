@@ -156,10 +156,28 @@ async function getWishlist(userId) {
     }
 }
 
+async function getActiveAuctions() {
+    try {
+        const currentDate = new Date();
+        
+        return await Auction.find({
+            isCompleted: false,
+            endDate: { $gt: currentDate }
+        }).populate({
+            path: 'categoryId',
+            select: 'name'
+        });
+    } catch (error) {
+        console.error("Error fetching active auctions:", error);
+        return [];
+    }
+}
+
 module.exports = {
     getAllAuctions,
     getRecentAuctions,
     getAuctionsCategoryCount,
     newBid,
     getWishlist,
+    getActiveAuctions,
 };
