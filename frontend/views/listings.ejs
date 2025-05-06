@@ -89,7 +89,7 @@
         <div class="price">
             <span><%= product.latestPrice + "DA"%></span>
         </div>
-        <div class="timer"><%= product.endDate - product.creationDate %></div>
+        <div class="timer"><%= product.endDate - Date.now() %></div>
         
         <% if (user) { %>
             <div class="action-buttons">
