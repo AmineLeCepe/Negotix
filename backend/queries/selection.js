@@ -2,6 +2,7 @@ const Auction = require('../models/auctionModel');
 const Category = require('../models/categoryModel');
 const mongoose = require('mongoose');
 const Bid = require('../models/bidModel');
+const Wishlist = require('../models/wishlistModel');
 
 // Gets all auctions from the database
 async function getAllAuctions() {
@@ -127,11 +128,38 @@ async function newBid(price, userId, auctionId) {
     }
 }
 
-
+async function getWishlist(userId) {
+    try {
+        // Convert string to ObjectId if needed
+        const userObjId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
+        
+        // Find the user's wishlist and populate the auction details
+        const wishlist = await Wishlist.findOne({ userId: userObjId })
+            .populate({
+                path: 'auctions',
+                model: 'Auction',
+                populate: {
+                    path: 'categoryId',
+                    select: 'name'
+                }
+            });
+        
+        // If no wishlist found, return empty array
+        if (!wishlist) {
+            return [];
+        }
+        
+        return wishlist.auctions;
+    } catch (error) {
+        console.error("Error fetching wishlist:", error);
+        return [];
+    }
+}
 
 module.exports = {
     getAllAuctions,
     getRecentAuctions,
     getAuctionsCategoryCount,
     newBid,
+    getWishlist,
 };

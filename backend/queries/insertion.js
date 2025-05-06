@@ -1,5 +1,6 @@
 const Auction = require('../models/auctionModel');
 const Category = require('../models/categoryModel');
+const Wishlist = require('../models/wishlistModel');
 const mongoose = require('mongoose');
 
 async function insertAuction() {
@@ -54,4 +55,36 @@ async function insertCategory() {
     }
 }
 
-module.exports = { insertAuction, insertCategory };
+async function addToWishlist(userId, auctionId) {
+    try {
+        // Convert strings to ObjectId if needed
+        const userObjId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
+        const auctionObjId = typeof auctionId === 'string' ? new mongoose.Types.ObjectId(auctionId) : auctionId;
+        
+        // Check if user already has a wishlist
+        let wishlist = await Wishlist.findOne({ userId: userObjId });
+        
+        if (wishlist) {
+            // Check if auction is already in wishlist to avoid duplicates
+            if (!wishlist.auctions.includes(auctionObjId)) {
+                // Add auction to existing wishlist
+                wishlist.auctions.push(auctionObjId);
+                await wishlist.save();
+            }
+        } else {
+            // Create new wishlist for user
+            wishlist = new Wishlist({
+                userId: userObjId,
+                auctions: [auctionObjId]
+            });
+            await wishlist.save();
+        }
+        
+        return wishlist;
+    } catch (error) {
+        console.error("Error adding to wishlist:", error);
+        throw error;
+    }
+}
+
+module.exports = { insertAuction, insertCategory, addToWishlist };
