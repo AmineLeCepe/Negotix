@@ -93,7 +93,7 @@ app.use((req, res, next) => {
 // API endpoints
 /// GET requests
 app.get('/', (req, res) => {
-    res.render('index')
+    res.render('main-page')
 })
 app.get('/listings', async (req, res) => {
     // This is sample data - you would typically fetch this from your database
