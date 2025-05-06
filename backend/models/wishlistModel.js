@@ -10,7 +10,7 @@ const wishlistSchema = new mongoose.Schema({
         // Stores an array of exclusively auction IDs
         type: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'Auction',
         }],
         default: [],
     },
