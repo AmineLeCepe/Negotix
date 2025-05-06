@@ -245,6 +245,47 @@ function updateTimers() {
     });
 }
 
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const success = urlParams.get('success');
+const message = urlParams.get('message');
+
+const modal = document.getElementById('modal');
+const modalMessage = document.getElementById('modalMessage');
+
+
+if (message) {
+  modalMessage.textContent = decodeURIComponent(message);
+  modal.style.display = 'flex';
+  modal.style.opacity = '1';
+  modal.style.zIndex = '999';
+  window.history.replaceState(null, null, window.location.pathname);
+  setTimeout(() => {
+    modal.style.opacity = '0';
+    modal.style.zIndex = '-1';
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300); // give time for transition
+  }, 3000);
+}
+
+const form = document.querySelector("form");
+const priceInput = document.getElementById("bid-price");
+
+form.addEventListener("submit", function (e) {
+    if (!priceInput.value) {
+        e.preventDefault(); // Stop form from submitting
+        modalMessage.textContent = "Please enter a bid amount.";
+        modal.style.opacity = '1';
+        modal.style.zIndex = '999';
+        setTimeout(() => {
+            modal.style.opacity = '0';
+            modal.style.zIndex = '-1';
+        }, 3000);
+    }
+});
+
 // Start the timer update interval
 setInterval(updateTimers, 1000);
 

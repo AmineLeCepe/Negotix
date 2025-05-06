@@ -314,12 +314,12 @@ app.post('/place-bid', async (req, res, next) => {
     try {
         const bidResult = await newBid(price, userId, auctionId);
         if(bidResult){
-            return res.send(`Bid placed successfully`);
+            return res.redirect(`/listings?success=true&message=Bid placed successfully!`);
         } else {
-            return res.send(`Bid not accepted. Must be at least 500 DA higher than your previous bid or starting price.`);
+           return res.redirect(`/listings?success=false&message=Bid not accepted. Must be at least 500 DA higher than your previous bid or starting price.`);
       }} catch (err) {
         console.error(err);
-        res.status(500).send('Error processing bid.');
+       return res.redirect(`/listings?success=false&message=Error processing bid`);
       }
     });
 // 404 route

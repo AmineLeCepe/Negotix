@@ -74,7 +74,12 @@
             </div>
             <span class="item-count"><span class="item-count-number">X</span> Items</span>
         </div>
-
+<!--Modal for buttons-->
+<div class="modal" id="modal">
+    <div class="modal-inner">
+        <span id="modalMessage"></span>
+    </div>
+ </div>
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
                 <div class="product-card" data-category="<%- (product.categoryId?.name ?? '').toLowerCase() %>" data-bid-id="<%= product._id %>">
@@ -88,12 +93,12 @@
                         <div class="timer"><%= product.endDate - product.creationDate %></div>
                         <% if (user) { %>
                             <form action="/place-bid" method="POST">
-                                <input class ="priceAmount" type="number" id="bid-price" name="price" placeholder="Price" required />
+                                <input class ="priceAmount" type="number" id="bid-price" name="price" placeholder="Price" />
                                 <input type="hidden" name="userId" value="<%= user._id %>">
                                 <input type="hidden" name="auctionId" value="<%= product._id %>">
                                 <button class="place-bid" type="submit">Place Bid</button>
                             </form>
-
+                            
                         <% } else { %>
                             <p class="login-warning">Please log in to place a bid.</p>
                         <% } %>
