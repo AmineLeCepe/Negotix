@@ -65,24 +65,32 @@ async function addToWishlist(userId, auctionId) {
         let wishlist = await Wishlist.findOne({ userId: userObjId });
         
         if (wishlist) {
-            // Check if auction is already in wishlist to avoid duplicates
-            if (!wishlist.auctions.includes(auctionObjId)) {
-                // Add auction to existing wishlist
+            // Check if auction is already in wishlist
+            const auctionIdStr = auctionObjId.toString();
+            const auctionIndex = wishlist.auctions.findIndex(id => id.toString() === auctionIdStr);
+            
+            if (auctionIndex === -1) {
+                // If auction is not in wishlist, add it
                 wishlist.auctions.push(auctionObjId);
                 await wishlist.save();
+                return { wishlist, action: 'added' };
+            } else {
+                // If auction is already in wishlist, remove it (toggle functionality)
+                wishlist.auctions.splice(auctionIndex, 1);
+                await wishlist.save();
+                return { wishlist, action: 'removed' };
             }
         } else {
-            // Create new wishlist for user
+            // Create new wishlist for user if they don't have one
             wishlist = new Wishlist({
                 userId: userObjId,
                 auctions: [auctionObjId]
             });
             await wishlist.save();
+            return { wishlist, action: 'added' };
         }
-        
-        return wishlist;
     } catch (error) {
-        console.error("Error adding to wishlist:", error);
+        console.error("Error updating wishlist:", error);
         throw error;
     }
 }

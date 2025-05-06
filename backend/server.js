@@ -31,7 +31,9 @@ const Review = require('./models/reviewModel');
 const Category = require('./models/categoryModel');
 
 // Queries imports
-const { getAllAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid } = require('./queries/selection');
+const { getAllAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid,getWishlist } = require('./queries/selection');
+
+const { addToWishlist } = require('./queries/insertion');
 
 
 // App config
@@ -95,18 +97,31 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('index')
 })
+// Update your listings route to include wishlist data
 app.get('/listings', async (req, res) => {
-    // This is sample data - you would typically fetch this from your database
     try {
         const items = await getAllAuctions();
         const recentItems = await getRecentAuctions();
         const auctionsCategoryCount = await getAuctionsCategoryCount();
+        
+        // Get user's wishlist if logged in
+        let wishlistItems = [];
+        if (req.user) {
+            wishlistItems = await getWishlist(req.user._id);
+            // Extract just the IDs for easy comparison in the template
+            wishlistItems = wishlistItems.map(item => item._id.toString());
+        }
+        
         // Render the EJS template and pass the item array
         res.render('listings', {
             items: items,
             recentItems: recentItems,
             title: 'Listings',
             categories: auctionsCategoryCount,
+            user: req.user ? {
+                ...req.user,
+                wishlist: wishlistItems
+            } : null
         });
     } catch (error) {
         console.error(error);
@@ -304,6 +319,45 @@ app.post('/logout', (req, res) => {
     });
 });
 
+app.post('/add-to-wishlist', async (req, res) => {
+    try {
+        // Debug logging
+        console.log("Wishlist request body:", req.body);
+        console.log("Wishlist request query:", req.query);
+        console.log("Wishlist request params:", req.params);
+        
+        const { userId, auctionId } = req.body;
+        
+        if (!userId || !auctionId) {
+            console.error("Missing data - userId:", userId, "auctionId:", auctionId);
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Missing user ID or auction ID' 
+            });
+        }
+        
+        const result = await addToWishlist(userId, auctionId);
+        
+        // Use the action to determine the message
+        const message = result.action === 'added' 
+            ? 'Item added to wishlist' 
+            : 'Item removed from wishlist';
+            
+        // Return JSON instead of redirect for AJAX
+        return res.status(200).json({
+            success: true,
+            message: message,
+            action: result.action
+        });
+    } catch (error) {
+        console.error("Error updating wishlist:", error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error updating wishlist',
+            error: error.message
+        });
+    }
+});
 
 app.post('/place-bid', async (req, res, next) => {
     

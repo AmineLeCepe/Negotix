@@ -91,23 +91,30 @@
         </div>
         <div class="timer"><%= product.endDate - product.creationDate %></div>
         
-        <% if (user) { %>
-            <div class="action-buttons">
-                <!-- Check if product is in user's wishlist -->
-                <% const isInWishlist = user.wishlist && user.wishlist.includes(product._id); %>
-                <button class="wishlist-btn <%= isInWishlist ? 'in-wishlist' : '' %>" 
-                        data-product-id="<%= product._id %>">★</button>
-                
-                <form action="/place-bid" method="POST">
-                    <input class="priceAmount" type="number" id="bid-price" name="price" placeholder="Price" />
-                    <input type="hidden" name="userId" value="<%= user._id %>">
-                    <input type="hidden" name="auctionId" value="<%= product._id %>">
-                    <button class="place-bid" type="submit">Place Bid</button>
-                </form>
-            </div>
-        <% } else { %>
-            <p class="login-warning">Please log in to place a bid.</p>
-        <% } %>
+<% if (user) { %>
+    <div class="action-buttons">
+        <!-- Check if product is in user's wishlist -->
+        <% const isInWishlist = user.wishlist && user.wishlist.includes(product._id.toString()); %>
+        
+        <!-- Wishlist form -->
+        <form action="/add-to-wishlist" method="POST" class="wishlist-form">
+            <input type="hidden" name="userId" value="<%= user._id %>">
+            <input type="hidden" name="auctionId" value="<%= product._id %>">
+            <button type="submit" class="wishlist-btn <%= isInWishlist ? 'in-wishlist' : '' %>" 
+                    data-product-id="<%= product._id %>">★</button>
+        </form>
+        
+        <!-- Existing bid form -->
+        <form action="/place-bid" method="POST">
+            <input class="priceAmount" type="number" id="bid-price" name="price" placeholder="Price" />
+            <input type="hidden" name="userId" value="<%= user._id %>">
+            <input type="hidden" name="auctionId" value="<%= product._id %>">
+            <button class="place-bid" type="submit">Place Bid</button>
+        </form>
+    </div>
+<% } else { %>
+    <p class="login-warning">Please log in to place a bid.</p>
+<% } %>
     </div>
 </div>
             <% }); %>

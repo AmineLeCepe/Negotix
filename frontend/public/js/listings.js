@@ -291,23 +291,63 @@ setInterval(updateTimers, 1000);
 
 // Initial call to format timers immediately
 updateTimers();
-// Wishlist button UI functionality only
+// Replace the existing wishlist button functionality with this
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners to wishlist buttons
-    document.querySelectorAll('.wishlist-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
+    // Add event listeners to wishlist forms
+    document.querySelectorAll('.wishlist-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
             
-            // Toggle wishlist state
-            const isCurrentlyInWishlist = this.classList.contains('in-wishlist');
-            this.classList.toggle('in-wishlist');
+            // Get form values directly
+            const userId = this.querySelector('input[name="userId"]').value;
+            const auctionId = this.querySelector('input[name="auctionId"]').value;
             
-            // Show notification
-            const message = isCurrentlyInWishlist ? 'Removed from wishlist' : 'Added to wishlist';
+            if (!userId || !auctionId) {
+                showWishlistNotification('Error: Missing user ID or auction ID');
+                console.error('Missing data - userId:', userId, 'auctionId:', auctionId);
+                return;
+            }
+            
+            const wishlistBtn = this.querySelector('.wishlist-btn');
+            const isCurrentlyInWishlist = wishlistBtn.classList.contains('in-wishlist');
+            
+            // Toggle visual state for immediate feedback
+            wishlistBtn.classList.toggle('in-wishlist');
+            
+            // Show message
+            const message = isCurrentlyInWishlist ? 'Removing from wishlist...' : 'Adding to wishlist...';
             showWishlistNotification(message);
             
-            // Note: This is where you'd normally send a request to your server
-            console.log('Wishlist toggled for product:', this.getAttribute('data-product-id'));
+            // Create URLSearchParams for the form data
+            const formData = new URLSearchParams();
+            formData.append('userId', userId);
+            formData.append('auctionId', auctionId);
+            
+            // Submit the form data using fetch with the appropriate content type
+            fetch('/add-to-wishlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    const successMessage = isCurrentlyInWishlist ? 'Removed from wishlist' : 'Added to wishlist';
+                    showWishlistNotification(successMessage);
+                } else {
+                    // If there was an error, revert the visual state
+                    wishlistBtn.classList.toggle('in-wishlist');
+                    showWishlistNotification('Error updating wishlist');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Revert visual state on error
+                wishlistBtn.classList.toggle('in-wishlist');
+                showWishlistNotification('Error updating wishlist');
+            });
         });
     });
     
@@ -317,12 +357,46 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (modal && modalMessage) {
             modalMessage.textContent = message;
+            modal.style.display = 'flex';
             modal.style.opacity = '1';
             modal.style.zIndex = '999';
             setTimeout(() => {
                 modal.style.opacity = '0';
                 modal.style.zIndex = '-1';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
             }, 1500);
         }
     }
+});
+// Replace the existing form event listener code with this
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all bid forms (forms that contain an input with name="price")
+    const bidForms = document.querySelectorAll('form[action="/place-bid"]');
+    
+    bidForms.forEach(form => {
+        const priceInput = form.querySelector('input[name="price"]');
+        
+        form.addEventListener("submit", function(e) {
+            if (!priceInput || !priceInput.value) {
+                e.preventDefault(); // Stop form from submitting
+                modalMessage.textContent = "Please enter a bid amount.";
+                modal.style.display = 'flex';
+                modal.style.opacity = '1';
+                modal.style.zIndex = '999';
+                setTimeout(() => {
+                    modal.style.opacity = '0';
+                    modal.style.zIndex = '-1';
+                }, 3000);
+            }
+            
+            // Debug logging to check form values
+            console.log('Submitting bid form with values:', {
+                price: priceInput?.value,
+                userId: this.querySelector('input[name="userId"]')?.value,
+                auctionId: this.querySelector('input[name="auctionId"]')?.value
+            });
+        });
+    });
 });
