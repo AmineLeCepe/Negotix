@@ -291,3 +291,38 @@ setInterval(updateTimers, 1000);
 
 // Initial call to format timers immediately
 updateTimers();
+// Wishlist button UI functionality only
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to wishlist buttons
+    document.querySelectorAll('.wishlist-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Toggle wishlist state
+            const isCurrentlyInWishlist = this.classList.contains('in-wishlist');
+            this.classList.toggle('in-wishlist');
+            
+            // Show notification
+            const message = isCurrentlyInWishlist ? 'Removed from wishlist' : 'Added to wishlist';
+            showWishlistNotification(message);
+            
+            // Note: This is where you'd normally send a request to your server
+            console.log('Wishlist toggled for product:', this.getAttribute('data-product-id'));
+        });
+    });
+    
+    function showWishlistNotification(message) {
+        const modal = document.getElementById('modal');
+        const modalMessage = document.getElementById('modalMessage');
+        
+        if (modal && modalMessage) {
+            modalMessage.textContent = message;
+            modal.style.opacity = '1';
+            modal.style.zIndex = '999';
+            setTimeout(() => {
+                modal.style.opacity = '0';
+                modal.style.zIndex = '-1';
+            }, 1500);
+        }
+    }
+});
