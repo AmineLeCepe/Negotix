@@ -84,10 +84,12 @@ async function newBid(price, userId, auctionId) {
             return null;
         }        
         const auction = await Auction.findById(auctionId);
-        if(!auction){
+            if(!auction){
             console.log("Auction cannot be found.");
             return null;
         }
+
+        
         const existingBid = await Bid.findOne({ userId, auctionId });
 
         const startingPrice = auction.startingPrice;
@@ -111,6 +113,7 @@ async function newBid(price, userId, auctionId) {
         if (price - newPrice >= 500) {
             existingBid.amount = price;
             await existingBid.save();
+            await Auction.findByIdAndUpdate(auctionId , {latestPrice: price});
             console.log("Bid updated successfully.");
             return existingBid;
         } else {
