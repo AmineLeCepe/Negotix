@@ -1,0 +1,278 @@
+<%- include('partials/header') %>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/contact.css">
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-slideInLeft {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+
+  .animate-slideInRight {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+
+  .animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  [data-delay="200"] {
+    animation-delay: 0.2s;
+  }
+
+  [data-delay="400"] {
+    animation-delay: 0.4s;
+  }
+
+  [data-delay="600"] {
+    animation-delay: 0.6s;
+  }
+
+  [data-delay="800"] {
+    animation-delay: 0.8s;
+  }
+
+  [data-delay="1000"] {
+    animation-delay: 1s;
+  }
+
+  .fade-in-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-text.delay-200 {
+    transition-delay: 0.2s;
+  }
+
+  .fade-in-text.delay-400 {
+    transition-delay: 0.4s;
+  }
+
+  .fade-in-text.delay-600 {
+    transition-delay: 0.6s;
+  }
+
+  html, body, main, section {
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  body {
+    width: 100%;
+  }
+  main {
+    width: 100%;
+  }
+</style>
+
+<main>
+  <!-- Home Section -->
+  <section id="home" class="hero-section" style="background: radial-gradient(circle at 50% 50%, #3a2e7c 0%, #2e225a 100%); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; position: relative; width: 100%; overflow-x: hidden;">
+    <img src="/assets/purple backgroud-main page.png" alt="Background" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+    <img src="/assets/logo 1.png" alt="Negotix Logo" style="position: absolute; top: 2rem; left: 2rem; width: 60px; z-index: 1;" class="animate-fadeInUp">
+    <h1 style="font-size: 3rem; margin: 3rem 0 1rem; z-index: 1;" class="animate-fadeInUp delay-200 fade-in-text">Welcome to Negotix<br>your go-to destination<br>for thrilling auction<br>and unbeatable deals!</h1>
+    <a href="#about" class="btn animate-fadeInUp delay-400" style="background: #6cf0e2; color: #222; padding: 0.8rem 2.5rem; border-radius: 2rem; font-weight: 600; text-decoration: none; z-index: 1;">JOIN US</a>
+    <img src="/assets/delivery_guy.png" alt="Delivery Guy" style="position: absolute; right: 10%; top: 10%; width: 180px; z-index: 1;" class="animate-float">
+    <img src="/assets/girl shop-main page.png" alt="Shopper" style="position: absolute; right: 5%; bottom: 5%; width: 180px; z-index: 1;" class="animate-float delay-200">
+    <img src="/assets/card1-main page.webp" alt="Card" style="position: absolute; left: 5%; top: 20%; width: 120px; z-index: 1;" class="animate-float delay-400">
+    <img src="/assets/card2-main page.webp" alt="Card" style="position: absolute; left: 10%; bottom: 15%; width: 120px; z-index: 1;" class="animate-float delay-600">
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section" style="background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); min-height: 80vh; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+    <!-- Left 3D characters -->
+    <img src="/assets/people_about_page.webp" alt="About Characters" style="position: absolute; left: 0; bottom: 0; width: 340px; max-width: 30vw; z-index: 1;" class="animate-slideInLeft">
+    <!-- Right floating cubes/spheres -->
+    <img src="/assets/frame 686.png" alt="About Cubes" style="position: absolute; right: 0; top: 0; width: 340px; max-width: 30vw; z-index: 1;" class="animate-slideInRight">
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; margin: 0 340px; max-width: 1200px; padding: 0 2rem;">
+      <h2 style="font-size: 3rem; margin-bottom: 2rem; margin-top: 2rem;" class="fade-in-text">About Negotix Team</h2>
+      <p style="font-size: 1.3rem; max-width: 700px; margin-bottom: 2.5rem;" class="fade-in-text delay-200">At Negotix Team, we are on a mission to revolutionize the way you shop, offering a dynamic online bidding experience that lets you compete for incredible deals on exclusive products. We are an online bidding store founded by a team of passionate innovators dedicated to providing an exciting, transparent, and rewarding shopping experience for everyone.</p>
+      <div style="display: flex; gap: 2rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+        <% for(let i=0; i<5; i++) { %>
+          <div style="display: flex; flex-direction: column; align-items: center;" class="animate-fadeInUp" data-delay="<%= i * 200 %>">
+            <img src="/assets/msgguy.png" alt="Team Member" style="width: 90px; height: 90px; border-radius: 16px; background: #a9a3e6; object-fit: cover;">
+            <span style="margin-top: 0.5rem; font-size: 1.1rem;">xxxxx</span>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Livechat Section -->
+  <section id="livechat" class="livechat-section" style="background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); min-height: 80vh; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden;">
+    <img src="/assets/circle behind the msg guy-live chat.png" alt="Live Chat Circle" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 400px; opacity: 0.2; z-index: 0;" class="animate-pulse">
+    <div style="display: flex; align-items: center; gap: 3rem; width: 100%; max-width: 1200px; position: relative; z-index: 1; padding: 0 2rem;">
+      <div style="flex: 1;" class="animate-slideInLeft">
+        <h2 style="font-size: 2.5rem; color: #222; margin-bottom: 1rem;" class="fade-in-text">Live Chat Bidding is Here!</h2>
+        <p style="font-size: 1.1rem; color: #222; margin-bottom: 2rem;" class="fade-in-text delay-200">Place your bids in real time and never miss out on a great deal. Chat with sellers, negotiate, and win the best prices—all live! Start bidding now</p>
+        <div style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+          <div class="animate-fadeInUp delay-200 fade-in-text" data-delay="200">
+            <span style="font-size: 2rem; font-weight: bold; color: #222;">200K+</span><br>
+            <span style="font-size: 1rem; color: #555;">Bids Won</span>
+          </div>
+          <div class="animate-fadeInUp delay-400 fade-in-text" data-delay="400">
+            <span style="font-size: 2rem; font-weight: bold; color: #222;">2M+</span><br>
+            <span style="font-size: 1rem; color: #555;">Chats in Last 2025</span>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; position: relative; min-height: 350px;" class="animate-slideInRight">
+        <img src="/assets/msg_guy-live chat page.webp" alt="Chat Guy" style="width: 300px; margin: 0 auto; display: block; position: relative; z-index: 1;" class="animate-float">
+        <img src="/assets/message 1-live chat.png" alt="Message 1" style="position: absolute; left: 0; top: 60%; width: 220px; z-index: 2;" class="animate-fadeInUp delay-200">
+        <img src="/assets/message 2-live chat.png" alt="Message 2" style="position: absolute; right: 0; top: 60%; width: 180px; z-index: 2;" class="animate-fadeInUp delay-400">
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Section -->
+  <section id="trending" class="trending-section" style="background: url('/assets/top purple backgroud.png') top center/cover no-repeat; min-height: 80vh; width: 100%; color: #fff; padding: 4rem 0; overflow-x: hidden;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+      <h2 style="font-size: 2rem; margin-bottom: 2rem;" class="animate-fadeInUp fade-in-text">Shop From <span style="color: #00e6e6;">Top Categories</span></h2>
+      <div style="height: 4px; width: 120px; margin: 0 auto 2rem auto; border-radius: 2px; background: linear-gradient(90deg, #00e6e6 0%, #8ec5fc 100%);"></div>
+      <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
+        <% const categories = ['mobile', 'cosmetics', 'furniture', 'watches', 'decor', 'accessories']; %>
+        <% categories.forEach((category, index) => { %>
+          <div style="text-align: center;" class="animate-fadeInUp" data-delay="<%= index * 100 %>">
+            <img src="/assets/<%= category %>.png" alt="<%= category.charAt(0).toUpperCase() + category.slice(1) %>" style="width: 70px; height: 70px; border-radius: 50%; background: #fff;">
+            <div style="margin-top: 0.5rem;"><%= category.charAt(0).toUpperCase() + category.slice(1) %></div>
+          </div>
+        <% }); %>
+      </div>
+      <h2 style="font-size: 2rem; margin: 3rem 0 2rem;" class="animate-fadeInUp delay-200 fade-in-text">New <span style="color: #00e6e6;">Arrival</span></h2>
+      <div style="height: 4px; width: 100px; margin: 0 auto 2rem auto; border-radius: 2px; background: linear-gradient(90deg, #8ec5fc 0%, #00e6e6 100%);"></div>
+      <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+        <% const products = [
+          { name: 'PlayStation 5', image: 'playstation.png', desc: 'Black and White version of the PS5 coming out on sale.' },
+          { name: "Women's Collections", image: 'women.png', desc: 'Featured woman collections that give you another vibe.' },
+          { name: 'Speakers', image: 'speakers.png', desc: 'Amazon wireless speakers.' }
+        ]; %>
+        <% products.forEach((product, index) => { %>
+          <div style="background: #222; border-radius: 1.5rem; overflow: hidden; width: 340px;" class="animate-fadeInUp" data-delay="<%= index * 200 + 400 %>">
+            <img src="/assets/<%= product.image %>" alt="<%= product.name %>" style="width: 100%; height: 220px; object-fit: cover;">
+            <div style="padding: 1.2rem;">
+              <h3 style="margin-bottom: 0.5rem;"><%= product.name %></h3>
+              <p style="font-size: 0.95rem; color: #bbb;"><%= product.desc %></p>
+              <a href="/listings/<%= product.name.toLowerCase().replace(/\s+/g, '') %>" class="btn animate-pulse" style="background: #6cf0e2; color: #222; padding: 0.5rem 1.5rem; border-radius: 1rem; text-decoration: none;">Shop Now</a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section" style="background: url('/assets/contact us background.png') center/cover no-repeat, linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); min-height: 80vh; width: 100%; display: flex; align-items: center; justify-content: center; color: #222; overflow-x: hidden;">
+    <div style="display: flex; width: 100%; max-width: 1400px; align-items: center; justify-content: space-between; padding: 0 2rem;">
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-width: 420px;" class="animate-slideInLeft">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;" class="fade-in-text">Contact Us</h2>
+        <p style="font-size: 2rem; margin-bottom: 2.5rem; line-height: 1.3;" class="fade-in-text delay-200">We are always open to discuss any questions or concerns you have about the bidding process, our team is here to provide prompt assistance and ensure you have a seamless experience on our platform.</p>
+        <a href="/contact" style="margin-top: 2rem;" class="animate-pulse">
+          <img src="/assets/get in touch button-contact us.png" alt="Get in Touch" style="width: 200px;">
+        </a>
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: flex-end;" class="animate-slideInRight">
+        <img src="/assets/contact guy -contact us.png" alt="Contact Guy and Graphics" style="width: 600px; max-width: 45vw;" class="animate-float">
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    });
+
+    // Observe all text elements with fade-in-text class
+    document.querySelectorAll('.fade-in-text').forEach((element) => {
+      observer.observe(element);
+    });
+  });
+</script>
+
+</body>
+</html> 
