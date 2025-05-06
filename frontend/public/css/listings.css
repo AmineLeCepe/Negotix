@@ -294,10 +294,10 @@ body {
     }
 }
 p.login-warning {
-    color: red;
-    font-weight: bold;
-    font-family: 'Times New Roman', Times, serif, Geneva, Tahoma, sans-serif;
-    font-size: 1.1rem;
+    color: #aaaaaa;
+    font-weight: normal;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
     margin-top: 10px;
     text-align: center;
 }
