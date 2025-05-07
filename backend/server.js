@@ -31,7 +31,9 @@ const Review = require('./models/reviewModel');
 const Category = require('./models/categoryModel');
 
 // Queries imports
-const { getAllAuctions, getActiveAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid, getRunningAuctionsForUser } = require('./queries/selection');
+const { getAllAuctions, getActiveAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid, getRunningAuctionsForUser,
+    getAllAuctionsForUser
+} = require('./queries/selection');
 const { insertAuctionTemplate2 } = require('./queries/insertion');
 
 // App config
@@ -132,10 +134,12 @@ app.get('/listings', async (req, res) => {
 app.get('/profile', checkAuthenticated, async (req, res) => {
     // console.log(req.user);
     const runningAuctions = await getRunningAuctionsForUser(req.user._id);
+    const allAuctions = await getAllAuctionsForUser(req.user._id);
     res.render('profil', {
         title: 'Profile',
         user: req.user,
-        runningAuctions: runningAuctions
+        runningAuctions: runningAuctions,
+        allAuctions: allAuctions,
     });
 })
 app.get('/contact', (req, res) => {
