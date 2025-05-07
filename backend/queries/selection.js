@@ -27,7 +27,7 @@ async function getRecentAuctions() {
                 select: 'name'
             })
             .sort({ creationDate: -1 })
-            .limit(2);
+            .limit(3);
     } catch (e) {
         console.error(e);
         return [];

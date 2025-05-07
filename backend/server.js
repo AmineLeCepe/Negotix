@@ -92,8 +92,19 @@ app.use((req, res, next) => {
 
 // API endpoints
 /// GET requests
-app.get('/', (req, res) => {
-    res.render('main-page')
+app.get('/', async (req, res) => {
+    try {
+        const recentAuctions = await getRecentAuctions();
+        res.render('main-page', {
+            recentAuctions: recentAuctions,
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('error', {
+            message: 'Error loading main page',
+            error: error
+        });
+    }
 })
 app.get('/listings', async (req, res) => {
     // This is sample data - you would typically fetch this from your database

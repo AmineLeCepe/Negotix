@@ -214,18 +214,14 @@
       <h2 style="font-size: 2rem; margin: 3rem 0 2rem;" class="animate-fadeInUp delay-200 fade-in-text">New <span style="color: #00e6e6;">Arrival</span></h2>
       <div style="height: 4px; width: 100px; margin: 0 auto 2rem auto; border-radius: 2px; background: linear-gradient(90deg, #8ec5fc 0%, #00e6e6 100%);"></div>
       <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
-        <% const products = [
-          { name: 'PlayStation 5', image: 'playstation.png', desc: 'Black and White version of the PS5 coming out on sale.' },
-          { name: "Women's Collections", image: 'women.png', desc: 'Featured woman collections that give you another vibe.' },
-          { name: 'Speakers', image: 'speakers.png', desc: 'Amazon wireless speakers.' }
-        ]; %>
+        <% const products = locals.recentAuctions %>
         <% products.forEach((product, index) => { %>
           <div style="background: #222; border-radius: 1.5rem; overflow: hidden; width: 340px;" class="animate-fadeInUp" data-delay="<%= index * 200 + 400 %>">
-            <img src="/assets/<%= product.image %>" alt="<%= product.name %>" style="width: 100%; height: 220px; object-fit: cover;">
+            <img src="<%= product.image %>" alt="<%= product.title %>" style="width: 100%; height: 220px; object-fit: cover;">
             <div style="padding: 1.2rem;">
-              <h3 style="margin-bottom: 0.5rem;"><%= product.name %></h3>
-              <p style="font-size: 0.95rem; color: #bbb;"><%= product.desc %></p>
-              <a href="/listings/<%= product.name.toLowerCase().replace(/\s+/g, '') %>" class="btn animate-pulse" style="background: #6cf0e2; color: #222; padding: 0.5rem 1.5rem; border-radius: 1rem; text-decoration: none;">Shop Now</a>
+              <h3 style="margin-bottom: 0.5rem;"><%= product.title %></h3>
+              <p style="font-size: 0.95rem; color: #bbb;"><%= product.description %></p>
+              <a href="/listings" class="btn animate-pulse" style="background: #6cf0e2; color: #222; padding: 0.5rem 1.5rem; border-radius: 1rem; text-decoration: none;">Shop Now</a>
             </div>
           </div>
         <% }); %>
