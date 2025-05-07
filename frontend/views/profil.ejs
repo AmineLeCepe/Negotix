@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Negotix - Your personal bidding profile and marketplace">
     <title>Negotix - Profile Page</title>
-    <link rel="stylesheet" href="profil.css">
+    <link rel="stylesheet" href="/css/profil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -16,7 +16,13 @@
                 <div class="profile-card">
                     <div class="profile-header">
                         <div class="profile-image">
-                            <img src="assets/henry.jpg" alt="Profile Picture">
+                            <img 
+                              src="<%= user && user.profilePicture ? encodeURI(user.profilePicture) : '/assets/henry.jpg' %>"
+                              alt="Profile Picture"
+                              onerror="this.src='/assets/default-avatar.jpg';"
+                              width="100"
+                              height="100"
+                            >
                             <div class="status-badge online" title="Online"></div>
                         </div>
                         <div class="profile-stats">
@@ -33,15 +39,15 @@
                     <div class="profile-info">
                         <div class="info-item">
                             <span class="label"><i class="fas fa-user"></i> Name:</span>
-                            <span class="value">Henry Cavill</span>
+                            <span class="value"><%= locals.user.username %></span>
                         </div>
                         <div class="info-item">
                             <span class="label"><i class="fas fa-envelope"></i> Email:</span>
-                            <span class="value">henrycavill@gmail.com</span>
+                            <span class="value"><%= locals.user.email %></span>
                         </div>
                         <div class="info-item">
                             <span class="label"><i class="fas fa-calendar-alt"></i> Created:</span>
-                            <span class="value">May 7, 2025</span>
+                            <span class="value"><%= new Date(locals.user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
                         </div>
                         <div class="user-bio">
                             <p>Professional bidder with expertise in electronics and collectibles. Always looking for the best deals!</p>
@@ -180,8 +186,9 @@
                         </div>
                     </div>
             </div>
+            </div>
         </section>
     </main>
-    <script src="profil.js"></script>
+    <script src="/js/profil.js"></script>
 </body>
 </html>
