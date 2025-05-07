@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Negotix - Your personal bidding profile and marketplace">
+    <title>Negotix - Profile Page</title>
+    <link rel="stylesheet" href="profil.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <section class="profile-section">
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-image">
+                            <img src="assets/henry.jpg" alt="Profile Picture">
+                            <div class="status-badge online" title="Online"></div>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span>25</span>
+                                <p><i class="fas fa-users"></i> Followers</p>
+                            </div>
+                            <div class="stat">
+                                <span>23</span>
+                                <p><i class="fas fa-user-plus"></i> Following</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-user"></i> Name:</span>
+                            <span class="value">Henry Cavill</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-envelope"></i> Email:</span>
+                            <span class="value">henrycavill@gmail.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label"><i class="fas fa-calendar-alt"></i> Created:</span>
+                            <span class="value">May 7, 2025</span>
+                        </div>
+                        <div class="user-bio">
+                            <p>Professional bidder with expertise in electronics and collectibles. Always looking for the best deals!</p>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="follow-btn"><i class="fas fa-user-plus"></i> Follow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="stat-icon fas fa-gavel"></i>
+                    <h3>Active Bids</h3>
+                    <span class="number">+50</span>
+                </div>
+                <div class="stat-card">
+                    <i class="stat-icon fas fa-chart-line"></i>
+                    <h3>Success Rate</h3>
+                    <span class="number">70%</span>
+                </div>
+                <div class="stat-card">
+                    <i class="stat-icon fas fa-trophy"></i>
+                    <h3>Bids Won</h3>
+                    <span class="number">23</span>
+                </div>
+                <div class="stat-card">
+                    <i class="stat-icon fas fa-tags"></i>
+                    <h3>Total Bids</h3>
+                    <span class="number">86</span>
+                </div>
+                <div class="stat-card">
+                    <i class="stat-icon fas fa-clock"></i>
+                    <h3>Activity</h3>
+                    <span class="text">Daily</span>
+                </div>
+                <div class="stat-card">
+                    <i class="stat-icon fas fa-award"></i>
+                    <h3>Ranking</h3>
+                    <span class="text">Expert</span>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="product-container">
+                <div class="products-wrapper">
+                    <button class="nav-btn prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="nav-btn next"><i class="fas fa-chevron-right"></i></button>
+                    
+                    <div class="product-card active" data-index="0">
+                        <div class="product-image">
+                            <img src="assets/airpods.png" alt="Wireless X7007">
+                        </div>
+                        <div class="product-info">
+                            <h2>Wireless X7007</h2>
+                            <div class="product-details">
+                                <div class="detail">
+                                    <span class="label">Last Price</span>
+                                    <span class="value">$10</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Payment Method</span>
+                                    <span class="value">Credit Card</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Delivery Option</span>
+                                    <span class="value">Office & House</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Availability</span>
+                                    <span class="value">In Stock</span>
+                                </div>
+                            </div>
+                            <a href="livechat.ejs?product=1" class="buy-now"><i class="fas fa-gavel"></i> Bid Now</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-index="1">
+                        <div class="product-image">
+                            <img src="assets/headset.png" alt="Gaming Headset Pro">
+                        </div>
+                        <div class="product-info">
+                            <h2>Gaming Headset Pro</h2>
+                            <div class="product-details">
+                                <div class="detail">
+                                    <span class="label">Last Price</span>
+                                    <span class="value">$45</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Payment Method</span>
+                                    <span class="value">PayPal</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Delivery Option</span>
+                                    <span class="value">Express Shipping</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Availability</span>
+                                    <span class="value">Limited Stock</span>
+                                </div>
+                            </div>
+                            <a href="livechat.ejs?product=2" class="buy-now"><i class="fas fa-gavel"></i> Bid Now</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-index="2">
+                        <div class="product-image">
+                            <img src="assets/smartwatches.png" alt="Smart Watch Pro">
+                        </div>
+                        <div class="product-info">
+                            <h2>Smart Watch Pro</h2>
+                            <div class="product-details">
+                                <div class="detail">
+                                    <span class="label">Last Price</span>
+                                    <span class="value">$89</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Payment Method</span>
+                                    <span class="value">All Methods</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Delivery Option</span>
+                                    <span class="value">International</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Availability</span>
+                                    <span class="value">Pre-order</span>
+                                </div>
+                            </div>
+                            <a href="livechat.ejs?product=3" class="buy-now"><i class="fas fa-gavel"></i> Bid Now</a>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+    <script src="profil.js"></script>
+</body>
+</html>
