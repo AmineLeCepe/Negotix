@@ -7,7 +7,10 @@
     <title>Header Component</title>
 </head>
 <body>
-    <div class="top-bar <%= locals.isListingsPage ? 'listings-header' : '' %>">
+    <!-- Add this wrapper div with the sticky class -->
+    <div class="top-bar-wrapper <%= locals.isHomePage ? 'position-sticky' : '' %>">
+        <div class="top-bar <%= locals.isListingsPage ? 'listings-header' : '' %>">
+            <!-- Rest of your header content remains the same -->
         <div class="logo-container">
             <img class="logo-1-icon" alt="Negotix" src="<%= locals.isListingsPage ? '/assets/logo-white.png' : '/assets/logo.png' %>">
             <div class="order-dropdown">
@@ -121,6 +124,7 @@
               </div>
         </div>
   </div>
+    </div>
     <script src="/js/header.js"></script>
 </body>
 </html>

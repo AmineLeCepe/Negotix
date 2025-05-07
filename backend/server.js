@@ -97,6 +97,7 @@ app.get('/', async (req, res) => {
         const recentAuctions = await getRecentAuctions();
         res.render('main-page', {
             recentAuctions: recentAuctions,
+            isHomePage: true,
         })
     } catch (error) {
         console.error(error);
