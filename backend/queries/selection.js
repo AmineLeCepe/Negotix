@@ -34,6 +34,23 @@ async function getRecentAuctions() {
     }
 }
 
+async function getAllAuctionsForUser(userId) {
+    try {
+        // Find all auctions where the specified user is the seller
+        const auctions = await Auction.find({
+            sellerId: userId
+        })
+        .populate('categoryId', 'name') // Populate category information
+        .populate('highestBidId') // Populate highest bid information
+        .sort({ creationDate: -1 }); // Sort by creation date (newest first)
+        
+        return auctions;
+    } catch (error) {
+        console.error('Error fetching auctions for user:', error);
+        throw error;
+    }
+}
+
 async function getRunningAuctionsForUser(userId) {
     try {
         // Find all active auctions where the specified user is the seller
@@ -198,5 +215,6 @@ module.exports = {
     newBid,
     getWishlist,
     getActiveAuctions,
+    getAllAuctionsForUser,
     getRunningAuctionsForUser
 };
