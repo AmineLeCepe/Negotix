@@ -40,18 +40,17 @@ async function insertAuctionTemplate2() {
     try {
         Auction.insertMany([
             {
-                sellerId: new mongoose.Types.ObjectId('68050461ac9df5ecce3c9efe'),
-                title: 'Watches',
-                description: '3 apple watches',
-                categoryId: new mongoose.Types.ObjectId('68050799f736f109eaf6a29f'),
-                creationDate: new Date(2024-5-12),
+                sellerId: new mongoose.Types.ObjectId('680d006c4de40da91edf83a4'),
+                title: 'Jeff the land shark',
+                description: 'Mrrrrrr',
+                categoryId: new mongoose.Types.ObjectId('68050799f736f109eaf6a29c'),
+                creationDate: Date.now(),
                 startingPrice: 9000,
                 latestPrice: 9000,
-                endDate: new Date('2024-05-15'),
+                endDate: new Date('2025-05-21'),
                 isPaidFor: false,
-                isCompleted: true,
-                highestBidId: new mongoose.Types.ObjectId('680d006c4de40da91edf83a4'),
-                image: "https://cdn.discordapp.com/attachments/1355619011202777240/1357784514960687285/watches.png?ex=681afe1e&is=6819ac9e&hm=8dafafb1091491bc0e0e3bbebf7358b1fa06d366005e13068699fb4168e92c1d&"
+                isCompleted: false,
+                image: "https://cdn.discordapp.com/attachments/1155177309880459309/1369703897479909449/jeff_the_land_shar.png?ex=681cd3a9&is=681b8229&hm=faa08c93fe22a9c09094d2a9cdb3dc598d8c67434c65d86fa4780871d955abe8&"
             }
         ]);
     } catch (e) {
