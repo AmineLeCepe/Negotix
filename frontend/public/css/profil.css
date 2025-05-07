@@ -832,3 +832,10 @@ main {
     transform: translateY(1px);
     box-shadow: var(--shadow);
 }
+
+.no-auctions-message {
+    text-align: center;
+    padding: 50px 0;
+    font-size: 1.2rem;
+    color: #666;
+}

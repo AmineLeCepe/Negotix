@@ -98,95 +98,47 @@
 
         <section class="product-section">
             <div class="product-container">
-                <div class="products-wrapper">
-                    <button class="nav-btn prev"><i class="fas fa-chevron-left"></i></button>
-                    <button class="nav-btn next"><i class="fas fa-chevron-right"></i></button>
-                    
-                    <div class="product-card active" data-index="0">
-                        <div class="product-image">
-                            <img src="assets/airpods.png" alt="Wireless X7007">
-                        </div>
-                        <div class="product-info">
-                            <h2>Wireless X7007</h2>
-                            <div class="product-details">
-                                <div class="detail">
-                                    <span class="label">Last Price</span>
-                                    <span class="value">$10</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Payment Method</span>
-                                    <span class="value">Credit Card</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Delivery Option</span>
-                                    <span class="value">Office & House</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Availability</span>
-                                    <span class="value">In Stock</span>
-                                </div>
-                            </div>
-                            <a href="livechat.ejs?product=1" class="buy-now"><i class="fas fa-gavel"></i> Bid Now</a>
-                        </div>
+    <% if (locals.runningAuctions && locals.runningAuctions.length > 0) { %>
+        <div class="products-wrapper">
+            <button class="nav-btn prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="nav-btn next"><i class="fas fa-chevron-right"></i></button>
+            
+            <% locals.runningAuctions.forEach((auction, index) => { %>
+                <div class="product-card <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>">
+                    <div class="product-image">
+                        <img src="<%= auction.image %>" alt="<%= auction.title %>">
                     </div>
-
-                    <div class="product-card" data-index="1">
-                        <div class="product-image">
-                            <img src="assets/headset.png" alt="Gaming Headset Pro">
-                        </div>
-                        <div class="product-info">
-                            <h2>Gaming Headset Pro</h2>
-                            <div class="product-details">
-                                <div class="detail">
-                                    <span class="label">Last Price</span>
-                                    <span class="value">$45</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Payment Method</span>
-                                    <span class="value">PayPal</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Delivery Option</span>
-                                    <span class="value">Express Shipping</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Availability</span>
-                                    <span class="value">Limited Stock</span>
-                                </div>
+                    <div class="product-info">
+                        <h2><%= auction.title %></h2>
+                        <div class="product-details">
+                            <div class="detail">
+                                <span class="label">Starting Price</span>
+                                <span class="value">$<%= auction.startingPrice %></span>
                             </div>
-                            <a href="livechat.ejs?product=2" class="buy-now"><i class="fas fa-gavel"></i> Bid Now</a>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-index="2">
-                        <div class="product-image">
-                            <img src="assets/smartwatches.png" alt="Smart Watch Pro">
-                        </div>
-                        <div class="product-info">
-                            <h2>Smart Watch Pro</h2>
-                            <div class="product-details">
-                                <div class="detail">
-                                    <span class="label">Last Price</span>
-                                    <span class="value">$89</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Payment Method</span>
-                                    <span class="value">All Methods</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Delivery Option</span>
-                                    <span class="value">International</span>
-                                </div>
-                                <div class="detail">
-                                    <span class="label">Availability</span>
-                                    <span class="value">Pre-order</span>
-                                </div>
+                            <div class="detail">
+                                <span class="label">Current Price</span>
+                                <span class="value">$<%= auction.latestPrice || auction.startingPrice %></span>
                             </div>
-                            <a href="livechat.ejs?product=3" class="buy-now"><i class="fas fa-gavel"></i> Bid Now</a>
+                            <div class="detail">
+                                <span class="label">Category</span>
+                                <span class="value"><%= auction.categoryId ? auction.categoryId.name : 'Uncategorized' %></span>
+                            </div>
+                            <div class="detail">
+                                <span class="label">End Date</span>
+                                <span class="value"><%= new Date(auction.endDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                            </div>
                         </div>
+                        <a href="/auctions/<%= auction._id %>" class="buy-now"><i class="fas fa-gavel"></i> View Auction</a>
                     </div>
-            </div>
-            </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="no-auctions-message">
+            <p>No active auctions for <%= locals.user.username %></p>
+        </div>
+    <% } %>
+</div>
         </section>
     </main>
     <script src="/js/profil.js"></script>
