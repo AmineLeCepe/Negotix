@@ -96,6 +96,7 @@ app.get('/', async (req, res) => {
     try {
         const recentAuctions = await getRecentAuctions();
         res.render('main-page', {
+            title: 'Home',
             recentAuctions: recentAuctions,
             isHomePage: true,
         })
@@ -128,6 +129,13 @@ app.get('/listings', async (req, res) => {
         });
     }
 });
+app.get('/profile', checkAuthenticated, async (req, res) => {
+    // console.log(req.user);
+    res.render('profil', {
+        title: 'Profile',
+        user: req.user
+    });
+})
 app.get('/contact', (req, res) => {
     res.render('contact', {title: 'Contact'});
 })
