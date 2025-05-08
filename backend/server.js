@@ -92,6 +92,31 @@ app.use((req, res, next) => {
     next();
 });
 
+// Add this middleware after your existing middleware and before your routes
+app.use(async (req, res, next) => {
+    if (req.isAuthenticated() && req.user) {
+        try {
+            // Fetch cart items for the logged-in user
+            const cartItems = await getCompletedUnpaidAuctionsForUser(req.user._id);
+            
+            // Make cart items available to all views through res.locals
+            res.locals.cartItems = cartItems;
+            
+            // For debugging
+            console.log(`Middleware: Found ${cartItems.length} cart items for user ${req.user.username || req.user._id}`);
+        } catch (err) {
+            console.error('Error fetching cart items in middleware:', err);
+            res.locals.cartItems = [];
+        }
+    } else {
+        // For non-authenticated users, set empty cart
+        res.locals.cartItems = [];
+    }
+    
+    // Continue to the next middleware or route handler
+    next();
+});
+
 // API endpoints
 /// GET requests
 app.get('/', async (req, res) => {
@@ -199,8 +224,10 @@ app.get('/auth', checkNotAuthenticated, (req, res) => {
 app.get('/my-bids', checkAuthenticated, (req, res) => {
     res.render('my-bids', { title: 'My Bids', user: req.user });
 }); // TODO
-app.get('/checkout', checkAuthenticated, (req, res) => {
-    res.render('checkout', { title: 'Checkout', user: req.user });
+app.get('/checkout', checkAuthenticated, async (req, res) => {
+    const cartItems = await getCompletedUnpaidAuctionsForUser(req.user?._id);
+
+    res.render('checkout', { title: 'Checkout', user: req.user, cartItems: cartItems });
 });
 app.get('/test', (req, res) => {
     res.render('test', {title: 'Test'});
@@ -417,4 +444,3 @@ app.listen(port, () => {
 //     }
 //     next();
 // });
-

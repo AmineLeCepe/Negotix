@@ -10,56 +10,45 @@
     </div>
     <div class="checkout-content">
       <div class="order-list">
-        <!-- Example product card -->
-        <div class="order-card green">
-          <img src="/assets/shoes.webp" alt="Nike Vomero 18" class="order-img">
-          <div class="order-details">
-            <h3>Nike Vomero 18</h3>
-            <ul>
-              <li>Men's Street Running Shoes</li>
-              <li>Electric Green</li>
-              <li>Size: 42</li>
-            </ul>
-            <ul>
-              <li>Credit Card/Cash</li>
-              <li>Office/Address</li>
-            </ul>
+        <% if (locals.cartItems && cartItems.length > 0) { %>
+          <% let subtotal = 0; %>
+          <% cartItems.forEach(auction => { %>
+            <% const price = auction.latestPrice || auction.startingPrice; %>
+            <% subtotal += price; %>
+            <div class="order-card <%= ['green', 'blue', 'red'][Math.floor(Math.random() * 3)] %>">
+              <img src="<%= auction.image %>" alt="<%= auction.title %>" class="order-img">
+              <div class="order-details">
+                <h3><%= auction.title %></h3>
+                <ul>
+                  <li><%= auction.description ? auction.description.substring(0, 50) + (auction.description.length > 50 ? '...' : '') : 'Won auction item' %></li>
+                  <% if (auction.categoryId && auction.categoryId.name) { %>
+                    <li>Category: <%= auction.categoryId.name %></li>
+                  <% } %>
+                  <li>Auction End Date: <%= new Date(auction.endDate).toLocaleDateString() %></li>
+                </ul>
+                <ul>
+                  <li>Payment: Credit Card/Cash</li>
+                  <li>Delivery: Office/Address</li>
+                </ul>
+              </div>
+              <div class="order-price"><%= price %> DA</div>
+            </div>
+          <% }); %>
+          <a href="/listings" class="back-to-store">Back to Listings</a>
+          
+          <!-- Store the subtotal for use in summary -->
+          <script>
+            window.checkoutSubtotal = <%= subtotal %>;
+          </script>
+        <% } else { %>
+          <div class="empty-cart-message">
+            <p>Your cart is empty</p>
+            <a href="/listings" class="back-to-store">Browse Listings</a>
           </div>
-          <div class="order-price">3000 DA</div>
-        </div>
-        <div class="order-card blue">
-          <img src="/assets/shoes1.webp" alt="Nike Pegasus 41" class="order-img">
-          <div class="order-details">
-            <h3>Nike Pegasus 41</h3>
-            <ul>
-              <li>Running shoes for kids (street)</li>
-              <li>Midnight Navy</li>
-              <li>Size: 36</li>
-            </ul>
-            <ul>
-              <li>Cash</li>
-              <li>Adress Only</li>
-            </ul>
-          </div>
-          <div class="order-price">4000 DA</div>
-        </div>
-        <div class="order-card red">
-          <img src="/assets/shoes2.webp" alt="Nike Zoom Fly 6 Pre." class="order-img">
-          <div class="order-details">
-            <h3>Nike Zoom Fly 6 Pre.</h3>
-            <ul>
-              <li>Men's running shoes (street)</li>
-              <li>White</li>
-              <li>Size: 39</li>
-            </ul>
-            <ul>
-              <li>Credit Card Only</li>
-              <li>Address Only</li>
-            </ul>
-          </div>
-          <div class="order-price">2000 DA</div>
-        </div>
-        <a href="/store" class="back-to-store">Back to Store</a>
+          <script>
+            window.checkoutSubtotal = 0;
+          </script>
+        <% } %>
       </div>
       <div class="checkout-side">
         <div class="shipping-address">
@@ -69,17 +58,27 @@
           <button class="add-address">Add</button>
         </div>
         <div class="summary-box">
-          <h4>Summery</h4>
-          <div class="summary-row"><span>Subtotal</span><span>9000 DA</span></div>
+          <h4>Summary</h4>
+          <% 
+            const subtotal = locals.cartItems ? cartItems.reduce((total, auction) => 
+              total + (auction.latestPrice || auction.startingPrice), 0) : 0;
+            const fee = subtotal > 0 ? 500 : 0;
+            const total = subtotal + fee;
+          %>
+          <div class="summary-row"><span>Subtotal</span><span><%= subtotal %> DA</span></div>
           <div class="summary-row"><span>Shipping</span><span>Free</span></div>
-          <div class="summary-row"><span>Fee</span><span>500 DA</span></div>
-          <div class="summary-row total"><span>Total</span><span>9500 DA</span></div>
+          <div class="summary-row"><span>Fee</span><span><%= fee %> DA</span></div>
+          <div class="summary-row total"><span>Total</span><span><%= total %> DA</span></div>
           <p class="terms">By completing your purchase you agree to these <a href="/terms">Terms of Service</a>.</p>
-          <button class="pay-btn">Pay</button>
+          <% if (subtotal > 0) { %>
+            <button class="pay-btn">Pay</button>
+          <% } else { %>
+            <button class="pay-btn" disabled>No Items to Pay</button>
+          <% } %>
         </div>
       </div>
     </div>
   </div>
 </div>
 <%- include('partials/footer') %>
-<script src="/js/checkout.js"></script> 
+<script src="/js/checkout.js"></script>
