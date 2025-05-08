@@ -174,7 +174,7 @@ app.get('/auth', checkNotAuthenticated, (req, res) => {
 });
 app.get('/profile', checkAuthenticated, (req, res) => {
     res.render('profile', { title: 'Profile', user: req.user });
-}); // TODO
+});
 app.get('/my-bids', checkAuthenticated, (req, res) => {
     res.render('my-bids', { title: 'My Bids', user: req.user });
 }); // TODO

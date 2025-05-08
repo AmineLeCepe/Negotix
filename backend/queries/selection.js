@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Bid = require('../models/bidModel');
 const Wishlist = require('../models/wishlistModel');
 
-// Gets all auctions from the database
+
 async function getAllAuctions() {
     try {
         return await Auction.find()
@@ -18,7 +18,6 @@ async function getAllAuctions() {
     }
 }
 
-// Gets the most recent auctions from the database
 async function getRecentAuctions() {
     try {
         return await Auction.find()
@@ -205,6 +204,26 @@ async function getActiveAuctions() {
     } catch (error) {
         console.error("Error fetching active auctions:", error);
         return [];
+    }
+}
+
+async function getUserById(userId) {
+    try {
+        // Convert string to ObjectId if needed
+        const userObjId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
+        
+        // Find the user by ID
+        const user = await userModel.findById(userObjId);
+        
+        // Return null if user not found
+        if (!user) {
+            return null;
+        }
+        
+        return user;
+    } catch (error) {
+        console.error("Error fetching user by ID:", error);
+        return null;
     }
 }
 
