@@ -116,12 +116,14 @@ app.get('/listings', async (req, res) => {
         const items = await getActiveAuctions();
         const recentItems = await getRecentAuctions();
         const auctionsCategoryCount = await getAuctionsCategoryCount();
+        const cartItems = await getCompletedUnpaidAuctionsForUser(req.user?._id);
         // Render the EJS template and pass the item array
         res.render('listings', {
             items: items,
             recentItems: recentItems,
             title: 'Listings',
             categories: auctionsCategoryCount,
+            cartItems: cartItems,
         });
     } catch (error) {
         console.error(error);
@@ -203,10 +205,6 @@ app.get('/checkout', checkAuthenticated, (req, res) => {
 app.get('/test', (req, res) => {
     res.render('test', {title: 'Test'});
 })
-
-app.get('/listings', (req, res) => {
-    res.render('listings', { user: req.user });
-});
 
 // GET requests (admin section)
 app.get('/admin', checkAuthenticated, (req, res) => {
