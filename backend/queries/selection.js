@@ -3,6 +3,7 @@ const Category = require('../models/categoryModel');
 const mongoose = require('mongoose');
 const Bid = require('../models/bidModel');
 const Wishlist = require('../models/wishlistModel');
+const User = require('../models/userModel');
 
 
 async function getAllAuctions() {
@@ -213,7 +214,7 @@ async function getUserById(userId) {
         const userObjId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
         
         // Find the user by ID
-        const user = await userModel.findById(userObjId);
+        const user = await User.findById(userObjId);
         
         // Return null if user not found
         if (!user) {
@@ -235,5 +236,6 @@ module.exports = {
     getWishlist,
     getActiveAuctions,
     getAllAuctionsForUser,
-    getRunningAuctionsForUser
+    getRunningAuctionsForUser,
+    getUserById
 };
