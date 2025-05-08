@@ -51,6 +51,93 @@ async function getAllAuctionsForUser(userId) {
     }
 }
 
+async function getCompletedUnpaidAuctionsForUser(userId) {
+    try {
+        // Convert string ID to ObjectId if needed
+        const userObjectId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
+        
+        console.log('Searching for completed unpaid auctions for user ID:', userObjectId);
+        
+        // Method 1: Check if user is directly the winner (if winnerId is set)
+        let completedUnpaidAuctions = [];
+        
+        if (mongoose.model('Auction').schema.paths.winnerId) {
+            // If the auction schema has a winnerId field, use it directly
+            completedUnpaidAuctions = await Auction.find({
+                winnerId: userObjectId,
+                isCompleted: true,
+                isPaidFor: false
+            })
+            .populate('categoryId')
+            .populate('highestBidId')
+            .populate('sellerId');
+        }
+        
+        // Method 2: Check if user's bid is the highest bid
+        // First, find all bids by this user
+        const userBids = await Bid.find({ userId: userObjectId });
+        console.log('User bids found:', userBids.length);
+        
+        if (userBids.length === 0 && completedUnpaidAuctions.length === 0) {
+            console.log('No bids or direct wins found for this user');
+            return [];
+        }
+        
+        // Extract the bid IDs
+        const userBidIds = userBids.map(bid => bid._id);
+        
+        // Find all auctions where one of user's bids is the highest bid
+        const bidWonAuctions = await Auction.find({
+            highestBidId: { $in: userBidIds },
+            isCompleted: true,
+            isPaidFor: false
+        })
+        .populate('categoryId')
+        .populate('highestBidId')
+        .populate('sellerId');
+        
+        // Combine results, removing duplicates
+        if (bidWonAuctions.length > 0) {
+            const seenIds = new Set(completedUnpaidAuctions.map(a => a._id.toString()));
+            
+            for (const auction of bidWonAuctions) {
+                if (!seenIds.has(auction._id.toString())) {
+                    completedUnpaidAuctions.push(auction);
+                }
+            }
+        }
+        
+        console.log('Found completed unpaid auctions where user is winner:', completedUnpaidAuctions.length);
+        
+        return completedUnpaidAuctions;
+    } catch (error) {
+        console.error('Error fetching completed unpaid auctions for user:', error);
+        return [];
+    }
+}
+
+async function getBidsByUserId(userId) {
+    try {
+        // Convert string ID to ObjectId if needed
+        const userObjectId = typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
+        
+        // Find all bids by this user
+        const bids = await Bid.find({ userId: userObjectId })
+            .populate('auctionId') // Populate auction information
+            .sort({ creationDate: -1 }); // Sort by creation date (newest first)
+        
+        if (bids.length === 0) {
+            console.log('No bids found for user ID:', userObjectId);
+            return [];
+        }
+        
+        return bids;
+    } catch (error) {
+        console.error('Error fetching bids for user:', error);
+        return [];
+    }
+}
+
 async function getRunningAuctionsForUser(userId) {
     try {
         // Find all active auctions where the specified user is the seller
@@ -237,5 +324,7 @@ module.exports = {
     getActiveAuctions,
     getAllAuctionsForUser,
     getRunningAuctionsForUser,
-    getUserById
+    getUserById,
+    getCompletedUnpaidAuctionsForUser,
+    getBidsByUserId,
 };

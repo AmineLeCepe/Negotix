@@ -32,7 +32,7 @@ const Category = require('./models/categoryModel');
 
 // Queries imports
 const { getAllAuctions, getActiveAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid, getRunningAuctionsForUser,
-    getAllAuctionsForUser, getUserById
+    getAllAuctionsForUser, getUserById, getCompletedUnpaidAuctionsForUser, getBidByUserId
 } = require('./queries/selection');
 const { insertAuctionTemplate2 } = require('./queries/insertion');
 
@@ -419,3 +419,4 @@ app.listen(port, () => {
 //     }
 //     next();
 // });
+
