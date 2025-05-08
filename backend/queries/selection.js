@@ -76,10 +76,10 @@ async function getCompletedUnpaidAuctionsForUser(userId) {
         // Method 2: Check if user's bid is the highest bid
         // First, find all bids by this user
         const userBids = await Bid.find({ userId: userObjectId });
-        console.log('User bids found:', userBids.length);
+        // console.log('User bids found:', userBids.length);
         
         if (userBids.length === 0 && completedUnpaidAuctions.length === 0) {
-            console.log('No bids or direct wins found for this user');
+            // console.log('No bids or direct wins found for this user');
             return [];
         }
         
