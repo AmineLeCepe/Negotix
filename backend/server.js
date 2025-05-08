@@ -32,7 +32,7 @@ const Category = require('./models/categoryModel');
 
 // Queries imports
 const { getAllAuctions, getActiveAuctions, getRecentAuctions, getAuctionsCategoryCount, newBid, getRunningAuctionsForUser,
-    getAllAuctionsForUser
+    getAllAuctionsForUser, getUserById
 } = require('./queries/selection');
 const { insertAuctionTemplate2 } = require('./queries/insertion');
 
@@ -131,17 +131,35 @@ app.get('/listings', async (req, res) => {
         });
     }
 });
-app.get('/profile', checkAuthenticated, async (req, res) => {
-    // console.log(req.user);
-    const runningAuctions = await getRunningAuctionsForUser(req.user._id);
-    const allAuctions = await getAllAuctionsForUser(req.user._id);
+app.get('/profile', async (req, res) => {
+    // Get userId from query parameter, fallback to logged-in user if not provided
+    // Accept a userId query parameter (e.g., /profile?userId=123456)
+    const userId = req.query.userId || (req.user ? req.user._id : null);
+    
+    // If no userId is available (not logged in and no query param)
+    if (!userId) {
+        return res.redirect('/login'); // Redirect to login page
+    }
+    
+    // Get user by ID
+    const user = await getUserById(userId);
+    
+    // If user not found, redirect to 404 page
+    if (!user) {
+        return res.status(404).redirect('/404'); // Redirect to 404 page
+    }
+    
+    // Get auctions for the specified user
+    const runningAuctions = await getRunningAuctionsForUser(userId);
+    const allAuctions = await getAllAuctionsForUser(userId);
+    
     res.render('profil', {
         title: 'Profile',
-        user: req.user,
+        user: user,
         runningAuctions: runningAuctions,
         allAuctions: allAuctions,
     });
-})
+});
 app.get('/contact', (req, res) => {
     res.render('contact', {title: 'Contact'});
 })
@@ -171,9 +189,6 @@ app.get('/terms', (req, res) => {
 })
 app.get('/auth', checkNotAuthenticated, (req, res) => {
     res.render('auth', { title: 'Authenticate' });
-});
-app.get('/profile', checkAuthenticated, (req, res) => {
-    res.render('profile', { title: 'Profile', user: req.user });
 });
 app.get('/my-bids', checkAuthenticated, (req, res) => {
     res.render('my-bids', { title: 'My Bids', user: req.user });
