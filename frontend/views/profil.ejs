@@ -54,7 +54,9 @@
                             <p>Professional bidder with expertise in electronics and collectibles. Always looking for the best deals!</p>
                         </div>
                         <div class="profile-actions">
-                            <button class="follow-btn"><i class="fas fa-user-plus"></i> Follow</button>
+                            <button class="follow-btn <%= (isOwnProfile || !locals.isAuthenticated) ? 'disabled' : '' %>">
+                                <i class="fas fa-user-plus"></i> <%= isOwnProfile ? 'Your Profile' : 'Follow' %>
+                            </button>
                         </div>
                     </div>
                 </div>

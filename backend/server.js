@@ -133,7 +133,6 @@ app.get('/listings', async (req, res) => {
 });
 app.get('/profile', async (req, res) => {
     // Get userId from query parameter, fallback to logged-in user if not provided
-    // Accept a userId query parameter (e.g., /profile?userId=123456)
     const userId = req.query.userId || (req.user ? req.user._id : null);
     
     // If no userId is available (not logged in and no query param)
@@ -146,18 +145,23 @@ app.get('/profile', async (req, res) => {
     
     // If user not found, redirect to 404 page
     if (!user) {
-        return res.status(404).redirect('/404'); // Redirect to 404 page
+        return res.status(404).redirect('/404');
     }
     
     // Get auctions for the specified user
     const runningAuctions = await getRunningAuctionsForUser(userId);
     const allAuctions = await getAllAuctionsForUser(userId);
     
+    // Check if the profile being viewed belongs to the logged-in user
+    const isOwnProfile = req.user ? user._id.toString() === req.user._id.toString() : false;
+    
     res.render('profil', {
         title: 'Profile',
         user: user,
         runningAuctions: runningAuctions,
         allAuctions: allAuctions,
+        isOwnProfile: isOwnProfile,
+        currentUser: req.user
     });
 });
 app.get('/contact', (req, res) => {
