@@ -11,6 +11,50 @@
   <title>Sign in & Sign up Form</title>
 </head>
 <body>
+ <style>
+    .top-bar-wrapper {
+      background: transparent !important;
+      box-shadow: none !important;
+      position: absolute;
+      z-index: 100;
+      width: 100%;
+      top: -25px;
+      margin-top: 0;
+    }
+    
+    .top-bar {
+      padding: 5px 20px !important;
+    }
+    
+    .sing-upsing-in,
+    .menu-link,
+    .search-btn,
+    .copyright,
+    .menu-footer-links a {
+      color: #000000 !important;
+    }
+    
+    .sing-upsing-in:hover {
+      color: #7e70eb !important;
+    }
+    
+    .sing-upsing-in::after {
+      background: #7e70eb !important;
+    }
+    
+    .hamburger-line {
+      background-color: #000000 !important;
+    }
+    
+    .logo-1-icon {
+      filter: none;
+    }
+    
+    .container {
+      padding-top: 80px;
+    }
+  </style>
+  <%- include('./partials/header') %>
   <div class="container">
     <div class="forms-container">
       <div class="signin-signup">
@@ -46,7 +90,7 @@
               <img src="/assets/gmail.png" alt="Gmail" class="social-icon-img">
             </a>
             <a href="https://www.linkedin.com/" class="social-icon">
-              <img src="/assets/linkedin.png" alt="LinkedIn" class="social-icon-img">
+              <img src="/assets/thislinkedin.png" alt="LinkedIn" class="social-icon-img">
             </a>
           </div>
         </form>
@@ -78,7 +122,7 @@
               <img src="/assets/gmail.png" alt="Gmail" class="social-icon-img">
             </a>
             <a href="https://www.linkedin.com/" class="social-icon">
-              <img src="/assets/linkedin.png" alt="LinkedIn" class="social-icon-img">
+              <img src="/assets/thislinkedin.png" alt="LinkedIn" class="social-icon-img">
             </a>
           </div>
         </form>
