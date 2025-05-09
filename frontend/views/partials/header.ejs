@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- Add this wrapper div with the sticky class -->
-    <div class="top-bar-wrapper <%= locals.isHomePage ? 'position-sticky' : '' %>">
+    <div class="top-bar-wrapper <%= locals.isHomePage ? 'position-sticky' : '' %> <%= locals.isProfilePage ? 'profile-wrapper' : '' %>">
         <div class="top-bar <%= locals.isListingsPage ? 'listings-header' : '' %>">
             <!-- Rest of your header content remains the same -->
         <div class="logo-container">
