@@ -3,6 +3,29 @@
 <link rel="stylesheet" href="/css/contact.css">
 
 <style>
+
+.float-wrapper {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+.float-wrapper:hover {
+  animation: none;
+}
+
+.float {
+  transition: transform 0.3s ease;
+}
+
+.float-wrapper:hover .float {
+  transform: scale(1.08);
+}
+
+@keyframes floatUpDown {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -135,6 +158,13 @@
     width: 100%;
   }
 </style>
+ <% const teamMembers = [
+  { img: 'https://cdn.discordapp.com/attachments/1355619011202777240/1370357728827932733/michou.jpg?ex=681f3496&is=681de316&hm=042403ed66aaf757fb860a400a7a5fa086452317529464edf663226cbb78021e&', name: 'Mouatez' },
+  { img: 'https://cdn.discordapp.com/attachments/1355619011202777240/1370357728555569173/amine.png?ex=681f3496&is=681de316&hm=11899dbb5c21bc3fb0a5e7d7b53e6e9431bde1aed3b8a1c2807c0a3fd89e50c1&', name: 'Amine' },
+  { img: 'https://cdn.discordapp.com/attachments/1355619011202777240/1370358264004477079/f8a6158caa63d23fe6fed1f0e31b3c6b.png?ex=681f3516&is=681de396&hm=f01ee2eedfdf72fbcda1a9cf3c6f1268bf67e13bd38bcb5c7d11a4d323330593&', name: 'Nadia' },
+  { img: 'https://cdn.discordapp.com/attachments/1355619011202777240/1370359799065219072/skeletor.PNG?ex=681f3684&is=681de504&hm=75af44e75556958a3910eb989fbc2e1325dea13ba62dcf132a12ec129ccd5064&', name: 'Iheb' },
+  { img: 'https://cdn.discordapp.com/attachments/1355619011202777240/1370397031029411951/IMG_20250509_144801.jpg?ex=681f5930&is=681e07b0&hm=2fd6cc3632d493ce8a2d784beef7e45e0b411025add823a711e344c926370b7d&', name: 'Mouez' }
+]; %>
 
 <main>
   <!-- Home Section -->
@@ -161,8 +191,10 @@
       <div style="display: flex; gap: 2rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
         <% for(let i=0; i<5; i++) { %>
           <div style="display: flex; flex-direction: column; align-items: center;" class="animate-fadeInUp" data-delay="<%= i * 200 %>">
-            <img src="/assets/msgguy.png" alt="Team Member" style="width: 90px; height: 90px; border-radius: 16px; background: #a9a3e6; object-fit: cover;">
-            <span style="margin-top: 0.5rem; font-size: 1.1rem;">xxxxx</span>
+            <div class="float-wrapper">
+              <img class="float" src="<%= teamMembers[i].img %>" alt="Team Member" style="width: 90px; height: 90px; border-radius: 16px; background: #a9a3e6; object-fit: cover;">
+            </div>
+            <span style="margin-top: 0.5rem; font-size: 1.1rem;"><%= teamMembers[i].name %></span>
           </div>
         <% } %>
       </div>
@@ -266,6 +298,7 @@
       observer.observe(element);
     });
   });
+
 </script>
 
 </body>
