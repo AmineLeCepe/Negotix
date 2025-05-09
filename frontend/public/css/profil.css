@@ -33,7 +33,7 @@ body {
     background-image: radial-gradient(rgba(94, 96, 206, 0.05) 2px, transparent 2px);
     background-size: 30px 30px;
     font-size: 16px;
-    padding-top: 3rem;
+    padding-top: 10rem; /* Changed from 3rem to 6rem to add more space below the header */
 }
 
 @media (max-width: 768px) {
@@ -74,8 +74,11 @@ main {
     margin: 0;
     position: fixed;
     left: 2rem;
-    top: 1.5rem;
+    top: 8rem; /* Keep the change from before to avoid header overlap */
     z-index: 10;
+    max-height: calc(100vh - 10rem); /* Add max height to leave room for footer */
+    overflow-y: auto; /* Add scrolling if the content is too tall */
+    padding-bottom: 2rem; /* Add some padding at the bottom */
 }
 
 @media (max-width: 1100px) {
@@ -85,6 +88,9 @@ main {
         top: auto;
         max-width: 100%;
         margin-bottom: 2rem;
+        margin-top: 2rem;
+        max-height: none; /* Remove max height constraint in mobile view */
+        overflow-y: visible; /* Remove scrolling in mobile view */
     }
 }
 
