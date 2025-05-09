@@ -1,0 +1,63 @@
+:root {
+  --primary-color: #2B1B3B;
+  --secondary-color: #0EA5E9;
+  --text-color: #333;
+  --background-color: #F3F4F6;
+  --font-family: 'Inter', sans-serif;
+}
+
+/* Apply the font family to all elements */
+* {
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+.sidebar.admin-sidebar {
+  width: 317px;
+  position: relative;
+}
+
+/* Background element styles */
+.admin-sidebar__background {
+  width: 308px;
+  height: 883px;
+  background-color: #ffffff;
+}
+
+/* Menu container positioned over the background */
+.admin-sidebar__menu {
+  position: absolute;
+  top: 84px;
+  left: 0;
+  width: 317px;
+  color: var(--text-color);
+}
+
+/* List styling */
+.admin-sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+}
+
+/* List items */
+.admin-sidebar__item {
+  margin-bottom: 40px;
+}
+
+/* Sidebar link styles with added animations */
+.admin-sidebar__link {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 18px;
+  display: block;
+  padding: 10px 15px;
+  transition: all 0.2s ease;
+}
+
+/* Hover effects similar to header animations */
+.admin-sidebar__link:hover {
+  background: #f8f9ff;
+  color: #6c5ce7;
+  transform: translateX(4px);
+}
