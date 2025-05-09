@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negotix - Listings</title>
+    <link rel="stylesheet" href="/css/listings.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<%- include('./partials/header', { isListingsPage: true }) %>
+<main class="container">
+    <aside class="sidebar">
+        <div class="categories">
+            <h2>Categories</h2>
+            <ul>
+                <li class="active">
+                    <span>All</span>
+                    <span class="count"><%= locals.categories?.reduce((sum, cat) => sum + cat.numberOfAuctions, 0) || 0 %></span>
+                </li>
+                <% if (locals.categories && Array.isArray(locals.categories)) { %>
+                    <% locals.categories.forEach((category, index) => { %>
+                        <li>
+                            <span><%= category.category %></span>
+                            <span class="count"><%= category.numberOfAuctions %></span>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <li>No categories available</li>
+                <% } %>
+            </ul>
+        </div>
+
+        <div class="price-filter">
+            <h2>Price</h2>
+            <ul>
+                <li><span>All</span><span class="count">X</span></li>
+                <li><span>0DA - 1000DA</span><span class="count">X</span></li>
+                <li class="active"><span>1000 DA - 9000DA</span><span class="count">X</span></li>
+                <li><span>9000DA & Above</span><span class="count">X</span></li>
+            </ul>
+            <button class="reset-btn">Reset</button>
+        </div>
+
+        <div class="recently-added">
+            <div class="header">
+                <h2>Recently added</h2>
+                <span class="more">...</span>
+            </div>
+            <div class="recent-items">
+                <% recentItems.forEach(item => { %>
+                    <div class="item <%= item.categoryId?.name?.toLowerCase().replace(/[^a-z0-9-]/g, '-') || 'uncategorized' %>">
+                        <img src="<%= item.image %>" alt="<%= item.title %>">
+                        <div class="item-info">
+                            <h3><%= item.title %></h3>
+                            <p>Price: <%= item.latestPrice %> DA</p>
+                            <button class="bid-btn">Bid</button>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </aside>
+
+    <section class="main-content">
+        <div class="content-header">
+            <div class="sort-dropdown">
+                <select>
+                    <option>Sort: Newest</option>
+                    <option>Sort: Oldest</option>
+                    <option>Sort: Price High to Low</option>
+                    <option>Sort: Price Low to High</option>
+                </select>
+            </div>
+            <span class="item-count"><span class="item-count-number">X</span> Items</span>
+        </div>
+<!--Modal for buttons-->
+<div class="modal" id="modal">
+    <div class="modal-inner">
+        <span id="modalMessage"></span>
+    </div>
+ </div>
+        <div class="products-grid" id="productsGrid">
+            <% items.forEach(product =>  { %>
+                <div class="product-card" data-category="<%- (product.categoryId?.name ?? '').toLowerCase() %>" data-bid-id="<%= product._id %>">
+    <img src="<%= product.image %>" alt="<%= product.title %>">
+    <div class="product-info">
+        <h3><%= product.title %></h3>
+        <div class="price">
+            <span><%= product.latestPrice + "DA"%></span>
+        </div>
+        <div class="timer"><%= product.endDate - Date.now() %></div>
+        
+        <% if (user) { %>
+            <div class="action-buttons">
+                <!-- Check if product is in user's wishlist -->
+                <% const isInWishlist = user.wishlist && user.wishlist.includes(product._id); %>
+                <button class="wishlist-btn <%= isInWishlist ? 'in-wishlist' : '' %>" 
+                        data-product-id="<%= product._id %>">★</button>
+                
+                <form action="/place-bid" method="POST">
+                    <input class="priceAmount" type="number" id="bid-price" name="price" placeholder="Price" />
+                    <input type="hidden" name="userId" value="<%= user._id %>">
+                    <input type="hidden" name="auctionId" value="<%= product._id %>">
+                    <button class="place-bid" type="submit">Place Bid</button>
+                </form>
+            </div>
+        <% } else { %>
+            <p class="login-warning">Please log in to place a bid.</p>
+        <% } %>
+    </div>
+</div>
+            <% }); %>
+        </div>
+
+
+        <div class="pagination">
+            <button class="active">1</button>
+            <button>2</button>
+            <button class="next">Next ></button>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-main">
+        <div class="footer-logo">
+            <img src="assets/Logo.png" alt="Negotix Logo">
+        </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <a href="/about" class="footer-link">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <div class="footer-links">
+                    <a href="/faq" class="footer-link">FAQ</a>
+                    <a href="/return-policy" class="footer-link">Shipping & Returns</a>
+                    <a href="/contact" class="footer-link">Contact</a>
+                    <a href="/track" class="footer-link">Track Order</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Social</h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <img src="assets/Instagram.png" alt="Instagram" class="social-icon">
+                        Instagram
+                    </a>
+                    <a href="#" class="footer-link">
+                        <img src="assets/Facebook.png" alt="Facebook" class="social-icon">
+                        Facebook
+                    </a>
+                    <a href="#" class="footer-link">
+                        <img src="assets/X.png" alt="X" class="social-icon">
+                        X
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section subscribe">
+                <h3>Subscribe</h3>
+                <p class="subscribe-text">Subscribe to receive information on exclusive offers, new product launch, and exciting events.</p>
+                <div class="subscribe-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Your email" class="subscribe-input">
+                        <button class="subscribe-button">Submit</button>
+                    </div>
+                    <div class="privacy-notice">
+                        <span>By joining, you agree on the terms in our</span>
+                        <a href="/privacy-policy" class="privacy-link">privacy policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-links">
+            <a href="/terms" class="footer-link">Terms & Conditions</a>
+            <span class="separator">•</span>
+            <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
+        </div>
+        <div class="copyright">
+            ©️ 2025 Negotix. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+<script src="/js/listings.js"></script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<%- include('partials/header') %>
+<link rel="stylesheet" href="/css/main-page.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/contact.css">
+
+<style>
+  /* Modern Typography */
+  h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+  }
+
+  /* Modern Spacing */
+  .section-padding {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  /* Modern Cards */
+  .card {
+    background: white;
+    border-radius: 15px;
+    padding: var(--spacing-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Modern Buttons */
+  .btn {
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: #222;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Modern Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  /* Modern Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Modern Responsive Design */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    .container {
+      padding: 0 var(--spacing-sm);
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<main>
+  <!-- Hero Section -->
+  <section id="home" class="hero-section section-padding">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="animate-fadeInUp fade-in-text">Welcome to Negotix<br>your go-to destination<br>for thrilling auction<br>and unbeatable deals!</h1>
+        <a href="#about" class="btn btn-primary animate-fadeInUp delay-200">JOIN US</a>
+      </div>
+    </div>
+    <div class="hero-characters">
+      <img src="/assets/delivery_guy.png" alt="Delivery Guy" class="delivery-guy animate-float">
+      <img src="/assets/girl shop-main page.png" alt="Shopper" class="shopper animate-float delay-200">
+      <img src="/assets/card1-main page.webp" alt="Card" class="card1 animate-float delay-400">
+      <img src="/assets/card2-main page.webp" alt="Card" class="card2 animate-float delay-600">
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section section-padding">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2 class="fade-in-text">About Negotix Team</h2>
+          <p class="fade-in-text delay-200">At Negotix Team, we are on a mission to revolutionize the way you shop, offering a dynamic online bidding experience that lets you compete for incredible deals on exclusive products. We are an online bidding store founded by a team of passionate innovators dedicated to providing an exciting, transparent, and rewarding shopping experience for everyone.</p>
+          <div class="team-grid grid">
+            <% for(let i=0; i<5; i++) { %>
+              <div class="team-member card animate-fadeInUp" data-delay="<%= i * 200 %>">
+                <img src="/assets/msgguy.png" alt="Team Member" class="team-image">
+                <span class="team-name">Team Member <%= i + 1 %></span>
+              </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="about-images">
+          <img src="/assets/people_about_page.webp" alt="About Characters" class="characters animate-slideInLeft">
+          <img src="/assets/frame 686.png" alt="About Cubes" class="cubes animate-slideInRight">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Livechat Section -->
+  <section id="livechat" class="livechat-section">
+    <div class="container">
+      <div class="livechat-content">
+        <div class="livechat-text animate-slideInLeft">
+          <h2 class="fade-in-text">Live Chat Bidding is Here!</h2>
+          <p class="fade-in-text delay-200">Place your bids in real time and never miss out on a great deal. Chat with sellers, negotiate, and win the best prices—all live! Start bidding now</p>
+          <div class="stats">
+            <div class="stat-item animate-fadeInUp" data-delay="200">
+              <span class="number">200K+</span>
+              <span class="label">Bids Won</span>
+            </div>
+            <div class="stat-item animate-fadeInUp" data-delay="400">
+              <span class="number">2M+</span>
+              <span class="label">Chats in Last 2025</span>
+            </div>
+          </div>
+        </div>
+        <div class="livechat-images animate-slideInRight">
+          <div class="circle"></div>
+          <div class="chat-scene">
+            <div class="chat-bubble"></div>
+            <img src="/assets/msg_guy-live chat page.webp" alt="Chat Guy" class="chat-guy animate-float">
+            <div class="message1 animate-fadeInUp" data-delay="200">
+              <div class="message-header">
+                <img src="/assets/msgguy.png" alt="Jenny Wilson" class="message-avatar">
+                <span class="message-name">Jenny Wilson</span>
+              </div>
+              <div class="message-content">
+                That T-shirt is cool! Can I get this with 350$ DA
+              </div>
+            </div>
+            <div class="message2 animate-fadeInUp" data-delay="400">
+              <div class="message-header">
+                <img src="/assets/msgguy.png" alt="Ronald Richards" class="message-avatar">
+                <span class="message-name">Ronald Richards</span>
+              </div>
+              <div class="message-content">
+                400$ DA
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Section -->
+  <section id="trending" class="trending-section section-padding">
+    <div class="container">
+      <h2 class="animate-fadeInUp fade-in-text">Shop From <span>Top Categories</span></h2>
+      <div class="divider"></div>
+      <div class="categories">
+        <% const categories = ['mobile', 'cosmetics', 'furniture', 'watches', 'decor', 'accessories']; %>
+        <% categories.forEach((category, index) => { %>
+          <div class="category animate-fadeInUp" data-delay="<%= index * 100 %>">
+            <img src="/assets/<%= category %>.png" alt="<%= category.charAt(0).toUpperCase() + category.slice(1) %>">
+            <div><%= category.charAt(0).toUpperCase() + category.slice(1) %></div>
+          </div>
+        <% }); %>
+      </div>
+      <h2 class="animate-fadeInUp delay-200 fade-in-text">New <span>Arrival</span></h2>
+      <div class="divider"></div>
+      <div class="products">
+        <div class="product-card animate-fadeInUp" data-delay="400">
+          <img src="/assets/playstation.png" alt="PlayStation 5" style="width: 100%; height: 220px; object-fit: cover;">
+          <div class="content">
+            <h3>PlayStation 5</h3>
+            <p>Black and White version of the PS5 coming out on sale.</p>
+            <a href="/listings" class="btn animate-pulse">Shop Now</a>
+          </div>
+        </div>
+        
+        <div class="product-card animate-fadeInUp" data-delay="600">
+          <img src="/assets/women.png" alt="Women's Collections" style="width: 100%; height: 220px; object-fit: cover;">
+          <div class="content">
+            <h3>Women's Collections</h3>
+            <p>Featured woman collections that give you another vibe.</p>
+            <a href="/listings" class="btn animate-pulse">Shop Now</a>
+          </div>
+        </div>
+        
+        <div class="product-card animate-fadeInUp" data-delay="800">
+          <img src="/assets/speakers.png" alt="Speakers" style="width: 100%; height: 220px; object-fit: cover;">
+          <div class="content">
+            <h3>Speakers</h3>
+            <p>Amazon wireless speakers.</p>
+            <a href="/listings" class="btn animate-pulse">Shop Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="text-content animate-slideInLeft">
+        <h2 class="fade-in-text">Contact Us</h2>
+        <p class="fade-in-text delay-200">We are always open to discuss any questions or concerns you have about the bidding process, our team is here to provide prompt assistance and ensure you have a seamless experience on our platform.</p>
+        <a href="/contact" class="animate-pulse">
+          <img src="/assets/get in touch button-contact us.png" alt="Get in Touch">
+        </a>
+      </div>
+      <div class="image-content animate-slideInRight">
+        <img src="/assets/contact guy -contact us.webp" alt="Contact Guy and Graphics" class="contact-guy animate-float">
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer for all animated elements
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          // Only remove visible class if we want elements to re-animate when scrolling back up
+          // entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: 0.15,  // Increased threshold for better timing
+      rootMargin: '0px 0px -100px 0px'
+    });
+
+    // Observe all text elements with fade-in-text class
+    document.querySelectorAll('.fade-in-text').forEach((element) => {
+      observer.observe(element);
+    });
+
+    // Observe all animated elements
+    document.querySelectorAll('.animate-fadeInUp, .animate-slideInLeft, .animate-slideInRight, .product-card, .category, .team-member').forEach((element) => {
+      // Add the fade-in class to all elements we want to animate on scroll
+      element.classList.add('scroll-animate');
+      observer.observe(element);
+    });
+
+    // Observe entire sections for sequential animations
+    document.querySelectorAll('section').forEach((section) => {
+      observer.observe(section);
+      section.classList.add('section-animate');
+    });
+
+    // Header scroll handling
+    const header = document.querySelector('.top-bar');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      // Add scrolled class when not at the top of the page
+      if (currentScroll > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  });
+</script>
+
+</body>
+</html> 

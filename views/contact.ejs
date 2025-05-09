@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Negotix</title>
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <%- include('./partials/header') %>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Contact Us</h1>
+        
+        <div class="contact-info">
+            <div class="contact-method whatsapp">
+                <img src="/assets/whatsapp-logo.png" alt="WhatsApp">
+                <div class="contact-details">
+                    <h3>WhatsApp</h3>
+                    <p>+6285677770129</p>
+                </div>
+            </div>
+            <div class="contact-method email">
+                <img src="/assets/email-logo.png" alt="Email">
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p>xxxx@negotix.com</p>
+                </div>
+            </div>
+        </div>
+
+        <form class="contact-form">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <div class="form-row">
+                <select name="support-type" required>
+                    <option value="" disabled selected>Support Type</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="technical">Technical Support</option>
+                    <option value="billing">Billing Support</option>
+                </select>
+                <input type="text" placeholder="Order Number (Optional)">
+            </div>
+            <textarea placeholder="Leave your message here..." required></textarea>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <%- include('./partials/footer') %>
+
+    <script src="/js/contact.js"></script>
+</body>
+</html> 

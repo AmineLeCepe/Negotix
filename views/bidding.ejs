@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bidding - Negotix</title>
+    <link rel="stylesheet" href="/css/bidding.css">
+</head>
+<body>
+    <%- include('./partials/header') %>
+
+    <div class="main-content">
+        <h1>Bidding</h1>
+        
+        <section class="bidding-overview">
+            <p>Welcome to our bidding platform. Here you can participate in auctions, place bids, and compete for items you're interested in. Make sure to read our guidelines and policies before participating.</p>
+        </section>
+
+        <section class="live-chat">
+            <h2>Live Chat</h2>
+            <p>Connect with our support team in real-time for immediate assistance with your bidding needs. Our experts are here to help you navigate the bidding process.</p>
+            <div class="chat-window" id="chatWindow">
+                <!-- Chat messages will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section class="customer-duties">
+            <h2>Customer Duties</h2>
+            <p>As a bidder, you have certain responsibilities to ensure a fair and transparent bidding process. Please familiarize yourself with these duties before participating.</p>
+        </section>
+
+        <section class="restrictions">
+            <h2>Restrictions</h2>
+            <p>To maintain the integrity of our bidding system, certain restrictions apply. Please review these carefully to ensure compliance with our policies.</p>
+        </section>
+    </div>
+
+    <%- include('./partials/footer') %>
+
+    <script src="/js/bidding.js"></script>
+</body>
+</html> 

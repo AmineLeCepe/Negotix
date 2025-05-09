@@ -1,0 +1,84 @@
+<%- include('partials/header') %>
+<link rel="stylesheet" href="/css/checkout.css">
+<div class="checkout-container">
+  <div class="checkout-main">
+    <h2 class="checkout-title">Order</h2>
+    <div class="checkout-steps">
+      <span class="step active">🛒</span>
+      <span class="step">Checkout</span>
+      <span class="step">Confirm</span>
+    </div>
+    <div class="checkout-content">
+      <div class="order-list">
+        <% if (locals.cartItems && cartItems.length > 0) { %>
+          <% let subtotal = 0; %>
+          <% cartItems.forEach(auction => { %>
+            <% const price = auction.latestPrice || auction.startingPrice; %>
+            <% subtotal += price; %>
+            <div class="order-card <%= ['green', 'blue', 'red'][Math.floor(Math.random() * 3)] %>">
+              <img src="<%= auction.image %>" alt="<%= auction.title %>" class="order-img">
+              <div class="order-details">
+                <h3><%= auction.title %></h3>
+                <ul>
+                  <li><%= auction.description ? auction.description.substring(0, 50) + (auction.description.length > 50 ? '...' : '') : 'Won auction item' %></li>
+                  <% if (auction.categoryId && auction.categoryId.name) { %>
+                    <li>Category: <%= auction.categoryId.name %></li>
+                  <% } %>
+                  <li>Auction End Date: <%= new Date(auction.endDate).toLocaleDateString() %></li>
+                </ul>
+                <ul>
+                  <li>Payment: Credit Card/Cash</li>
+                  <li>Delivery: Office/Address</li>
+                </ul>
+              </div>
+              <div class="order-price"><%= price %> DA</div>
+            </div>
+          <% }); %>
+          <a href="/listings" class="back-to-store">Back to Listings</a>
+          
+          <!-- Store the subtotal for use in summary -->
+          <script>
+            window.checkoutSubtotal = <%= subtotal %>;
+          </script>
+        <% } else { %>
+          <div class="empty-cart-message">
+            <p>Your cart is empty</p>
+            <a href="/listings" class="back-to-store">Browse Listings</a>
+          </div>
+          <script>
+            window.checkoutSubtotal = 0;
+          </script>
+        <% } %>
+      </div>
+      <div class="checkout-side">
+        <div class="shipping-address">
+          <h4>Shipping Address</h4>
+          <label><input type="radio" name="address" checked> Annaba, Algeria</label>
+          <label><input type="radio" name="address"> El Kala, Algeria</label>
+          <button class="add-address">Add</button>
+        </div>
+        <div class="summary-box">
+          <h4>Summary</h4>
+          <% 
+            const subtotal = locals.cartItems ? cartItems.reduce((total, auction) => 
+              total + (auction.latestPrice || auction.startingPrice), 0) : 0;
+            const fee = subtotal > 0 ? 500 : 0;
+            const total = subtotal + fee;
+          %>
+          <div class="summary-row"><span>Subtotal</span><span><%= subtotal %> DA</span></div>
+          <div class="summary-row"><span>Shipping</span><span>Free</span></div>
+          <div class="summary-row"><span>Fee</span><span><%= fee %> DA</span></div>
+          <div class="summary-row total"><span>Total</span><span><%= total %> DA</span></div>
+          <p class="terms">By completing your purchase you agree to these <a href="/terms">Terms of Service</a>.</p>
+          <% if (subtotal > 0) { %>
+            <button class="pay-btn">Pay</button>
+          <% } else { %>
+            <button class="pay-btn" disabled>No Items to Pay</button>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>
+<script src="/js/checkout.js"></script>
