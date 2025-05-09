@@ -219,6 +219,7 @@ app.get('/profile', async (req, res) => {
     const isOwnProfile = req.user ? user._id.toString() === req.user._id.toString() : false;
     
     res.render('profil', {
+        isProfilePage: true,
         title: 'Profile',
         user: user,
         runningAuctions: runningAuctions,
