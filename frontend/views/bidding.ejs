@@ -5,33 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bidding - Negotix</title>
     <link rel="stylesheet" href="/css/bidding.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+
 </head>
 <body>
     <%- include('./partials/header') %>
 
     <div class="main-content">
-        <h1>Bidding</h1>
+        <div class="page-header">
+            <h1>Bidding Rules & Guidelines</h1>
+        </div>
         
         <section class="bidding-overview">
-            <p>Welcome to our bidding platform. Here you can participate in auctions, place bids, and compete for items you're interested in. Make sure to read our guidelines and policies before participating.</p>
+            <div class="section-header">
+                <h2>Official Bidding Rules</h2>
+                <p class="section-subtitle">Understanding the bidding process on Negotix</p>
+            </div>
+            <p>Welcome to Negotix's official bidding rules page. This document outlines the complete set of rules and guidelines that govern all bidding activities on our platform. Adherence to these rules ensures a fair, transparent, and enjoyable experience for all users.</p>
         </section>
-
-        <section class="live-chat">
-            <h2>Live Chat</h2>
-            <p>Connect with our support team in real-time for immediate assistance with your bidding needs. Our experts are here to help you navigate the bidding process.</p>
-            <div class="chat-window" id="chatWindow">
-                <!-- Chat messages will be dynamically inserted here -->
+        
+        <section>
+            <h2>General Bidding Rules</h2>
+            <div class="rules-container">
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-user-check"></i></div>
+                    <div class="rule-content">
+                        <h3>Account Requirements</h3>
+                        <p>All bidders must have a verified account with complete profile information. Your account must be in good standing with no history of payment issues or rule violations.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-gavel"></i></div>
+                    <div class="rule-content">
+                        <h3>Binding Bids</h3>
+                        <p>All bids placed are legally binding. If you win an auction, you are obligated to complete the purchase at your bid price. Failure to honor winning bids may result in account suspension.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-ban"></i></div>
+                    <div class="rule-content">
+                        <h3>Bid Retraction</h3>
+                        <p>Bids cannot be retracted once placed except in extraordinary circumstances and with administrator approval. Think carefully before placing a bid.</p>
+                    </div>
+                </div>
             </div>
         </section>
-
-        <section class="customer-duties">
-            <h2>Customer Duties</h2>
-            <p>As a bidder, you have certain responsibilities to ensure a fair and transparent bidding process. Please familiarize yourself with these duties before participating.</p>
+        
+        <section>
+            <h2>Bid Increments & Timing</h2>
+            <div class="rules-container">
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-arrow-up"></i></div>
+                    <div class="rule-content">
+                        <h3>Minimum Bid Increments</h3>
+                        <p>Each new bid must exceed the current highest bid by at least the minimum increment specified for that auction. Typical increments are:</p>
+                        <ul class="increment-list">
+                            <li>Current price $1-$49: Minimum increment $1</li>
+                            <li>Current price $50-$499: Minimum increment $5</li>
+                            <li>Current price $500-$999: Minimum increment $10</li>
+                            <li>Current price $1,000+: Minimum increment $50</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-hourglass-end"></i></div>
+                    <div class="rule-content">
+                        <h3>Auction Extensions</h3>
+                        <p>If a bid is placed within the final 2 minutes of an auction, the auction will automatically extend by 2 minutes. This prevents "sniping" and gives all bidders a fair chance to respond.</p>
+                    </div>
+                </div>
+            </div>
         </section>
-
-        <section class="restrictions">
-            <h2>Restrictions</h2>
-            <p>To maintain the integrity of our bidding system, certain restrictions apply. Please review these carefully to ensure compliance with our policies.</p>
+        
+        <section>
+            <h2>Bidder Conduct & Ethics</h2>
+            <div class="rules-container">
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-user-friends"></i></div>
+                    <div class="rule-content">
+                        <h3>Shill Bidding Prohibition</h3>
+                        <p>Shill bidding (placing bids to artificially drive up prices) is strictly prohibited. This includes having friends, family members, or alternate accounts place bids on your listings.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-comment-slash"></i></div>
+                    <div class="rule-content">
+                        <h3>Bid Manipulation</h3>
+                        <p>Any form of bid manipulation, including collusion with other bidders to suppress or inflate prices, is prohibited and may result in permanent account termination.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="rule-content">
+                        <h3>Fair Competition</h3>
+                        <p>All bidders must compete fairly. Using automated bidding software, scripts, or bots to gain advantage is prohibited unless explicitly provided by our platform.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Payment & Settlement</h2>
+            <div class="rules-container">
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-credit-card"></i></div>
+                    <div class="rule-content">
+                        <h3>Payment Timeline</h3>
+                        <p>Winning bidders must complete payment within 48 hours of auction close. Failure to complete payment may result in negative feedback, loss of bidding privileges, or account suspension.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <div class="rule-content">
+                        <h3>Accepted Payment Methods</h3>
+                        <p>We accept major credit cards and PayPal only. All payments are processed securely through our platform to protect both buyers and sellers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Dispute Resolution</h2>
+            <div class="rules-container">
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-balance-scale"></i></div>
+                    <div class="rule-content">
+                        <h3>Dispute Process</h3>
+                        <p>In case of disputes, our customer service team will mediate. Both parties will have the opportunity to present evidence. Decisions made by our dispute resolution team are final.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-icon"><i class="fas fa-undo"></i></div>
+                    <div class="rule-content">
+                        <h3>Cancellations</h3>
+                        <p>Auctions can only be cancelled by administrators in exceptional circumstances such as verified item damage, legal issues, or platform technical errors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="final-note">
+            <h2>Final Note</h2>
+            <p>Negotix reserves the right to modify these rules at any time. Users will be notified of significant changes. By participating in any auction on our platform, you acknowledge that you have read, understood, and agree to abide by these rules.</p>
+            <p>For any questions regarding these rules, please contact our support team at <a href="mailto:support@negotix.com">support@negotix.com</a>.</p>
         </section>
     </div>
 
@@ -39,4 +164,4 @@
 
     <script src="/js/bidding.js"></script>
 </body>
-</html> 
+</html>

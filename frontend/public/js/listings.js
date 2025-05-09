@@ -186,20 +186,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstCategory = document.querySelector('.categories li');
     const firstPrice = document.querySelector('.price-filter li');
     
-    if (firstCategory) {
-        firstCategory.classList.add('active');
-        console.log('Set initial category:', firstCategory.querySelector('span')?.textContent);
+    if (firstCategory) firstCategory.classList.add('active');
+    if (firstPrice) firstPrice.classList.add('active');
+    
+    // Get containers for event delegation
+    const categoriesContainer = document.querySelector('.categories ul');
+    const priceFilterContainer = document.querySelector('.price-filter ul');
+    const sortDropdown = document.querySelector('.sort-dropdown select');
+    const resetButton = document.querySelector('.reset-btn');
+    const paginationContainer = document.querySelector('.pagination');
+    const bidButtons = document.querySelectorAll('.bid-btn');
+    
+    // Add event listeners
+    if (sortDropdown) {
+        sortDropdown.addEventListener('change', handleSort);
     }
     
-    if (firstPrice) {
-        firstPrice.classList.add('active');
-        console.log('Set initial price range:', firstPrice.querySelector('span:first-child')?.textContent);
+    if (resetButton) {
+        resetButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Reset button clicked');
+            
+            // Reset all filters
+            document.querySelectorAll('.categories li').forEach((li, index) => {
+                if (index === 0) li.classList.add('active');
+                else li.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.price-filter li').forEach((li, index) => {
+                if (index === 0) li.classList.add('active');
+                else li.classList.remove('active');
+            });
+            
+            filterProducts();
+        });
     }
+    
+    // Add event listeners to bid buttons in recently added section
+    bidButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Bid button clicked');
+            const itemTitle = button.closest('.item').querySelector('h3').textContent;
+            showWishlistNotification(`Bid on ${itemTitle} clicked`);
+        });
+    });
 
     // Add event listeners
-    const categoriesContainer = document.querySelector('.categories');
-    const priceFilterContainer = document.querySelector('.price-filter');
-
     if (categoriesContainer) {
         categoriesContainer.addEventListener('click', handleCategorySelect);
     }

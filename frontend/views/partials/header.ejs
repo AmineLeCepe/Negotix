@@ -15,28 +15,52 @@
             <img class="logo-1-icon" alt="Negotix" src="<%= locals.isListingsPage ? '/assets/logo-white.png' : '/assets/logo.png' %>">
             <div class="order-dropdown">
                 <div class="order-items">
-                    <% if (locals.cartItems && cartItems.length > 0) { %>
-                        <% cartItems.forEach(auction => { %>
-                            <div class="menu-link order-item" data-product="<%= auction._id %>">
-                                <img src="<%= auction.image %>" alt="<%= auction.title %>" class="order-img">
-                                <div class="order-info">
-                                    <div class="order-title"><%= auction.title %></div>
-                                    <div class="order-details">
-                                        <span><%= auction.latestPrice || auction.startingPrice %> DA</span> ·
-                                        <span>Completed Auction</span>
-                                    </div>
-                                </div>
+                    <div class="menu-link order-item" data-product="moctezuma-hoodie">
+                        <img src="/assets/moctezuma-hoodie.jpg" alt="" class="order-img">
+                        <div class="order-info">
+                            <div class="order-title">Moctezuma's hoodie</div>
+                            <div class="order-details">
+                                <span>XXXX DA</span> · <span>Delivery: XXXX</span>
                             </div>
-                        <% }); %>
-                        <div class="menu-divider"></div>
-                        <a href="/checkout" class="menu-link check-more">
-                            <span>Proceed to Checkout</span>
-                        </a>
-                    <% } else { %>
-                        <div class="menu-link empty-cart">
-                            <span>Your cart is empty</span>
                         </div>
-                    <% } %>
+                        <button class="delete-btn" aria-label="Delete item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="menu-link order-item" data-product="air-jordan">
+                        <img src="assets/air-jordan.jpg" alt="" class="order-img">
+                        <div class="order-info">
+                            <div class="order-title">Air Jordan 1 Esports</div>
+                            <div class="order-details">
+                                <span>XXXX DA</span> · <span>Delivery: XXXX</span>
+                            </div>
+                        </div>
+                        <button class="delete-btn" aria-label="Delete item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="menu-link order-item" data-product="tshirt-esports">
+                        <img src="assets/tshirt-esports.jpg" alt="" class="order-img">
+                        <div class="order-info">
+                            <div class="order-title">T-shirt Esports</div>
+                            <div class="order-details">
+                                <span>XXXX DA</span> · <span>Delivery: XXXX</span>
+                            </div>
+                        </div>
+                        <button class="delete-btn" aria-label="Delete item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="menu-divider"></div>
+                    <a href="/confirm-order" class="menu-link check-more">
+                        <span>Check More</span>
+                    </a>
                 </div>
             </div>
         </div>

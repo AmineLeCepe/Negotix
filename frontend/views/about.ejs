@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Negotix</title>
+    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <%- include('./partials/header') %>
+
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>About Us</h1>
+        
+        <div class="about-container">
+            <div class="about-left">
+                <div class="about-mission">
+                    <h2>Our Mission</h2>
+                    <p>At Negotix, we're on a mission to revolutionize how people negotiate and trade goods online. We believe in creating a transparent, fair, and efficient marketplace where buyers and sellers can connect directly and negotiate the best deals.</p>
+                </div>
+            </div>
+            
+            <div class="about-right">
+                <div class="about-section">
+                    <h2>Who We Are</h2>
+                    <p>Negotix was founded in 2025 by a team of e-commerce enthusiasts who saw a gap in the market for a platform that empowers users to negotiate prices directly. Our diverse team brings together expertise in technology, retail, and customer experience.</p>
+                    <p>We're a company that values innovation, transparency, and putting our users first in everything we do.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h2>What We Do</h2>
+                    <p>Our platform connects buyers with sellers in a unique environment where price negotiation is not just possible—it's encouraged. We provide the tools and security to make online negotiations simple, safe, and satisfying for everyone involved.</p>
+                    <ul class="feature-list">
+                        <li>Direct buyer-seller negotiations</li>
+                        <li>Secure payment processing</li>
+                        <li>Verified user profiles</li>
+                        <li>Dispute resolution services</li>
+                        <li>Community marketplace</li>
+                    </ul>
+                </div>
+                
+                <div class="about-section">
+                    <h2>Our Values</h2>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <i class="fas fa-handshake"></i>
+                            <h3>Trust</h3>
+                            <p>Building a marketplace where users can trust each other and our platform.</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Innovation</h3>
+                            <p>Constantly improving our platform with new features and technologies.</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-users"></i>
+                            <h3>Community</h3>
+                            <p>Fostering a vibrant community of buyers and sellers who help each other.</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Security</h3>
+                            <p>Protecting our users' data and transactions with state-of-the-art security.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-section">
+                    <h2>How Negotix Works</h2>
+                    <ol class="process-list">
+                        <li>
+                            <span class="process-number">1</span>
+                            <div class="process-content">
+                                <h3>List or Browse</h3>
+                                <p>Sellers list their products or buyers browse available listings to find what they need.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="process-number">2</span>
+                            <div class="process-content">
+                                <h3>Negotiate</h3>
+                                <p>Use our negotiation tools to discuss price, delivery options, and other terms directly.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="process-number">3</span>
+                            <div class="process-content">
+                                <h3>Secure Payment</h3>
+                                <p>Once terms are agreed, payment is processed through our secure payment system.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="process-number">4</span>
+                            <div class="process-content">
+                                <h3>Delivery & Feedback</h3>
+                                <p>The product is delivered, and both parties can leave feedback to build their reputation.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="platform-section">
+            <h2>Our Platform Benefits</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-percentage"></i>
+                    <h3>Better Deals</h3>
+                    <p>Get the best possible price through direct negotiation without middlemen.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-lock"></i>
+                    <h3>Secure Transactions</h3>
+                    <p>Our escrow system ensures both buyers and sellers are protected.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-comments"></i>
+                    <h3>Direct Communication</h3>
+                    <p>Chat directly with the other party to clarify details and build trust.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-star"></i>
+                    <h3>Reputation System</h3>
+                    <p>Our rating system helps you identify reliable trading partners.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <%- include('./partials/footer') %>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <canvas id="particles"></canvas>
+
+
+
+    <script src="/js/about.js"></script>
+</body>
+</html>

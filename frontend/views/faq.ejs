@@ -5,17 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQs - Negotix</title>
     <link rel="stylesheet" href="/css/faq.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- CSS moved to faq.css -->
 </head>
 <body>
     <%- include('./partials/header') %>
 
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+    </div>
+
+<div class="faq-content">
     <!-- FAQ Header -->
     <header class="faq-header">
         <h1>FAQs</h1>
     </header>
 
     <!-- FAQ Content -->
-    <main class="faq-content">
+    <main>
         <section class="faq-section">
             <h2>Orders</h2>
             <div class="faq-container">
@@ -25,7 +37,7 @@
                         <span class="toggle-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>You will receive an email confirmation once your order has been successfully placed and confirmed.</p>
+                        <p>Your order is confirmed when you see the confirmation message on screen after checkout. Currently, we do not send email confirmations for orders.</p>
                     </div>
                 </div>
 
@@ -35,7 +47,7 @@
                         <span class="toggle-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>You can modify or cancel your order within 24 hours of placing it through your account dashboard.</p>
+                        <p>Yes, cancelling your order is possible. If you cancel, the second highest bidder will automatically win the auction.</p>
                     </div>
                 </div>
 
@@ -45,7 +57,7 @@
                         <span class="toggle-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Contact our support team immediately through the help center or your order details page to make corrections.</p>
+                        <p>Please contact us directly through our Contact page and we'll assist you with any changes needed.</p>
                     </div>
                 </div>
             </div>
@@ -60,19 +72,10 @@
                         <span class="toggle-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>We offer standard and express delivery options. Check our delivery page for detailed pricing and timings.</p>
+                        <p>We offer two delivery options: home delivery and office delivery. Home delivery is available for residential addresses, while office delivery is optimized for business locations with reception services. Both options have standard and express shipping speeds available.</p>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How can I track my delivery?</h3>
-                        <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>You can track your delivery through your account dashboard or using the tracking number provided in your confirmation email.</p>
-                    </div>
-                </div>
 
                 <div class="faq-item">
                     <div class="faq-question">
@@ -86,9 +89,18 @@
             </div>
         </section>
     </main>
+</div>
 
-    <%- include('./partials/footer') %>
+<%- include('./partials/footer') %>
 
-    <script src="/js/faq.js"></script>
+<a href="#" class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</a>
+
+<canvas id="particles"></canvas>
+
+
+
+<script src="/js/faq.js"></script>
 </body>
-</html> 
+</html>

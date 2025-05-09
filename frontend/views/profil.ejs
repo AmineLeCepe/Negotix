@@ -18,13 +18,12 @@
                     <div class="profile-header">
                         <div class="profile-image">
                             <img 
-                              src="<%= user && user.profilePicture ? encodeURI(user.profilePicture) : '/assets/henry.jpg' %>"
+                              src="<%= user && user.profilePicture ? encodeURI(user.profilePicture) : '/assets/user.png' %>"
                               alt="Profile Picture"
                               onerror="this.src='/assets/default-avatar.jpg';"
                               width="100"
                               height="100"
                             >
-                            <div class="status-badge online" title="Online"></div>
                         </div>
                         <div class="profile-stats">
                             <div class="stat">
@@ -100,6 +99,7 @@
         </section>
 
         <section class="product-section">
+            <h2 class="section-title">Featured Products</h2>
             <div class="product-container">
     <% if (locals.runningAuctions && locals.runningAuctions.length > 0) { %>
         <div class="products-wrapper">
@@ -108,30 +108,36 @@
             
             <% locals.runningAuctions.forEach((auction, index) => { %>
                 <div class="product-card <%= index === 0 ? 'active' : '' %>" data-index="<%= index %>">
-                    <div class="product-image">
-                        <img src="<%= auction.image %>" alt="<%= auction.title %>">
-                    </div>
-                    <div class="product-info">
-                        <h2><%= auction.title %></h2>
-                        <div class="product-details">
-                            <div class="detail">
-                                <span class="label">Starting Price</span>
-                                <span class="value"><%= auction.startingPrice %>DA</span>
+                    <div class="product-content">
+                        <div class="product-header">
+                            <h3 class="product-title"><%= auction.title %></h3>
+                        </div>
+                        <div class="product-flex-container">
+                            <div class="product-image">
+                                <img src="<%= auction.image %>" alt="<%= auction.title %>">
                             </div>
-                            <div class="detail">
-                                <span class="label">Current Price</span>
-                                <span class="value"><%= auction.latestPrice || auction.startingPrice %>DA</span>
-                            </div>
-                            <div class="detail">
-                                <span class="label">Category</span>
-                                <span class="value"><%= auction.categoryId ? auction.categoryId.name : 'Uncategorized' %></span>
-                            </div>
-                            <div class="detail">
-                                <span class="label">End Date</span>
-                                <span class="value"><%= new Date(auction.endDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                            <div class="product-info-container">
+                                <div class="product-details">
+                                    <div class="detail-row">
+                                        <div class="detail-label">Last Price</div>
+                                        <div class="detail-value">$<%= auction.latestPrice || auction.startingPrice %></div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Payment Method</div>
+                                        <div class="detail-value">Credit Card</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Delivery Option</div>
+                                        <div class="detail-value">Office & House</div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">Availability</div>
+                                        <div class="detail-value">In Stock</div>
+                                    </div>
+                                </div>
+                                <a href="views/livechat.ejs" class="bid-now-btn">BID NOW</a>
                             </div>
                         </div>
-                        <a href="/auctions/<%= auction._id %>" class="buy-now"><i class="fas fa-gavel"></i> View Auction</a>
                     </div>
                 </div>
             <% }); %>
@@ -143,8 +149,71 @@
     <% } %>
 </div>
         </section>
-        <%- include('./partials/footer') %>
     </main>
+
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-logo">
+                <img src="/assets/Logo.png" alt="Negotix Logo">
+            </div>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="/about" class="footer-link">About Us</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <div class="footer-links">
+                        <a href="/faq" class="footer-link">FAQ</a>
+                        <a href="/return-policy" class="footer-link">Shipping & Returns</a>
+                        <a href="/contact" class="footer-link">Contact</a>
+                        <a href="/track" class="footer-link">Track Order</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Social</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">
+                            <img src="/assets/Instagram.png" alt="Instagram" class="social-icon">
+                            Instagram
+                        </a>
+                        <a href="#" class="footer-link">
+                            <img src="/assets/Facebook.png" alt="Facebook" class="social-icon">
+                            Facebook
+                        </a>
+                        <a href="#" class="footer-link">
+                            <img src="/assets/X.png" alt="X" class="social-icon">
+                            X
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section subscribe">
+                    <h3>Subscribe</h3>
+                    <p class="subscribe-text">Subscribe to receive information on exclusive offers, new product launch, and exciting events.</p>
+                    <div class="subscribe-form">
+                        <div class="input-group">
+                            <input type="email" placeholder="Your email" class="subscribe-input">
+                            <button class="subscribe-button">Submit</button>
+                        </div>
+                        <div class="privacy-notice">
+                            <span>By joining, you agree on the terms in our</span>
+                            <a href="/privacy-policy" class="privacy-link">privacy policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-links">
+                <a href="/terms" class="footer-link">Terms & Conditions</a>
+                <span class="separator">•</span>
+                <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
+            </div>
+            <div class="copyright">
+                ©️ 2025 Negotix. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
     <script src="/js/profil.js"></script>
 </body>
 </html>

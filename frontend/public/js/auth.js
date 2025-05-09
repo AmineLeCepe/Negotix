@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Add auth-header class to header elements
+    document.querySelector('.top-bar-wrapper').classList.add('auth-header');
+    document.querySelector('.top-bar').classList.add('auth-header');
+    
+    // Clear server error messages when user starts typing
+    const serverError = document.getElementById('server-error');
+    if (serverError) {
+        const inputs = document.querySelectorAll('input[type="text"], input[type="password"], input[type="email"]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                if (serverError) {
+                    serverError.remove();
+                }
+            });
+        });
+    }
+    
     // Handle both login and registration forms
     const forms = document.querySelectorAll('form');
     
@@ -26,11 +43,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     // Handle error (you might want to show an error message)
                     console.error('Authentication failed:', result.message);
-                    // You can add error message display logic here
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'error-message';
+                    
+                    // Add shake animation to the form
+                    form.classList.add('shake');
+                    
+                    // Remove the shake animation after it completes
+                    setTimeout(() => {
+                        form.classList.remove('shake');
+                    }, 500);
+                    
+                    // Check if an error message already exists
+                    let errorDiv = form.querySelector('.error-message');
+                    
+                    if (!errorDiv) {
+                        // Create new error message if none exists
+                        errorDiv = document.createElement('div');
+                        errorDiv.className = 'error-message';
+                        form.insertBefore(errorDiv, form.firstChild);
+                    }
+                    
+                    // Update the error message text
                     errorDiv.textContent = result.message;
-                    form.insertBefore(errorDiv, form.firstChild);
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -107,18 +140,30 @@ document.getElementById('sign-in-form').addEventListener('submit', function (e) 
     }
 
     if (errorMessageText) {
+        // Shake the form
+        const form = document.getElementById('sign-in-form');
+        form.classList.add('shake');
+
+        // Remove the shake animation after it completes
+        setTimeout(() => {
+            form.classList.remove('shake');
+        }, 500);
+        
         // Show error message
         let errorMessage = document.querySelector('#sign-in-form .error-message');
         if (!errorMessage) {
-            errorMessage = document.createElement('p');
+            errorMessage = document.createElement('div');
             errorMessage.classList.add('error-message');
-            errorMessage.style.color = 'red';
-            errorMessage.style.textAlign = 'center';
-            errorMessage.style.marginTop = '10px';
             const title = document.querySelector('#sign-in-form .title');
             title.insertAdjacentElement('afterend', errorMessage);
         }
         errorMessage.textContent = errorMessageText;
+    } else {
+        // Remove error message if it exists and there's no error
+        const errorMessage = document.querySelector('#sign-in-form .error-message');
+        if (errorMessage) {
+            errorMessage.remove();
+        }
     }
 });
 
@@ -156,19 +201,21 @@ document.getElementById('sign-up-form').addEventListener('submit', function (e) 
 
         if (!errorMessage) {
             // Create and display the error message if it doesn't exist
-            errorMessage = document.createElement('p');
-            errorMessage.textContent = errorMessageText;
-            errorMessage.style.color = 'red';
-            errorMessage.style.textAlign = 'center';
-            errorMessage.style.marginTop = '10px';
+            errorMessage = document.createElement('div');
             errorMessage.classList.add('error-message');
 
             // Insert the error message after the sign-up title
             const title = document.querySelector('#sign-up-form .title');
             title.insertAdjacentElement('afterend', errorMessage);
-        } else {
-            // Update the existing error message
-            errorMessage.textContent = errorMessageText;
+        }
+        
+        // Update the error message text
+        errorMessage.textContent = errorMessageText;
+    } else {
+        // Remove error message if it exists and there's no error
+        const errorMessage = document.querySelector('#sign-up-form .error-message');
+        if (errorMessage) {
+            errorMessage.remove();
         }
     }
 });

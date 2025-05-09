@@ -7,60 +7,17 @@
     src="https://kit.fontawesome.com/64d58efce2.js"
     crossorigin="anonymous"
   ></script>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
   <title>Sign in & Sign up Form</title>
 </head>
-<body>
- <style>
-    .top-bar-wrapper {
-      background: transparent !important;
-      box-shadow: none !important;
-      position: absolute;
-      z-index: 100;
-      width: 100%;
-      top: -25px;
-      margin-top: 0;
-    }
-    
-    .top-bar {
-      padding: 5px 20px !important;
-    }
-    
-    .sing-upsing-in,
-    .menu-link,
-    .search-btn,
-    .copyright,
-    .menu-footer-links a {
-      color: #000000 !important;
-    }
-    
-    .sing-upsing-in:hover {
-      color: #7e70eb !important;
-    }
-    
-    .sing-upsing-in::after {
-      background: #7e70eb !important;
-    }
-    
-    .hamburger-line {
-      background-color: #000000 !important;
-    }
-    
-    .logo-1-icon {
-      filter: none;
-    }
-    
-    .container {
-      padding-top: 80px;
-    }
-  </style>
+<body class="auth-page">
   <%- include('./partials/header') %>
-  <div class="container">
+  <div class="container auth-container">
     <div class="forms-container">
       <div class="signin-signup">
         <form id="sign-in-form" class="sign-in-form" action="/auth" method="POST">
-          <% if (messages.error) { %>
-          <div class="error-message">
+          <% if (messages && messages.error) { %>
+          <div class="error-message" id="server-error">
             <%= messages.error %>
           </div>
           <% } %>
@@ -152,7 +109,6 @@
       </div>
     </div>
 
-    <!-- Add the Forgot Password component -->
     <div id="forgot-password-modal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -172,4 +128,4 @@
 
   <script src="/js/auth.js"></script>
 </body>
-</html> 
+</html>

@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Negotix - Listings</title>
+    <title>Listings - Negotix</title>
     <link rel="stylesheet" href="/css/listings.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <%- include('./partials/header', { isListingsPage: true }) %>
+
+<div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+    <div class="shape shape-6"></div>
+</div>
 <main class="container">
     <aside class="sidebar">
         <div class="categories">
@@ -50,7 +59,7 @@
             <div class="recent-items">
                 <% recentItems.forEach(item => { %>
                     <div class="item <%= item.categoryId?.name?.toLowerCase().replace(/[^a-z0-9-]/g, '-') || 'uncategorized' %>">
-                        <img src="<%= item.image %>" alt="<%= item.title %>">
+                        <img src="<%= item.image.startsWith('/') ? item.image : '/' + item.image %>" alt="<%= item.title %>">
                         <div class="item-info">
                             <h3><%= item.title %></h3>
                             <p>Price: <%= item.latestPrice %> DA</p>
@@ -83,7 +92,7 @@
         <div class="products-grid" id="productsGrid">
             <% items.forEach(product =>  { %>
                 <div class="product-card" data-category="<%- (product.categoryId?.name ?? '').toLowerCase() %>" data-bid-id="<%= product._id %>">
-    <img src="<%= product.image %>" alt="<%= product.title %>">
+    <img src="<%= product.image.startsWith('/') ? product.image : '/' + product.image %>" alt="<%= product.title %>">
     <div class="product-info">
         <h3><%= product.title %></h3>
         <div class="price">
@@ -125,7 +134,7 @@
 <footer class="footer">
     <div class="footer-main">
         <div class="footer-logo">
-            <img src="assets/Logo.png" alt="Negotix Logo">
+            <img src="/assets/Logo.png" alt="Negotix Logo">
         </div>
         <div class="footer-content">
             <div class="footer-section">
@@ -145,15 +154,15 @@
                 <h3>Social</h3>
                 <div class="footer-links">
                     <a href="#" class="footer-link">
-                        <img src="assets/Instagram.png" alt="Instagram" class="social-icon">
+                        <img src="/assets/Instagram.png" alt="Instagram" class="social-icon">
                         Instagram
                     </a>
                     <a href="#" class="footer-link">
-                        <img src="assets/Facebook.png" alt="Facebook" class="social-icon">
+                        <img src="/assets/Facebook.png" alt="Facebook" class="social-icon">
                         Facebook
                     </a>
                     <a href="#" class="footer-link">
-                        <img src="assets/X.png" alt="X" class="social-icon">
+                        <img src="/assets/X.png" alt="X" class="social-icon">
                         X
                     </a>
                 </div>

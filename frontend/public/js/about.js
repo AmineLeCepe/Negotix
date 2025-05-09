@@ -1,4 +1,40 @@
-document.addEventListener('DOMContentLoaded', () => {
+// About page specific JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize any specific functionality for the about page
+    
+    // Animate elements when they come into view
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.about-section, .value-item, .team-member');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+            
+            if (elementPosition < screenPosition) {
+                element.classList.add('animate-in');
+            }
+        });
+    };
+    
+    // Add animation class to CSS elements
+    const addAnimationClass = () => {
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            .about-section, .value-item, .team-member {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.5s ease, transform 0.5s ease;
+            }
+            
+            .animate-in {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    };
+    
     // Back to top button functionality
     const backToTopButton = document.getElementById('backToTop');
     
@@ -82,56 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     init();
     animate();
-    // Handle policy item toggles
-    const policyItems = document.querySelectorAll('.policy-item');
     
-    policyItems.forEach(item => {
-        const question = item.querySelector('.policy-question');
-        
-        question.addEventListener('click', () => {
-            // Close other open items
-            policyItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Toggle current item
-            item.classList.toggle('active');
-        });
-    });
-
-    // Handle newsletter subscription
-    const subscribeForm = document.querySelector('.subscribe-form');
-    if (subscribeForm) {
-        subscribeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const emailInput = subscribeForm.querySelector('input[type="email"]');
-            const email = emailInput.value.trim();
-
-            if (validateEmail(email)) {
-                // Here you would typically send this to your backend
-                alert('Thank you for subscribing to our newsletter!');
-                emailInput.value = '';
-            } else {
-                alert('Please enter a valid email address.');
-            }
-        });
-    }
-
-    // Handle mobile menu toggle
-    const menuIcon = document.querySelector('.menu-icon');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (menuIcon && navLinks) {
-        menuIcon.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
-    }
+    // Initialize animations
+    addAnimationClass();
+    animateOnScroll();
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', animateOnScroll);
 });
-
-// Email validation helper function
-function validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-} 

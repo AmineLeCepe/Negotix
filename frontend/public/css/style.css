@@ -636,3 +636,46 @@ form.sign-in-form {
   text-align: center;
   margin-top: 10px;
 }
+
+/* Auth page header styling */
+.top-bar-wrapper.auth-header {
+  background: transparent !important;
+  box-shadow: none !important;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  top: -25px;
+  margin-top: 0;
+}
+
+.top-bar.auth-header {
+  padding: 5px 20px !important;
+}
+
+.auth-header .sing-upsing-in,
+.auth-header .menu-link,
+.auth-header .search-btn,
+.auth-header .copyright,
+.auth-header .menu-footer-links a {
+  color: #000000 !important;
+}
+
+.auth-header .sing-upsing-in:hover {
+  color: #7e70eb !important;
+}
+
+.auth-header .sing-upsing-in::after {
+  background: #7e70eb !important;
+}
+
+.auth-header .hamburger-line {
+  background-color: #000000 !important;
+}
+
+.auth-header .logo-1-icon {
+  filter: none;
+}
+
+.auth-container {
+  padding-top: 80px;
+}
