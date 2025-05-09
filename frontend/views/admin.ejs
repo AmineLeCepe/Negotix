@@ -5,17 +5,701 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Negotix</title>
   <link rel="stylesheet" href="/css/admin.css">
-  <link rel="stylesheet" href="/css/adminSidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <%- include('./partials/header') %>
-  <div class="admin-container" style="display: flex;">
-    <!-- Sidebar -->
-    <%- include('./partials/adminSidebar') %>
+  <!-- Admin Header (replaces sidebar) -->
+  <%- include('./partials/adminSidebar') %>
+  <div class="admin-container">
     <!-- Main Content Area -->
-    <div class="admin-content" style="flex: 1; padding: 20px;">
-      <!-- Additional admin content goes here -->
+    <div class="admin-content">
+      <!-- Dashboard sections -->
+      <div id="products-dashboard" class="dashboard-section active">
+        <div class="dashboard-header">
+          <h1>Manage Products</h1>
+          <div class="dashboard-actions">
+            <div class="search-bar">
+              <input type="text" placeholder="Search products..." id="product-search">
+              <button><i class="fas fa-search"></i></button>
+            </div>
+            <button class="add-new-btn" id="add-product-btn">
+              <i class="fas fa-plus"></i>
+              <span>Add New Product</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Products Table -->
+        <div class="data-table-container">
+          <table class="data-table" id="products-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Current Price</th>
+                <th>Status</th>
+                <th>End Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Sample product data for demonstration -->
+              <tr>
+                <td>PRD001</td>
+                <td>
+                  <img src="/assets/airpods.png" alt="Wireless X7007" class="product-thumbnail">
+                </td>
+                <td>Wireless X7007</td>
+                <td>Electronics</td>
+                <td>1250 DA</td>
+                <td>
+                  <span class="status-badge status-active">active</span>
+                </td>
+                <td>05/15/2025</td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="PRD001"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="PRD001"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="PRD001"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>PRD002</td>
+                <td>
+                  <img src="/assets/headset.png" alt="Gaming Headset Pro" class="product-thumbnail">
+                </td>
+                <td>Gaming Headset Pro</td>
+                <td>Gaming</td>
+                <td>2800 DA</td>
+                <td>
+                  <span class="status-badge status-active">active</span>
+                </td>
+                <td>05/20/2025</td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="PRD002"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="PRD002"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="PRD002"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>PRD003</td>
+                <td>
+                  <img src="/assets/smartwatches.png" alt="Smart Watch Pro" class="product-thumbnail">
+                </td>
+                <td>Smart Watch Pro</td>
+                <td>Wearables</td>
+                <td>3500 DA</td>
+                <td>
+                  <span class="status-badge status-inactive">inactive</span>
+                </td>
+                <td>05/10/2025</td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="PRD003"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="PRD003"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="PRD003"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+          <span class="pagination-info">Page 1 of 1</span>
+          <button class="pagination-btn" disabled><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      
+      <!-- Other dashboard sections will be added here -->
+      <div id="users-dashboard" class="dashboard-section">
+        <div class="dashboard-header">
+          <h1>Manage Users</h1>
+          <div class="dashboard-actions">
+            <div class="search-bar">
+              <input type="text" placeholder="Search users..." id="user-search">
+              <button><i class="fas fa-search"></i></button>
+            </div>
+            <button class="add-new-btn" id="add-user-btn">
+              <i class="fas fa-plus"></i>
+              <span>Add New User</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- User Filters -->
+        <div class="filter-container">
+          <div class="filter-group">
+            <label>Filter by Role:</label>
+            <select id="role-filter">
+              <option value="all">All Roles</option>
+              <option value="admin">Admin</option>
+              <option value="seller">Seller</option>
+              <option value="buyer">Buyer</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Filter by Status:</label>
+            <select id="status-filter">
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+          <button class="reset-filter-btn">Reset Filters</button>
+        </div>
+        
+        <!-- Users Table -->
+        <div class="data-table-container">
+          <table class="data-table" id="users-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Sample user data for demonstration -->
+              <tr data-role="admin" data-status="active">
+                <td>USR001</td>
+                <td>
+                  <div class="user-avatar-placeholder">I</div>
+                </td>
+                <td>Iheb</td>
+                <td>iheb@negotix.com</td>
+                <td>
+                  <span class="role-badge role-admin">admin</span>
+                </td>
+                <td>01/15/2025</td>
+                <td>
+                  <span class="status-badge status-active">active</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="USR001"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="USR001"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="USR001"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-role="seller" data-status="active">
+                <td>USR002</td>
+                <td>
+                  <div class="user-avatar-placeholder">A</div>
+                </td>
+                <td>Amine</td>
+                <td>amine@example.com</td>
+                <td>
+                  <span class="role-badge role-seller">seller</span>
+                </td>
+                <td>02/20/2025</td>
+                <td>
+                  <span class="status-badge status-active">active</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="USR002"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="USR002"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="USR002"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-role="buyer" data-status="active">
+                <td>USR003</td>
+                <td>
+                  <div class="user-avatar-placeholder">N</div>
+                </td>
+                <td>Nadia</td>
+                <td>nadia@example.com</td>
+                <td>
+                  <span class="role-badge role-buyer">buyer</span>
+                </td>
+                <td>03/05/2025</td>
+                <td>
+                  <span class="status-badge status-active">active</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="USR003"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="USR003"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="USR003"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-role="buyer" data-status="inactive">
+                <td>USR004</td>
+                <td>
+                  <div class="user-avatar-placeholder">M</div>
+                </td>
+                <td>Mouaz</td>
+                <td>mouaz@example.com</td>
+                <td>
+                  <span class="role-badge role-buyer">buyer</span>
+                </td>
+                <td>01/10/2025</td>
+                <td>
+                  <span class="status-badge status-inactive">inactive</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="USR004"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="USR004"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="USR004"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-role="seller" data-status="suspended">
+                <td>USR005</td>
+                <td>
+                  <div class="user-avatar-placeholder">M</div>
+                </td>
+                <td>Mouataz</td>
+                <td>mouataz@example.com</td>
+                <td>
+                  <span class="role-badge role-seller">seller</span>
+                </td>
+                <td>02/15/2025</td>
+                <td>
+                  <span class="status-badge status-suspended">suspended</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="USR005"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="USR005"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="USR005"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+          <span class="pagination-info">Page 1 of 1</span>
+          <button class="pagination-btn" disabled><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      
+      <div id="auctions-dashboard" class="dashboard-section">
+        <div class="dashboard-header">
+          <h1>Manage Auctions</h1>
+          <div class="dashboard-actions">
+            <div class="search-bar">
+              <input type="text" placeholder="Search auctions..." id="auction-search">
+              <button><i class="fas fa-search"></i></button>
+            </div>
+            <button class="add-new-btn" id="add-auction-btn">
+              <i class="fas fa-plus"></i>
+              <span>Create New Auction</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Auction Filters -->
+        <div class="filter-container">
+          <div class="filter-group">
+            <label>Filter by Status:</label>
+            <select id="auction-status-filter">
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="completed">Completed</option>
+              <option value="pending">Pending</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Filter by Category:</label>
+            <select id="auction-category-filter">
+              <option value="all">All Categories</option>
+              <% if (locals.categories && categories.length > 0) { %>
+                <% categories.forEach(category => { %>
+                  <option value="<%= category._id %>"><%= category.name %></option>
+                <% }); %>
+              <% } %>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Sort by:</label>
+            <select id="auction-sort">
+              <option value="end-date-desc">End Date (Newest First)</option>
+              <option value="end-date-asc">End Date (Oldest First)</option>
+              <option value="price-desc">Current Price (High to Low)</option>
+              <option value="price-asc">Current Price (Low to High)</option>
+              <option value="bids-desc">Number of Bids (High to Low)</option>
+            </select>
+          </div>
+          <button class="reset-filter-btn">Reset Filters</button>
+        </div>
+        
+        <!-- Auctions Table -->
+        <div class="data-table-container">
+          <table class="data-table" id="auctions-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Seller</th>
+                <th>Current Price</th>
+                <th>Bids</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Sample auction data for demonstration -->
+              <tr data-status="active" data-category="electronics">
+                <td>AUC001</td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="/assets/airpods.png" alt="Wireless X7007" class="product-thumbnail">
+                    <span>Wireless X7007</span>
+                  </div>
+                </td>
+                <td>Amine</td>
+                <td>1500 DA</td>
+                <td>12</td>
+                <td>05/01/2025</td>
+                <td>05/15/2025</td>
+                <td>
+                  <span class="status-badge status-active">active</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="AUC001"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="AUC001"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="AUC001"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-status="active" data-category="gaming">
+                <td>AUC002</td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="/assets/headset.png" alt="Gaming Headset Pro" class="product-thumbnail">
+                    <span>Gaming Headset Pro</span>
+                  </div>
+                </td>
+                <td>Mouataz</td>
+                <td>3200 DA</td>
+                <td>8</td>
+                <td>05/05/2025</td>
+                <td>05/20/2025</td>
+                <td>
+                  <span class="status-badge status-active">active</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="AUC002"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="AUC002"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="AUC002"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+              <tr data-status="completed" data-category="wearables">
+                <td>AUC003</td>
+                <td>
+                  <div class="product-info-cell">
+                    <img src="/assets/smartwatches.png" alt="Smart Watch Pro" class="product-thumbnail">
+                    <span>Smart Watch Pro</span>
+                  </div>
+                </td>
+                <td>Amine</td>
+                <td>3800 DA</td>
+                <td>5</td>
+                <td>04/25/2025</td>
+                <td>05/10/2025</td>
+                <td>
+                  <span class="status-badge status-completed">completed</span>
+                </td>
+                <td class="actions-cell">
+                  <button class="action-btn edit-btn" data-id="AUC003"><i class="fas fa-edit"></i></button>
+                  <button class="action-btn delete-btn" data-id="AUC003"><i class="fas fa-trash"></i></button>
+                  <button class="action-btn view-btn" data-id="AUC003"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Auction Stats Cards -->
+        <div class="stats-container">
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="fas fa-gavel"></i>
+            </div>
+            <div class="stats-info">
+              <h3>Active Auctions</h3>
+              <p class="stats-number"><%= locals.auctionStats?.active || 0 %></p>
+            </div>
+          </div>
+          
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stats-info">
+              <h3>Completed Auctions</h3>
+              <p class="stats-number"><%= locals.auctionStats?.completed || 0 %></p>
+            </div>
+          </div>
+          
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="fas fa-coins"></i>
+            </div>
+            <div class="stats-info">
+              <h3>Total Revenue</h3>
+              <p class="stats-number"><%= locals.auctionStats?.revenue || 0 %> DA</p>
+            </div>
+          </div>
+          
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stats-info">
+              <h3>Total Bidders</h3>
+              <p class="stats-number"><%= locals.auctionStats?.bidders || 0 %></p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+          <span class="pagination-info">Page 1 of 1</span>
+          <button class="pagination-btn" disabled><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      
+
     </div>
   </div>
+  
+  <!-- Product Modal -->
+  <div class="modal" id="product-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New Product</h2>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="product-form">
+          <div class="form-group">
+            <label for="product-title">Product Name</label>
+            <input type="text" id="product-title" name="title" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-category">Category</label>
+            <select id="product-category" name="categoryId">
+              <option value="">Select Category</option>
+              <% if (locals.categories && categories.length > 0) { %>
+                <% categories.forEach(category => { %>
+                  <option value="<%= category._id %>"><%= category.name %></option>
+                <% }); %>
+              <% } %>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-description">Description</label>
+            <textarea id="product-description" name="description" rows="4"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-starting-price">Starting Price (DA)</label>
+            <input type="number" id="product-starting-price" name="startingPrice" min="0" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-end-date">End Date</label>
+            <input type="datetime-local" id="product-end-date" name="endDate" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-image">Product Image</label>
+            <input type="file" id="product-image" name="image" accept="image/*">
+            <div class="image-preview" id="image-preview"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-status">Status</label>
+            <select id="product-status" name="status">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+          
+          <input type="hidden" id="product-id" name="id">
+          
+          <div class="form-actions">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit" class="submit-btn">Save Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- User Modal -->
+  <div class="modal" id="user-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="user-modal-title">Add New User</h2>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="user-form">
+          <div class="form-group">
+            <label for="user-name">Full Name</label>
+            <input type="text" id="user-name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="user-email">Email Address</label>
+            <input type="email" id="user-email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="user-password">Password</label>
+            <input type="password" id="user-password" name="password">
+            <small class="form-hint">Leave blank to keep current password when editing</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="user-role">Role</label>
+            <select id="user-role" name="role" required>
+              <option value="">Select Role</option>
+              <option value="admin">Admin</option>
+              <option value="seller">Seller</option>
+              <option value="buyer">Buyer</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="user-phone">Phone Number</label>
+            <input type="tel" id="user-phone" name="phone">
+          </div>
+          
+          <div class="form-group">
+            <label for="user-address">Address</label>
+            <textarea id="user-address" name="address" rows="3"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="user-avatar">Profile Picture</label>
+            <input type="file" id="user-avatar" name="avatar" accept="image/*">
+            <div class="image-preview" id="avatar-preview"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="user-status">Account Status</label>
+            <select id="user-status" name="status" required>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+          
+          <input type="hidden" id="user-id" name="id">
+          
+          <div class="form-actions">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit" class="submit-btn">Save User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Auction Modal -->
+  <div class="modal" id="auction-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="auction-modal-title">Create New Auction</h2>
+        <button class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="auction-form">
+          <div class="form-group">
+            <label for="auction-product">Product</label>
+            <select id="auction-product" name="productId" required>
+              <option value="">Select Product</option>
+              <% if (locals.products && products.length > 0) { %>
+                <% products.forEach(product => { %>
+                  <option value="<%= product._id %>"><%= product.title %></option>
+                <% }); %>
+              <% } %>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-seller">Seller</label>
+            <select id="auction-seller" name="sellerId" required>
+              <option value="">Select Seller</option>
+              <% if (locals.sellers && sellers.length > 0) { %>
+                <% sellers.forEach(seller => { %>
+                  <option value="<%= seller._id %>"><%= seller.name %></option>
+                <% }); %>
+              <% } %>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-start-price">Starting Price (DA)</label>
+            <input type="number" id="auction-start-price" name="startingPrice" min="0" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-reserve-price">Reserve Price (DA)</label>
+            <input type="number" id="auction-reserve-price" name="reservePrice" min="0">
+            <small class="form-hint">Optional. Minimum price for the auction to be considered successful</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-start-date">Start Date</label>
+            <input type="datetime-local" id="auction-start-date" name="startDate" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-end-date">End Date</label>
+            <input type="datetime-local" id="auction-end-date" name="endDate" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-min-bid-increment">Minimum Bid Increment (DA)</label>
+            <input type="number" id="auction-min-bid-increment" name="minBidIncrement" min="1" value="10">
+            <small class="form-hint">Minimum amount by which a new bid must exceed the current highest bid</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-status">Status</label>
+            <select id="auction-status" name="status" required>
+              <option value="pending">Pending</option>
+              <option value="active">Active</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="auction-description">Description</label>
+            <textarea id="auction-description" name="description" rows="4"></textarea>
+          </div>
+          
+          <input type="hidden" id="auction-id" name="id">
+          
+          <div class="form-actions">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit" class="submit-btn">Save Auction</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/js/admin.js"></script>
 </body>
 </html>
