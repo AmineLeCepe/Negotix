@@ -92,30 +92,38 @@ app.use((req, res, next) => {
     next();
 });
 
-// Add this middleware after your existing middleware and before your routes
-app.use(async (req, res, next) => {
-    if (req.isAuthenticated() && req.user) {
-        try {
-            // Fetch cart items for the logged-in user
-            const cartItems = await getCompletedUnpaidAuctionsForUser(req.user._id);
-            
-            // Make cart items available to all views through res.locals
-            res.locals.cartItems = cartItems;
-            
-            // For debugging
-            console.log(`Middleware: Found ${cartItems.length} cart items for user ${req.user.username || req.user._id}`);
-        } catch (err) {
-            console.error('Error fetching cart items in middleware:', err);
-            res.locals.cartItems = [];
-        }
-    } else {
-        // For non-authenticated users, set empty cart
-        res.locals.cartItems = [];
-    }
-    
-    // Continue to the next middleware or route handler
-    next();
-});
+   // Add to your server.js
+   const cartCache = new Map(); // Simple in-memory cache
+   const CACHE_TTL = 60000; // 1 minute in milliseconds
+   
+   app.use(async (req, res, next) => {
+       if (req.isAuthenticated() && req.user) {
+           const userId = req.user._id.toString();
+           const now = Date.now();
+           
+           // Check if we have a valid cached result
+           if (cartCache.has(userId) && now - cartCache.get(userId).timestamp < CACHE_TTL) {
+               res.locals.cartItems = cartCache.get(userId).items;
+           } else {
+               // Cache miss or expired cache, fetch new data
+               const cartItems = await getCompletedUnpaidAuctionsForUser(req.user._id);
+               res.locals.cartItems = cartItems;
+               
+               // Update cache
+               cartCache.set(userId, {
+                   items: cartItems,
+                   timestamp: now
+               });
+               
+               // Only log on actual data fetches
+               console.log(`Middleware: Found ${cartItems.length} cart items for user ${req.user.username}`);
+           }
+       } else {
+           // For non-authenticated users, set empty cart
+           res.locals.cartItems = [];
+       }
+       next();
+   });
 
 // API endpoints
 /// GET requests
