@@ -404,6 +404,16 @@ body {
     transform: translateX(4px);
 }
 
+/* Ensure hamburger menu items are always black */
+.menu-modal .menu-link {
+  color: #333 !important; /* Using !important to override any other styles */
+}
+
+/* For hover state - keep it consistent */
+.menu-modal .menu-link:hover {
+  color: #6c5ce7 !important; /* Keep the purple hover effect */
+}
+
 .menu-icon {
     color: #666;
     transition: color 0.2s ease;
