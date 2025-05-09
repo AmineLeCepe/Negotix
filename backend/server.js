@@ -131,7 +131,7 @@ app.get('/', async (req, res) => {
     try {
         const recentAuctions = await getRecentAuctions();
         res.render('main-page', {
-            title: 'Home',
+            title: 'Negotix',
             recentAuctions: recentAuctions,
             isHomePage: true,
         })
@@ -166,6 +166,34 @@ app.get('/listings', async (req, res) => {
         });
     }
 });
+
+app.get('/livechat/:auctionId', async (req, res) => {
+    const auctionId = req.params.auctionId;
+    
+    const auction = await Auction.findById(auctionId);
+  
+    if (!auction) return res.status(404).redirect('/404');
+  
+    const now = new Date();
+    const endTime = new Date(auction.endDate);
+    const remainingTimeMs = endTime - now;
+
+    const remainingSeconds = Math.floor(remainingTimeMs / 1000);
+    const remainingMinutes = Math.floor(remainingSeconds / 60);
+    const remainingHours = Math.floor(remainingMinutes / 60);
+    const remainingDays = Math.floor(remainingSeconds / 84600);
+
+  
+    res.render('livechat', {
+      name: auction.title,
+      image: auction.image,
+      endDate: auction.endDate,
+      bidPrice: auction.latestPrice,
+      remainingTimeMs,
+      auction
+    });
+  });
+  
 app.get('/profile', async (req, res) => {
     // Get userId from query parameter, fallback to logged-in user if not provided
     const userId = req.query.userId || (req.user ? req.user._id : null);
@@ -392,7 +420,7 @@ app.post('/place-bid', async (req, res, next) => {
     try {
         const bidResult = await newBid(price, userId, auctionId);
         if(bidResult){
-            return res.redirect(`/listings?success=true&message=Bid placed successfully!`);
+            return res.redirect(`/listings?success=true&message=Bid placed successfully!&auctionId=${auctionId}`);
         } else {
            return res.redirect(`/listings?success=false&message=Bid not accepted. Must be at least 500 DA higher than your previous bid or starting price.`);
       }} catch (err) {

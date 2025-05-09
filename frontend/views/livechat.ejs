@@ -25,19 +25,21 @@
             </div>
             <div class="product-info">
                 <div class="product-image-container">
-                    <img src="/assets/airpods.png" alt="Product" id="product-image">
+                    <img src="<%= image %>" alt="Product" id="product-image">
                 </div>
                 <div class="product-details">
-                    <h2 id="product-name">Wireless X7007</h2>
-                    <p>Current Bid: <span id="current-bid">$10</span></p>
+                    <h2 id="product-name"><%= name %></h2>
+                    <p>Current Bid: <span id="current-bid">$<%= bidPrice %></span></p>
                     <div class="bid-stats">
                         <div class="bid-stat">
                             <i class="fas fa-users"></i>
-                            <span id="bidders-count">4</span> Bidders
+                            <span id="bidders-count">5</span> Bidders
                         </div>
                         <div class="bid-stat">
                             <i class="fas fa-clock"></i>
-                            <span id="time-remaining">05:23</span> Remaining
+                            <div id="auction-timer" data-endtime="<%= auction.endDate.toISOString() %>">
+                                <span id="time-remaining"></span> Remaining
+                              </div>
                         </div>
                     </div>
                 </div>
@@ -56,6 +58,17 @@
             </div>
         </div>
     </main>
+    <script>
+        const auction = {
+          endDate: new Date("<%= auction.endDate.toISOString() %>")
+        };
+      
+        const product = {
+          name: "<%= name %>",
+          image: "<%= image %>",
+          currentBid: <%= bidPrice %>
+        };
+      </script>
     <script src="/js/livechat.js"></script>
 </body>
 </html>

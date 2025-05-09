@@ -283,6 +283,7 @@ function updateTimers() {
 const urlParams = new URLSearchParams(window.location.search);
 const success = urlParams.get('success');
 const message = urlParams.get('message');
+const auctionId = urlParams.get('auctionId');
 
 const modal = document.getElementById('modal');
 const modalMessage = document.getElementById('modalMessage');
@@ -299,6 +300,9 @@ if (message) {
     modal.style.zIndex = '-1';
     setTimeout(() => {
       modal.style.display = 'none';
+      if (success === 'true' && auctionId) {
+        window.location.href = `/livechat/${auctionId}`;
+      }
     }, 300); // give time for transition
   }, 3000);
 }

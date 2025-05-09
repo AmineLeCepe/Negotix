@@ -2,25 +2,37 @@
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('product') || '1';
 
-// Set up timer functionality
-let timeRemaining = 323; // 5 minutes and 23 seconds in seconds
+const timerElement = document.getElementById('auction-timer');
+const endTime = new Date(auction.endDate);
+
 const timeRemainingElement = document.getElementById('time-remaining');
 
 function updateTimer() {
-    const minutes = Math.floor(timeRemaining / 60);
-    const seconds = timeRemaining % 60;
-    timeRemainingElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    
-    if (timeRemaining <= 0) {
+    const now = new Date();
+    const remainingMs = endTime - now;
+
+    if (remainingMs <= 0) {
+        timeRemainingElement.textContent = "00:00:00";
         clearInterval(timerInterval);
-        endAuction();
-    } else {
-        timeRemaining--;
+        endAuction(); 
+        return;
     }
+
+    const totalSeconds = Math.floor(remainingMs / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    timeRemainingElement.textContent = 
+        `${days}d ${hours.toString().padStart(2, '0')}:` +
+        `${minutes.toString().padStart(2, '0')}:` +
+        `${seconds.toString().padStart(2, '0')}`;
 }
 
 const timerInterval = setInterval(updateTimer, 1000);
-updateTimer(); // Initialize timer display
+updateTimer(); // call once immediately
+
 
 // Simulated users data
 const otherUsers = [
@@ -34,24 +46,6 @@ let totalBids = 0;
 let lastBidder = null;
 let auctionEnded = false;
 
-// Product data
-const products = {
-    '1': {
-        name: 'Wireless X7007',
-        image: 'assets/airpods.png',
-        currentBid: 10
-    },
-    '2': {
-        name: 'Gaming Headset Pro',
-        image: 'assets/headset.png',
-        currentBid: 45
-    },
-    '3': {
-        name: 'Smart Watch Pro',
-        image: 'assets/smartwatches.png',
-        currentBid: 89
-    }
-};
 
 // DOM Elements
 const chatMessages = document.querySelector('.chat-messages');
@@ -60,7 +54,6 @@ const bidButton = document.querySelector('.bid-button');
 const biddersCountElement = document.getElementById('bidders-count');
 
 // Update product info
-const product = products[productId];
 if (product) {
     document.getElementById('product-name').textContent = product.name;
     document.getElementById('product-image').src = product.image;
